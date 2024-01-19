@@ -196,7 +196,7 @@ const EventPage = () => {
                     fileRef.current.click();
                   }}
                 >
-                  Upload
+                  Select
                 </button>
 
                 {errors.image && touched.image && (
