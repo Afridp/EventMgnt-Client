@@ -1,4 +1,11 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap");
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+
 @tailwind base;
 @layer base {
   html {
@@ -13,9 +20,11 @@
 @tailwind utilities;
 
 body {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  /* font-family: 'Rajdhani', sans-serif; */
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  
 }
-
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

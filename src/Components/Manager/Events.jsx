@@ -14,7 +14,7 @@ function Events() {
           marginRight: "4rem",
         }}
       >
-         <Link to="/manager/my-events" className="btn btn-primary">My Events</Link>
+         <Link to="/manager/myEvents" className="btn btn-primary">My Events</Link>
       </div>
       <ul className="cards">
         <li>

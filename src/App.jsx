@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ManagerRoutes from './Routes/Manger/ManagerRoutes'
 import ClientRoutes from './Routes/Client/ClientRoutes'
 import Signup from './Pages/ClientPages/Signup'
+import TestTailwind from './Pages/ManagerPages/TestTailwind';
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path='/manager/*' element={<ManagerRoutes/>}/>
         <Route path='/*' element={<ClientRoutes/>}/>
-        <Route path='/test' element={<Signup/>}/>
+        <Route path='/test' element={<TestTailwind/>}/>
       </Routes>
     </Router>
   )
