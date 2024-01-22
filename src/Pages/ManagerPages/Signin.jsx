@@ -15,7 +15,6 @@ function Signin() {
   const navigate = useNavigate();
   // const location = useLocation();
 
-
   const { values, errors, touched, getFieldProps, handleSubmit } = useFormik({
     initialValues: {
       signinDetails: "",
@@ -58,43 +57,54 @@ function Signin() {
           Sign In
         </Typography>
 
-        <label className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">
-              Username or Company Email Address
-            </span>
-          </div>
+       
+        <label
+          htmlFor="Username or Email"
+          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+        >
           <input
             type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            id="username or Email"
+            className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+            placeholder="username ro Email"
             value={values.signinDetails}
             {...getFieldProps("signinDetails")}
           />
-          <div className="label">
-            {errors.signinDetails && touched.signinDetails && (
-              <small className="text-red-800">{errors.signinDetails}</small>
-            )}
-          </div>
-        </label>
 
-        <label className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Password</span>
-          </div>
+          <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+            Username or Email
+          </span>
+        </label>
+        <div className="label">
+          {errors.signinDetails && touched.signinDetails && (
+            <small className="text-red-800">{errors.signinDetails}</small>
+          )}
+        </div>
+        
+
+        <label
+          htmlFor="password"
+          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+        >
           <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            type="password"
+            id="password"
+            className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+            placeholder="password"
             value={values.password}
             {...getFieldProps("password")}
           />
-          <div className="label">
-            {errors.password && touched.password && (
-              <small className="text-red-800">{errors.password}</small>
-            )}
-          </div>
+
+          <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+            Password
+          </span>
         </label>
+        <div className="label">
+          {errors.password && touched.password && (
+            <small className="text-red-800">{errors.password}</small>
+          )}
+        </div>
+
         <div className="flex justify-center">
           <button
             disabled={loading}

@@ -7,6 +7,7 @@
  * change event list and edit button to uiverse
  * add alert while adding image in in event instead of formik validation(now there is no validation for required ) thus we can also do that edit config
  * need to clean all the way of event adding page that rendering main 
+ * change date picker to muix component
 
 
 

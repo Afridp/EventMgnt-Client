@@ -57,7 +57,7 @@ function SignUp() {
       <form onSubmit={handleSubmit} className="w-80 sm:w-95">
         <Typography
           color="black"
-          className="text-xl font-semibold mb-8 text-center"
+          className="text-xl font-extrabold mb-8 text-center"
         >
           Sign Up
         </Typography>

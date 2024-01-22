@@ -7,13 +7,38 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <title>Event Management</title>
 </head>
-
-<body >
+<style>
+  .scrollable-content::-webkit-scrollbar {
+    width: 9px;
+    
+  }
+  
+.scrollable-content::-webkit-scrollbar-thumb {
+    background-color: rgb(126, 2, 2); /* Adjust the color as needed */
+    border-radius: 1px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-track {
+    background-color: #ffffff;
+    border-radius: 9px;
+  }
+</style>
+<body class="scrollable-content">
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
   <!-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
+<script
+type="text/javascript"
+src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+
 </body>
 
 </html>
+
+
+<!-- class="h-[40vh] scrollbar scrollbar-thumb-red-900" -->
