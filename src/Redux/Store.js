@@ -1,10 +1,11 @@
 
-import {combineReducers, configureStore } from '@reduxjs/toolkit'
-import {persistStore} from 'redux-persist'
-import { persistReducer } from 'redux-persist'
+import {combineReducers, configureStore,  } from '@reduxjs/toolkit'
+import {persistStore, persistReducer,FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist'
+// 
 import storage from 'redux-persist/lib/storage'
 import managerSlice from './slice/managerSlice'
-import clientSlice from './slice/clientSlice'
+import customerSlice from './slice/customerSlice'
+
 
 // const customizedMiddleware = getDefaultMiddleware({
 //     serializableCheck: false
@@ -17,7 +18,7 @@ const persistConfig = {
 }
 
 const reducer = combineReducers({
-    clientSlice,
+    customerSlice,
     managerSlice
 })
 
@@ -27,10 +28,16 @@ const persisted = persistReducer(persistConfig,reducer)
 // creating store
 const store = configureStore({
     reducer : persisted,
+    middleware : (getDefaultMiddleware) => 
+    getDefaultMiddleware({
+        serializableCheck : {
+            ignoredActions : [FLUSH, REHYDRATE, PAUSE,PERSIST,PURGE,REGISTER],
+        },
+    })
 // setting the state as persisted value,so it will ensure that if we trying to update it will perisist with new value and showing the persisted to dom 
     // middleware : customizedMiddleware
 })
 
 const persistor = persistStore(store)
 
-export {store , persistor}  
+export {store , persistor}      

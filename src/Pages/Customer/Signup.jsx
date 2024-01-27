@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { clientSignup } from "../../Api/client";
+import { customerSignup } from "../../Api/customer";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { signupValidation } from "../../ValidationSchemas/clientValidation/signup";
+import { signupValidation } from "../../ValidationSchemas/customerValidation/signup";
 import { toast } from "react-toastify";
 
 function Signup() {
@@ -12,16 +12,18 @@ function Signup() {
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      let res = await clientSignup(values);
+      let res = await customerSignup(values);
 
-      const { otpId, clientId } = res.data;
-      toast.success(res?.data?.message,{position: toast.POSITION.TOP_CENTER,});
+      const { otpId, customerId } = res.data;
+      toast.success(res?.data?.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
       navigate("/otp", {
         state: {
           otpId: otpId,
-          clientId: clientId,
-          clientEmail: values.email,
-        }
+          customerId: customerId,
+          customerEmail: values.email,
+        },
       });
     } finally {
       setLoading(false);
@@ -48,18 +50,18 @@ function Signup() {
     onSubmit,
   });
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-slate-300 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <section className="bg-gray-200 dark:bg-gray-900 min-h-screen">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto">
+        <div className="w-full bg-white rounded-lg shadow dark:border mt-48 md:mt-24 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Create and account
+              Create Account
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white"
                 >
                   Your email
                 </label>
@@ -72,7 +74,7 @@ function Signup() {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
+                  placeholder="name@gmail.com"
                   required=""
                 />
 
@@ -83,7 +85,7 @@ function Signup() {
               <div>
                 <label
                   htmlFor="username"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white"
                 >
                   Username
                 </label>
@@ -100,14 +102,14 @@ function Signup() {
                   required=""
                 />
 
-                {errors.username && touched.user && (
+                {errors.username && touched.username && (
                   <small className="text-red-800">{errors.username}</small>
                 )}
               </div>
               <div>
                 <label
                   htmlFor="mobile"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white"
                 >
                   Your mobile
                 </label>
@@ -131,7 +133,7 @@ function Signup() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white"
                 >
                   Password
                 </label>
@@ -155,7 +157,7 @@ function Signup() {
               <div>
                 <label
                   htmlFor="cpassword"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white"
                 >
                   Password
                 </label>
@@ -194,7 +196,7 @@ function Signup() {
                 >
                   I accept the{" "}
                   <a
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    className="font-semibold text-primary-600 hover:underline dark:text-primary-500"
                     href="#"
                   >
                     Terms and Conditions
@@ -206,7 +208,7 @@ function Signup() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full text-white bg-black hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full text-white bg-black hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-500 font-semibold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 {loading ? "Creating..." : "Create an account"}
               </button>
@@ -214,7 +216,7 @@ function Signup() {
                 Already have an account?{" "}
                 <Link
                   to="/signin"
-                  className="font-medium text-blue-600 hover:underline dark:text-primary-500"
+                  className="font-semibold text-blue-600 hover:underline dark:text-primary-500"
                 >
                   {" "}
                   Signin here{" "}

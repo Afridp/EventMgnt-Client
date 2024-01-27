@@ -2,7 +2,7 @@ function Jobs() {
   return (
     <>
       <div className="container mx-auto">
-        <div className="px-4 mx-auto max-w-screen-xl text-center pb-16">
+        <div className="px-4 mx-auto max-w-screen-xl  text-center pb-16">
           <h1 className="mb-4 text-2xl font-semibold tracking-tight leading-none text-gray-900 md:text-xl lg:text-2xl">
             We invest in the world’s potential
           </h1>
@@ -15,7 +15,7 @@ function Jobs() {
         </div>
       </div>
 
-      <div className="grid grid-flow-row gap-8 md:grid md:grid-flow-col place-content-center md:gap-20">
+      <div className="grid grid-flow-row gap-8 mb-20 md:grid md:grid-flow-col place-content-center md:gap-20">
         <div className="w-80">
           <a href="" className="group relative block h-96">
             <span className="absolute inset-0 border-2 border-dashed border-black"></span>

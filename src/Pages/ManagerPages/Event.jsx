@@ -1,6 +1,6 @@
 
 import Events from '../../Components/Manager/Events'
-import Header from '../../Components/Manager/header'
+import Header from '../../Components/Manager/Header'
 
 function Event() {
   return (

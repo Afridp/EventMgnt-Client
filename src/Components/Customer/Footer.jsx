@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <>
-      <footer className="bg-gray-100 mt-20">
+      <footer className="bg-gray-100 footer bottom-0">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center text-teal-600 ">
             <svg
@@ -15,7 +15,15 @@ function Footer() {
                 fill="currentColor"
               />
             </svg>
-            <p style={{fontFamily:'Allura, cursive',fontWeight : 'bold' , fontSize: '34px'}}>Brigadge</p>
+            <p
+              style={{
+                fontFamily: "Allura, cursive",
+                fontWeight: "bold",
+                fontSize: "34px",
+              }}
+            >
+              Brigadge
+            </p>
           </div>
 
           <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500">

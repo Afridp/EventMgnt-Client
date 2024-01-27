@@ -57,53 +57,59 @@ function Signin() {
           Sign In
         </Typography>
 
-       
-        <label
-          htmlFor="Username or Email"
-          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-        >
+        <label className="form-control w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">Email Or Username</span>
+          </div>
           <input
             type="text"
-            id="username or Email"
-            className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
-            placeholder="username ro Email"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+            name="signinDetails"
+            id="signinDetails"
             value={values.signinDetails}
             {...getFieldProps("signinDetails")}
+
+         
+
+            // * short usage of these three *
+
+            // {...getFieldProps("cemail")}
           />
-
-          <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-            Username or Email
-          </span>
+          <div className="label">
+            {errors.signinDetails && touched.signinDetails && (
+              <small className="text-red-800">{errors.signinDetails}</small>
+            )}
+          </div>
         </label>
-        <div className="label">
-          {errors.signinDetails && touched.signinDetails && (
-            <small className="text-red-800">{errors.signinDetails}</small>
-          )}
-        </div>
-        
+       
 
-        <label
-          htmlFor="password"
-          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-        >
+        <label className="form-control w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">Password</span>
+          </div>
           <input
             type="password"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+            name="password"
             id="password"
-            className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
-            placeholder="password"
             value={values.password}
             {...getFieldProps("password")}
-          />
 
-          <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-            Password
-          </span>
-        </label>
+         
+
+            // * short usage of these three *
+
+            // {...getFieldProps("cemail")}
+          />
+      
         <div className="label">
           {errors.password && touched.password && (
             <small className="text-red-800">{errors.password}</small>
           )}
         </div>
+        </label>
 
         <div className="flex justify-center">
           <button
@@ -117,7 +123,6 @@ function Signin() {
         <Typography color="gray" className="mt-4 text-center font-normal">
           New Member?{" "}
           <Link to="/manager/signup" className="text-blue-600">
-            {" "}
             Signup
           </Link>
         </Typography>

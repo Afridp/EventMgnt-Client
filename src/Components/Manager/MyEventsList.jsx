@@ -238,52 +238,54 @@ const EventPage = () => {
         <div className="col-span-2 bg-gray-200 rounded-lg">
           <div className="p-4 border-l">
             <h3 className="text-xl font-mono mb-4">Events</h3>
-            <table className="w-full whitespace-nowrap">
-              <thead>
-                <tr className="font-semibold text-left bg-gray-100">
-                  <th className="px-4 py-2 hidden">id</th>
-                  {/* <th className="px-4 py-2 hidden">imageblob</th> */}
-                  <th className="px-4 py-2">Photo</th>
-                  <th className="px-4 py-2">Name</th>
-                  <th className="px-4 py-2">Description</th>
-                  <th className="px-4 py-2">Actions</th>
-                </tr>
-              </thead>
-
-              <tbody className="">
-                {events.map((event, index) => (
-                  <tr key={index} className="border-b hover:bg-gray-400">
-                    <td className="px-4 py-2 hidden">{event._id}</td>
-                    {/* <td className="px-4 py-2 hidden">{event.imageBlob}</td> */}
-                    <td className="px-4 py-2">
-                      <img
-                        src={event.eventImage}
-                        alt={event.eventName}
-                        className="h-16 rounded"
-                      />
-                    </td>
-                    <td className="px-4 py-2">{event.eventName}</td>
-                    <td className="px-4 py-2">{event.eventDescription}</td>
-
-                    <td className="px-4 py-2">
-                      {/* change buttons to uiverse */}
-                      <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 ml- rounded"
-                        onClick={() => handleEditEvent(event)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 ml-2 px-2 rounded"
-                        onClick={() => handleListing(event._id)}
-                      >
-                        {event.list ? "Unlist" : "List"}
-                      </button>
-                    </td>
+            <div className="max-h-96 overflow-y-auto">
+              <table className="w-full whitespace-nowrap">
+                <thead>
+                  <tr className="font-semibold text-left bg-gray-100">
+                    <th className="px-4 py-2 hidden">id</th>
+                    {/* <th className="px-4 py-2 hidden">imageblob</th> */}
+                    <th className="px-4 py-2">Photo</th>
+                    <th className="px-4 py-2">Name</th>
+                    <th className="px-4 py-2">Description</th>
+                    <th className="px-4 py-2">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody>
+                  {events.map((event, index) => (
+                    <tr key={index} className="border-b hover:bg-gray-400">
+                      <td className="px-4 py-2 hidden">{event._id}</td>
+                      {/* <td className="px-4 py-2 hidden">{event.imageBlob}</td> */}
+                      <td className="px-4 py-2">
+                        <img
+                          src={event.eventImage}
+                          alt={event.eventName}
+                          className="h-16 rounded"
+                        />
+                      </td>
+                      <td className="px-4 py-2">{event.eventName}</td>
+                      <td className="px-4 py-2">{event.eventDescription}</td>
+
+                      <td className="px-4 py-2">
+                        {/* change buttons to uiverse */}
+                        <button
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 ml- rounded"
+                          onClick={() => handleEditEvent(event)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 ml-2 px-2 rounded"
+                          onClick={() => handleListing(event._id)}
+                        >
+                          {event.list ? "Unlist" : "List"}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

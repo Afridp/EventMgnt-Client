@@ -64,3 +64,8 @@ export const listAndUnlist = async (eventId) => {
     const data = await managerAxiosInstance.get(`/listing/${eventId}`)
     return data
 }
+
+export const getBookedEvents = async () => {
+    const data = await managerAxiosInstance.get(`/getBookedEvents`)
+    return data
+}

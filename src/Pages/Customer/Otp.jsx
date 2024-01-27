@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
-import { otpValidation } from "../../ValidationSchemas/clientValidation/otp";
-import { otpVerification, resendOtp } from "../../Api/client";
+import { otpValidation } from "../../ValidationSchemas/customerValidation/otp";
+import { otpVerification, resendOtp } from "../../Api/customer";
 
 const Otp = () => {
   const [countDown, setCountDown] = useState(30);
@@ -13,7 +13,7 @@ const Otp = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { clientEmail, clientId, otpId } = location.state;
+  const { customerEmail, customerId, otpId } = location.state;
 
   const decrementTimer = () => {
     if (countDown > 0) {
@@ -36,9 +36,9 @@ const Otp = () => {
       setLoading(true);
       const enteredOtp = Object.values(values).join("");
 
-      const res = await otpVerification({ enteredOtp, otpId, clientId });
+      const res = await otpVerification({ enteredOtp, otpId, customerId });
       toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
-      navigate("/signin", { state: "Email verified" });
+      navigate("/signin", { state: "Email verified, You can login now" });
     } finally {
       setLoading(false);
     }
@@ -47,7 +47,7 @@ const Otp = () => {
   const resendOTP = async () => {
     try {
       setLoading1(true);
-      const res = await resendOtp(clientId);
+      const res = await resendOtp(customerId);
 
       toast(res.data.message);
       setCountDown(30);
@@ -122,7 +122,7 @@ const Otp = () => {
                 <p>Email Verification</p>
               </div>
               <div className="flex flex-row text-sm font-medium text-gray-400">
-                <p>We have sent a code to your email {clientEmail}</p>
+                <p>We have sent a code to your email {customerEmail}</p>
               </div>
             </div>
 

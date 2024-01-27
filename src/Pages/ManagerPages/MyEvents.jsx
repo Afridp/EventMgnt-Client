@@ -1,5 +1,5 @@
 
-import Header from '../../Components/Manager/header'
+import Header from '../../Components/Manager/Header'
 import MyEventsList from '../../Components/Manager/MyEventsList'
 
 function MyEvents() {

@@ -1,4 +1,5 @@
 import { Fade } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 
 function Jumbortron() {
@@ -20,8 +21,8 @@ function Jumbortron() {
           </Fade>
           <div className="flex flex-col space-y-4  sm:flex-row sm:justif-left sm:space-y-0">
             <Fade delay={800}>
-            <a
-              href="#"
+            <Link
+              to='/events'
               className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-ce text-white rounded-lg bg-red-900 hover:bg-red-800 focus:ring-2 focus:ring-red-900 dark:focus:ring-blue-900"
             >
               Book Now
@@ -40,13 +41,13 @@ function Jumbortron() {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-2 focus:ring-gray-400"
             >
               Learn more
-            </a>
+            </Link>
             </Fade>
           </div>
         </div>

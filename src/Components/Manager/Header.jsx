@@ -78,7 +78,7 @@ function Header() {
           </ul>
         </div>
         <div className="navbar-end">
-          <button className="btn btn-outline btn-secondary">Subscribe</button>
+          {/* <button className="btn btn-outline btn-secondary">Subscribe</button> */}
         </div>
       </div>
     </div>
