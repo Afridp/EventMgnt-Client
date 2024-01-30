@@ -58,3 +58,18 @@ export const fetchBookings = async (customerId) => {
     const data = await customerAxiosInstance.get(`/getBookings/${customerId}`)
     return data
 }
+
+export const fetchEvent = async(eventId) => {
+    const data = await customerAxiosInstance.get(`/getEvent/${eventId}`)
+    return data
+}
+
+export const editBooked = async(values,eventId) => {
+    const data = await customerAxiosInstance.put(`/editBooked/${eventId}`,values)
+    return data
+}
+
+export const cancelEvent = async(eventId) => {
+    const data = await customerAxiosInstance.delete(`/deleteBooked/${eventId}`)
+    return data
+}

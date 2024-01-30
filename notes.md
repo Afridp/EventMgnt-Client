@@ -16,8 +16,9 @@
  * make partition for the event submiting form (evnet data,basic data,personal data)
  * show approx price of when user fill the form for event as bill
  * change image validation to shafeequ addroom code 
- 
-
+ * change form formik to another custom hook,screeshshot available that cody given
+ * add loading in every page where its taking time to load data,especially when editingpage
+ * learn about react query and implement
 
 
 

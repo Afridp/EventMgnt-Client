@@ -1,6 +1,15 @@
-function TestTailwind() {
+import { useState } from "react";
+
+function SearchBar({ onSearch }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearching = (query) => {
+    setSearchQuery(query);
+    onSearch(query);
+  };
+
   return (
-    <>
+    <div>
       <div className="relative">
         <label htmlFor="Search" className="sr-only">
           {" "}
@@ -12,6 +21,8 @@ function TestTailwind() {
           id="Search"
           placeholder="Search for..."
           className="w-full rounded-md border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm"
+          value={searchQuery}
+          onChange={(e) => handleSearching(e.target.value)}
         />
 
         <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
@@ -35,8 +46,8 @@ function TestTailwind() {
           </button>
         </span>
       </div>
-    </>
+    </div>
   );
 }
 
-export default TestTailwind;
+export default SearchBar;

@@ -1,4 +1,4 @@
-import Event from "../../Components/Customer/Event"
+import EventList from "../../Components/Customer/EventList"
 import Footer from "../../Components/Customer/Footer"
 import Navbar from "../../Components/Customer/Navbar"
 
@@ -8,7 +8,7 @@ function Events() {
   return (
     <div>
       <Navbar/>
-      <Event/>
+      <EventList/>
       <Footer/>
     </div>
   )

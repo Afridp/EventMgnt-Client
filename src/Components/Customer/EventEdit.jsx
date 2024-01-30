@@ -1,156 +1,102 @@
-import ReactDatePicker from "react-datepicker";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { editBooked, fetchEvent } from "../../Api/customer";
 import { useFormik } from "formik";
-import "react-datepicker/dist/react-datepicker.css";
-import { eventBookFormValidation } from "../../ValidationSchemas/customerValidation/eventBookForm";
-import { bookEvent } from "../../Api/customer";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Autocomplete } from "@react-google-maps/api";
-import useGoogleMap from "../../CustomHooks/useGoogleMap";
-
-import { useState } from "react";
-import { useEffect } from "react";
+import { eventEditFormValidation } from "../../ValidationSchemas/customerValidation/eventEditForm";
+import { Tooltip } from "react-tooltip";
 import { toast } from "react-toastify";
 
-function BookingForm() {
-  const { customer } = useSelector((state) => state.customerSlice);
-  // const fileref = useRef(null);
+function EventEdit() {
+  const { eventId } = useParams();
+  const [eventData, setEventData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
-  const { isLoaded } = useGoogleMap();
-  const [location, setLocation] = useState("");
-  const [errorLocation, setErrorLocation] = useState("");
-  // const [themeImage, setThemeImage] = useState([]);
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoaded) {
-      const autocomplete = new window.google.maps.places.Autocomplete(
-        document.getElementById("location"),
-        {
-          componentRestrictions: { country: "IN" },
-          types: ["(cities)"],
-        }
-      );
+    const fetchEventData = async () => {
+      try {
+        setIsLoading(true);
+        const res = await fetchEvent(eventId);
+        setEventData(res.data.event);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error.message);
+        setIsLoading(false);
+      }
+    };
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        setLocation( place.formatted_address);
-        setErrorLocation("");
-      });
-    }
-  }, [isLoaded]);
+    fetchEventData();
+  }, [eventId]);
 
-  let handleColor = (time) => {
-    return time.getHours() > 12 ? "text-success" : "text-error";
-  };
-
-  const handleRadioChange = (value) => {
-    setFieldValue("guestRequirement", value);
-    setFieldTouched("guestRequirement", true);
-  };
   const onSubmit = async (values) => {
     try {
-      if (!location.trim()) {
-        setErrorLocation("Location required");
-        return;
-      }
       setLoading(true);
-      let updatedValues = values;
-      if (values.themeImage) {
-        const { themeImage, ...restValues } = values;
-        const dataURL = await convertFileToDataURL(themeImage);
-        updatedValues = { ...restValues, themeImage: dataURL };
-      }
-
-      const { startDate, endDate, ...restValues } = updatedValues;
-      const sDate = handleStartDateChange(startDate);
-      const eDate = handleStartDateChange(endDate);
-      updatedValues = {
-        ...restValues,
-        location: location,
-        startDate: sDate,
-        endDate: eDate,
-      };
-
-      const res = await bookEvent(updatedValues, customer._id, location);
+      const res = await editBooked(values, eventId);
       toast.success(res.data.message, {
         position: toast.POSITION.TOP_CENTER,
       });
+
       navigate("/myEvents");
     } finally {
       setLoading(false);
     }
   };
-
-  const convertFileToDataURL = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
-
   const {
-    handleSubmit,
     values,
-    errors,
-    setFieldValue,
     handleBlur,
+    errors,
     handleChange,
-    touched,
+    handleSubmit,
+    setFieldValue,
     setFieldTouched,
+    touched,
   } = useFormik({
     initialValues: {
-      startDate: "",
-      endDate: "",
-      guestRequirement: "",
-      cateringNeeds: "",
-      eventName: "",
-      eventCategory: "",
-      venueName: "",
-      venueType: "",
-      noofGuests: "",
-      numberOfServices: "",
-      foodPreference: "",
-      cuisines: "",
-      desiredEntertainment: "",
-      entertainer: "",
-      eventTheme: "",
-      otherTheme: "",
+      guestRequirement: eventData?.guestRequirement || "",
+      cateringNeeds: eventData?.cateringNeeds || "",
+      eventName: eventData?.eventName || "",
+      eventCategory: eventData?.eventCategory || "",
+      venueName: eventData?.venueName || "",
+      venueType: eventData?.venueType || "",
+      noofGuests: eventData?.noofGuests || "",
+      numberOfServices: eventData?.numberOfServices || "",
+      foodPreference: eventData?.foodPreference || "",
+      cuisines: eventData?.cuisines || "",
+      desiredEntertainment: eventData?.desiredEntertainment || "",
+      entertainer: eventData?.entertainer || "",
+      eventTheme: eventData?.eventTheme || "",
+      otherTheme: eventData?.otherTheme || "",
       themeImage: "",
-      audioVisual: "",
-      techSupport: "",
-      additionalRequirement: "",
-      name: "",
-      email: "",
-      phoneNumber: "",
-      alternativePhoneNumber: "",
+      audioVisual: eventData?.audioVisual || "",
+      techSupport: eventData?.techSupport || "",
+      additionalRequirement: eventData?.additionalRequirement || "",
+      name: eventData?.name || "",
+      email: eventData?.email || "",
+      phoneNumber: eventData?.phoneNumber || "",
+      alternativePhoneNumber: eventData?.alternativePhoneNumber || "",
     },
-    validationSchema: eventBookFormValidation,
+    validationSchema: eventEditFormValidation,
     onSubmit,
+    enableReinitialize: true,
   });
 
-  const handleStartDateChange = (date) => {
-    const dateObject = new Date(date);
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    };
-
-    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-      dateObject
-    );
-
-    return formattedDate;
+  const handleRadioChange = (value) => {
+    setFieldValue("guestRequirement", value);
+    setFieldTouched("guestRequirement", true);
   };
+  if (isLoading) {
+    return (
+      <div className="grid h-screen place-content-center bg-white">
+        <div className="flex flex-row gap-2 ">
+          <div className="w-4 h-4 rounded-full bg-orange-900 animate-bounce"></div>
+          <div className="w-4 h-4 rounded-full bg-orange-900 animate-bounce [animation-delay:-.3s]"></div>
+          <div className="w-4 h-4 rounded-full bg-orange-900 animate-bounce [animation-delay:-.5s]"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <section className="min-h-screen bg-cover">
@@ -174,7 +120,7 @@ function BookingForm() {
                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
                     placeholder="Event Name"
                     type="text"
-                    id="name"
+                    id="eventName"
                     name="eventName"
                     value={values.eventName}
                     onBlur={handleBlur}
@@ -273,35 +219,6 @@ function BookingForm() {
                   </div>
                 </div>
               </div>
-              <div>
-                <div className="label">
-                  <span className="label-text text-base font-semibold">
-                    Venue Location.
-                  </span>
-                </div>
-
-                {isLoaded && (
-                  <Autocomplete>
-                    <input
-                      className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                      placeholder="Type here"
-                      type="search"
-                      id="location"
-                      name="location"
-                      // onBlur={handleBlur}
-                      onChange={(e) => setLocation(e.target.value)}
-                      value={location}
-                      required=""
-                    />
-                  </Autocomplete>
-                )}
-
-                {errorLocation && (
-                  <small className="text-red-800">{errorLocation}</small>
-                )}
-              </div>
-
-              {/* change to muix compoent */}
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <div className="label">
@@ -310,22 +227,18 @@ function BookingForm() {
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <span className="mr-2">From:</span>
-                    <ReactDatePicker
-                      placeholderText="Select"
-                      showTimeSelect
-                      selected={values.startDate}
-                      onChange={(date) => setFieldValue("startDate", date)}
-                      timeFormat="HH:mm"
-                      timeIntervals={15}
-                      timeCaption="Time"
-                      dateFormat="MMMM d, yyyy h:mm aa"
-                      timeClassName={handleColor}
-                      className="md:w-96 rounded-lg border-gray-200 p-3 text-sm"
-                      onBlur={handleBlur("startDate")}
-                      value={values.startDate}
-                      minDate={Date.now()}
+                    <input
+                      className="w-full rounded-lg border-gray-200 p-3 text-sm my-anchor-element"
+                      type="text"
+                      id="startDate"
+                      value={eventData.startDate}
+                      disabled
                     />
+                    <Tooltip anchorSelect=".my-anchor-element" place="top">
+                      Event date cannot be changed because date is reserved for
+                      this event,if you wish to change please cancell this event
+                      and create new one
+                    </Tooltip>
                   </div>
                   <div className="label ml-12">
                     {errors.startDate && touched.startDate && (
@@ -342,30 +255,17 @@ function BookingForm() {
                   </div>
                   <div className="flex items-center">
                     <span className="mr-2">To:</span>
-                    <ReactDatePicker
-                      placeholderText="Select"
-                      showTimeSelect
-                      selected={values.endDate}
-                      onChange={(date) => setFieldValue("endDate", date)}
-                      timeFormat="HH:mm"
-                      timeIntervals={15}
-                      timeCaption="Time"
-                      dateFormat="MMMM d, yyyy h:mm aa"
-                      timeClassName={handleColor}
-                      className="md:w-96 w-full rounded-lg border-gray-200 p-3 text-sm"
-                      onBlur={handleBlur("endDate")}
-                      value={values.endDate}
-                      minDate={new Date()}
+
+                    <input
+                      className="w-full rounded-lg border-gray-200 p-3 text-sm my-anchor-element"
+                      type="text"
+                      id="endDate"
+                      value={eventData.endDate}
+                      disabled
                     />
-                  </div>
-                  <div className="label ml-8">
-                    {errors.endDate && touched.endDate && (
-                      <small className="text-red-800">{errors.endDate}</small>
-                    )}
                   </div>
                 </div>
               </div>
-
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <div className="label">
@@ -738,10 +638,11 @@ function BookingForm() {
                       Upload the image for reference.
                     </span>
                   </div>
+
                   <input
                     // ref={fileref}
                     className="peer sr-only"
-                    id="themeImage"
+                    id="clickable"
                     type="file"
                     tabIndex="-1"
                     name="themeImage"
@@ -750,12 +651,28 @@ function BookingForm() {
                       setFieldValue("themeImage", e.target.files[0])
                     }
                   />
+
+                  <Tooltip anchorSelect="#clickable" clickable>
+                    {eventData.themeImage ? (
+                      <a
+                        href={eventData.themeImage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <small>{eventData.themeImage}</small>
+                      </a>
+                    ) : (
+                      <small>upload</small>
+                    )}
+                  </Tooltip>
+
                   <label
                     htmlFor="themeImage"
-                    className="block w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
+                    className="block w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-defaultChecked:border-black peer-defaultChecked:bg-black peer-defaultChecked:text-white"
                     tabIndex="0"
+                    id="clickable"
                   >
-                    {values.themeImage ? (
+                    {eventData.themeImage ? (
                       <svg
                         className="w-6 h-6 ml-32 text-gray-800 dark:text-white"
                         aria-hidden="true"
@@ -811,9 +728,8 @@ function BookingForm() {
                       <input
                         type="radio"
                         name="audioVisual"
-                        className="radio checked:bg-blue-500"
+                        className="radio defaultChecked:bg-blue-500"
                         value="yes"
-                        id="yes"
                         checked={values.audioVisual === "yes"}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -824,12 +740,12 @@ function BookingForm() {
                     <label className="label cursor-pointer">
                       <span className="label-text">No</span>
                       <input
-                        id="no"
-                        value="no"
                         type="radio"
                         name="audioVisual"
-                        className="radio checked:bg-red-500"
-                        checked={values.audioVisual === "no"}
+                        className="radio defaultChecked:bg-blue-500"
+                        value="yes"
+                        id="yes"
+                        checked={values.audioVisual === "yes"}
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
@@ -857,9 +773,8 @@ function BookingForm() {
                       <input
                         type="radio"
                         name="techSupport"
-                        className="radio checked:bg-blue-500"
+                        className="radio defaultChecked:bg-blue-500"
                         value="yes"
-                        id="yes"
                         checked={values.techSupport === "yes"}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -873,9 +788,8 @@ function BookingForm() {
                       <input
                         type="radio"
                         name="techSupport"
-                        className="radio checked:bg-red-500"
+                        className="radio defaultChecked:bg-red-500"
                         value="no"
-                        id="no"
                         checked={values.techSupport === "no"}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -1021,171 +935,6 @@ function BookingForm() {
                 </div>
               </div>
 
-              {/* <div className="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-              <div>
-                <input 
-                  className="peer sr-only"
-                  id="option1"
-                  type="radio"
-                  tabIndex="-1"
-                  name="option"
-                />
-                <label
-                  htmlFor="option1"
-                  className="block w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                  tabIndex="0"
-                >
-                  <span className="text-sm"> Option 1 </span>
-                </label>
-              </div>
-              <div>
-                <input
-                  className="peer sr-only"
-                  id="option2"
-                  type="radio"
-                  tabIndex="-1"
-                  name="option"
-                />
-                <label
-                  htmlFor="option2"
-                  className="block w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                  tabIndex="0"
-                >
-                  <span className="text-sm"> Option 2 </span>
-                </label>
-              </div>
-              <div>
-                <input
-                  className="peer sr-only"
-                  id="option3"
-                  type="radio"
-                  tabIndex="-1"
-                  name="option"
-                />
-                <label
-                  htmlFor="option3"
-                  className="block w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                  tabIndex="0"
-                >
-                  <span className="text-sm"> Option 3 </span>
-                </label>
-              </div>
-            </div>
-            <div>
-              <label className="sr-only" htmlFor="message">
-                Message
-              </label>
-              <textarea
-                className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="Message"
-                rows="8"
-                id="message"
-              ></textarea>
-            </div>
-            <div className="mt-4">
-              <button
-                type="submit"
-                className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
-              >
-                Send Enquiry
-              </button>
-            </div>
-            <div>
-              <label className="sr-only" htmlFor="name">
-                Name
-              </label>
-              <input
-                className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="Name"
-                type="text"
-                id="name"
-              />
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <label className="sr-only" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Email address"
-                  type="email"
-                  id="email"
-                />
-              </div>
-              <div>
-                <label className="sr-only" htmlFor="phone">
-                  Phone
-                </label>
-                <input
-                  className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Phone Number"
-                  type="tel"
-                  id="phone"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-              <div>
-                <input
-                  className="peer sr-only"
-                  id="option1"
-                  type="radio"
-                  tabIndex="-1"
-                  name="option"
-                />
-                <label
-                  htmlFor="option1"
-                  className="block w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                  tabIndex="0"
-                >
-                  <span className="text-sm"> Option 1 </span>
-                </label>
-              </div>
-              <div>
-                <input
-                  className="peer sr-only"
-                  id="option2"
-                  type="radio"
-                  tabIndex="-1"
-                  name="option"
-                />
-                <label
-                  htmlFor="option2"
-                  className="block w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                  tabIndex="0"
-                >
-                  <span className="text-sm"> Option 2 </span>
-                </label>
-              </div>
-              <div>
-                <input
-                  className="peer sr-only"
-                  id="option3"
-                  type="radio"
-                  tabIndex="-1"
-                  name="option"
-                />
-                <label
-                  htmlFor="option3"
-                  className="block w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                  tabIndex="0"
-                >
-                  <span className="text-sm"> Option 3 </span>
-                </label>
-              </div>
-            </div>
-            <div>
-              <label className="sr-only" htmlFor="message">
-                Message
-              </label>
-              <textarea
-                className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="Message"
-                rows="8"
-                id="message"
-              ></textarea>
-            </div> */}
               <div className="mt-5">
                 <button
                   type="submit"
@@ -1202,4 +951,4 @@ function BookingForm() {
   );
 }
 
-export default BookingForm;
+export default EventEdit;

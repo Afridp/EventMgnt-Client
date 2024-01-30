@@ -15,8 +15,8 @@ function Navbar() {
       try {
         setLoading(true);
         if (customer) {
-          await findCustomer(customer?._id);
-          setCustomerData(true);
+          const res = await findCustomer(customer?._id);
+          res?.data?.customer ? setCustomerData(true) : setCustomerData(false);
         }
       } finally {
         setLoading(false);
@@ -99,104 +99,95 @@ function Navbar() {
                 </nav>
               </div>
 
-              <div className="flex items-center gap-4">
-                {!customerData ? (
-                  <div className="sm:flex sm:gap-4">
-                    <a
-                      className="rounded-md border px-5 py-2.5 text-sm font-medium text-white shadow"
-                      href="/signin"
-                    >
-                      Login
-                    </a>
-
-                    <div className="hidden sm:flex">
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                <div
+                  className={`sm:flex sm:gap-4 ${
+                    !customerData ? "" : "dropdown dropdown-end"
+                  }`}
+                >
+                  {!customerData ? (
+                    <div className="flex gap-4">
                       <a
-                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black"
-                        href="/signup"
+                        className="rounded-md border px-5 py-2.5 text-sm font-medium text-white shadow"
+                        href="/signin"
                       >
-                        Register
+                        Login
                       </a>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="dropdown dropdown-end">
-                    <label
-                      tabIndex={0}
-                      className="btn btn-ghost btn-circle avatar"
-                    >
-                      <div className="w-32 mx-1">
-                        <span className="material-symbols-outlined">
-                          person
-                        </span>
+                      <div className="hidden sm:flex">
+                        <a
+                          className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black"
+                          href="/signup"
+                        >
+                          Register
+                        </a>
                       </div>
-                    </label>
-
+                    </div>
+                  ) : (
                     <>
+                      <label
+                        tabIndex={0}
+                        className="btn btn-ghost btn-circle avatar"
+                      >
+                        <div className="w-32 mx-1">
+                          <span className="material-symbols-outlined">
+                            person
+                          </span>
+                        </div>
+                      </label>
                       <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                       >
                         <li>
-                          <Link to={"/myEvents"} className="font-semibold">
+                          <Link to="/myEvents" className="font-semibold">
                             My Events
                           </Link>
                         </li>
-                        {/* <li>
-                      <Link
-                        to={"/account"}
-                        className="justify-between font-semibold"
-                      >
-                        Profile
-                      </Link>
-                    </li> */}
-                        {/* <li>
-                      <a className="font-semibold">Settings</a>
-                    </li> */}
-                        {/* <li>
-                      <a className="font-semibold">Logout</a>
-                    </li> */}
+                        {/* Additional dropdown items here */}
                       </ul>
                     </>
-                  </div>
-                )}
-
-                <div className="block md:hidden">
-                  <button
-                    className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
-                    onClick={() => setOpenNav(!openNav)}
-                  >
-                    {openNav ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        className="h-6 w-6"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4 6h16M4 12h16M4 18h16"
-                        />
-                      </svg>
-                    )}
-                  </button>
+                  )}
                 </div>
+              )}
+
+              <div className="block md:hidden">
+                <button
+                  className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+                  onClick={() => setOpenNav(!openNav)}
+                >
+                  {openNav ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
+                    </svg>
+                  )}
+                </button>
               </div>
             </div>
           </div>

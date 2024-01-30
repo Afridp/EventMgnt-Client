@@ -283,7 +283,8 @@ export const eventBookFormValidation = yup.object().shape({
       return startDate
         ? schema.min(startDate, 'To Date must be equal or after From Date')
         : schema;
-    }),
+    })
+    ,
   guestRequirement: yup.string().required('Guest requirement is required'),
   cateringNeeds: yup.string().oneOf(['yes', 'no']).required('Please select catering needs'),
   eventName: yup.string().required('Event name is required'),
@@ -291,7 +292,7 @@ export const eventBookFormValidation = yup.object().shape({
   venueName: yup.string().required('Venue name is required'),
   venueType: yup.string().required('Venue type is required'),
   // venueLocation: yup.string().required('Venue location is required'),
-  noofGuests: yup.number().required('Number of guests is required'),
+  noofGuests: yup.number().required('Number of guests is required').min(1,"minimum nuber should be 1"),
   numberOfServices: yup.number().notRequired('Number of services is required'),
   foodPreference: yup
     .string()
