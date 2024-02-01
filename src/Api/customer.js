@@ -39,8 +39,9 @@ export const customerSignin = async (signinData) => {
     return data
 }
 
-export const fetchEvents = async () => {
-    const data = await customerAxiosInstance.get('/getEvents')
+export const fetchEvents = async ({search,sort}) => {
+    
+    const data = await customerAxiosInstance.get(`/getEvents?search=${search}&sort=${sort}`,)
     return data
 }
 
@@ -54,8 +55,8 @@ export const findCustomer = async (customerId) => {
     return data
 }
 
-export const fetchBookings = async (customerId) => {
-    const data = await customerAxiosInstance.get(`/getBookings/${customerId}`)
+export const fetchBookings = async ({customerId,search,sort}) => {
+    const data = await customerAxiosInstance.get(`/getBookings/${customerId}?search=${search}&sort=${sort}`)
     return data
 }
 

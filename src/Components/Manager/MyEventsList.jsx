@@ -21,7 +21,7 @@ const EventPage = () => {
     const fetchEvents = async () => {
       try {
         const res = await getEvents();
-        setEvents(res.data.event);
+        setEvents(res?.data?.event);
       } catch (error) {
         console.error("Error fetching events:", error.message);
       }
@@ -45,9 +45,9 @@ const EventPage = () => {
         const dataURL = await convertFileToDataURL(image);
         const updatedValues = { ...restValues, image: dataURL };
         const res = await addingNewEvent(updatedValues);
-
-        setEvents((prevEvents) => [...prevEvents, res.data.event]);
-
+        if (res) {
+          setEvents((prevEvents) => [...prevEvents, res?.data?.event]);
+        }
         resetForm();
         toast.success(res.data.message, {
           position: toast.POSITION.TOP_CENTER,
@@ -252,8 +252,8 @@ const EventPage = () => {
                 </thead>
 
                 <tbody>
-                  {events.map((event, index) => (
-                    <tr key={index} className="border-b hover:bg-gray-400">
+                  {events?.map((event) => (
+                    <tr key={event._id} className="border-b hover:bg-gray-400">
                       <td className="px-4 py-2 hidden">{event._id}</td>
                       {/* <td className="px-4 py-2 hidden">{event.imageBlob}</td> */}
                       <td className="px-4 py-2">

@@ -19,6 +19,8 @@
  * change form formik to another custom hook,screeshshot available that cody given
  * add loading in every page where its taking time to load data,especially when editingpage
  * learn about react query and implement
+ * change the size of the image to a fixed size when uploading
+ * chnge pagination to backend beacuse there is some bug when interconnected with sorting
 
 
 

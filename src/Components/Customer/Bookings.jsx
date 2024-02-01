@@ -7,40 +7,36 @@ import { Link } from "react-router-dom";
 import CancelModal from "./CancelModal";
 import { toast } from "react-toastify";
 import Pagination from "./Pagination";
-
+import SearchAndSort from "./SearchAndSort";
 
 function Bookings() {
   const { customer } = useSelector((state) => state.customerSlice);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOptions, setSortOptions] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookingsPerPage] = useState(10);
+  const [bookingsPerPage] = useState(5);
 
-  let currentBookings = null;
-  const indexOfLastBooking = currentPage * bookingsPerPage;
-  const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
-  if (bookings?.length > 10) {
-    currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
-  } else {
-    currentBookings = bookings;
-  }
-  const paginate = (number) => setCurrentPage(number);
-
+  const getBookings = async () => {
+    try {
+      setLoading(true);
+      const res = await fetchBookings({
+        customerId: customer._id,
+        search: searchQuery,
+        sort: sortOptions,
+      });
+      setBookings(res?.data?.bookings);
+      setCurrentPage(1);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 10);
+    }
+  };
   useEffect(() => {
-    const getBookings = async () => {
-      try {
-        setLoading(true);
-        const res = await fetchBookings(customer._id);
-        setBookings(res?.data?.bookings);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      }
-    };
     getBookings();
-  }, []);
+  }, [searchQuery, sortOptions]);
 
   const handleCancelBooking = async (eventId) => {
     try {
@@ -57,6 +53,14 @@ function Bookings() {
     }
   };
 
+  let currentBookings = null;
+  const indexOfLastBooking = currentPage * bookingsPerPage;
+  const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
+  if (bookings?.length) {
+    currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
+  }
+  const paginate = (number) => setCurrentPage(number);
+
   return (
     <>
       {loading ? (
@@ -67,10 +71,17 @@ function Bookings() {
             <div className="w-4 h-4 rounded-full bg-orange-900 animate-bounce [animation-delay:-.5s]"></div>
           </div>
         </div>
-      ) : bookings ? (
-        <div className="my-32">
-          {currentBookings.map((event) => (
-            <div key={event._id} className="container mb-2 mt-3 mx-auto">
+      ) : currentBookings ? (
+        <div className="my-32 container mx-auto">
+          <SearchAndSort
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            sortOptions={sortOptions}
+            setSortOptions={setSortOptions}
+            forPage={"bookings"}
+          />
+          {currentBookings?.map((event) => (
+            <div key={event._id}>
               <div className="border p-4 border-black m-4">
                 <div className="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
                   <dl className="-my-5 divide-y divide-gray-100 text-sm">
