@@ -7,7 +7,7 @@ import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 
 import ManagerRoutes from "./Routes/Manger/ManagerRoutes";
 import CustomerRoutes from "./Routes/Customer/CustomerRoutes";
-import TestTailwind from "./Pages/ManagerPages/TestTailwind";
+// import TestTailwind from "./Pages/ManagerPages/TestTailwind";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/manager/*" element={<ManagerRoutes />} />
         <Route path="/*" element={<CustomerRoutes />} />
-        <Route path="/test" element={<TestTailwind />} />
+        {/* <Route path="/test" element={<TestTailwind />} /> */}
       </Routes>
     </Router>
   );

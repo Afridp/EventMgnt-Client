@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { cancelEvent, fetchBookings } from "../../Api/customer";
 import { useSelector } from "react-redux";
@@ -8,6 +9,7 @@ import CancelModal from "./CancelModal";
 import { toast } from "react-toastify";
 import Pagination from "./Pagination";
 import SearchAndSort from "./SearchAndSort";
+import useDebounce from "../../CustomHooks/useDebounce";
 
 function Bookings() {
   const { customer } = useSelector((state) => state.customerSlice);
@@ -18,12 +20,14 @@ function Bookings() {
   const [currentPage, setCurrentPage] = useState(1);
   const [bookingsPerPage] = useState(5);
 
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
   const getBookings = async () => {
     try {
       setLoading(true);
       const res = await fetchBookings({
         customerId: customer._id,
-        search: searchQuery,
+        search: debouncedSearchQuery,
         sort: sortOptions,
       });
       setBookings(res?.data?.bookings);
@@ -36,7 +40,7 @@ function Bookings() {
   };
   useEffect(() => {
     getBookings();
-  }, [searchQuery, sortOptions]);
+  }, [debouncedSearchQuery, sortOptions]);
 
   const handleCancelBooking = async (eventId) => {
     try {

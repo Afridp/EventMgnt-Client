@@ -5,6 +5,7 @@ import DataNotFound from "../../Pages/ErrorPages/DataNotFound";
 
 import Pagination from "./Pagination";
 import SearchAndSort from "./SearchAndSort";
+import useDebounce from "../../CustomHooks/useDebounce";
 
 function Event() {
   const [events, setEvents] = useState([]);
@@ -14,12 +15,14 @@ function Event() {
   const [currentPage, setCurrentPage] = useState("");
   const [eventsPerPage] = useState(5);
 
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
   useEffect(() => {
     const getEvents = async () => {
       try {
         setLoading(true);
         const res = await fetchEvents({
-          search: searchQuery,
+          search: debouncedSearchQuery,
           sort: sortOptions,
         });
         setEvents(res?.data?.events);
@@ -31,7 +34,7 @@ function Event() {
       }
     };
     getEvents();
-  }, [searchQuery, sortOptions]);
+  }, [debouncedSearchQuery, sortOptions]);
 
   let currentEvents = null;
   const indexOfLastEvent = currentPage * eventsPerPage;
@@ -43,6 +46,7 @@ function Event() {
 
   return (
     <>
+    
       {loading ? (
         <div className="grid h-screen place-content-center bg-white">
           <div className="flex flex-row gap-2 ">
