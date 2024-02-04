@@ -10,6 +10,7 @@ import Protect from "./Protect"
 import Public from "./Public"
 
 import ViewOrEditBooked from "../../Pages/Customer/ViewOrEditBooked"
+import Profile from "../../Pages/Customer/Profile"
 
 
 
@@ -25,7 +26,8 @@ function CustomerRoutes() {
             <Route path="/events" element={<Events/>}/>
             <Route path="/events/book" element={<Protect><CreateEventPage/></Protect>}/>
             <Route path="/myEvents" element={<Protect><MyEvents/></Protect>}/>
-            <Route path="/myEvents/seemore/:eventId" element={<ViewOrEditBooked/>}/>       
+            <Route path="/myEvents/seemore/:eventId" element={<ViewOrEditBooked/>}/>
+            <Route path="/profile" element={<Profile/>}/>
         </Routes>
     </div>
   )

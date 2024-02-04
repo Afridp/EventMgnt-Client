@@ -9,12 +9,14 @@ import { useFormik } from "formik";
 import { addEventValidation } from "../../ValidationSchemas/managerValidation/addEvent";
 import PreviewImage from "./PreviewImage";
 import { toast } from "react-toastify";
+import useFileToDataURLConverter from "../../CustomHooks/useFileToDataURLConverter";
 
 const EventPage = () => {
   // const [editImage, setEditImage] = useState("");
   const [events, setEvents] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [editingEvent, setEditingEvent] = useState(false);
+  const { convertFileToDataURL } = useFileToDataURLConverter();
   const fileRef = useRef(null);
 
   useEffect(() => {
@@ -57,17 +59,6 @@ const EventPage = () => {
       setEditingEvent(false);
       setLoading(false);
     }
-  };
-
-  const convertFileToDataURL = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
   };
 
   const {

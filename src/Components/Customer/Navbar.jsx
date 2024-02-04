@@ -145,6 +145,12 @@ function Navbar() {
                             My Events
                           </Link>
                         </li>
+
+                        <li>
+                          <Link to="/profile" className="font-semibold">
+                            Profile
+                          </Link>
+                        </li>
                         {/* Additional dropdown items here */}
                       </ul>
                     </>

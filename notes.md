@@ -21,6 +21,7 @@
  * learn about react query and implement
  * change the size of the image to a fixed size when uploading
  * chnge pagination to backend beacuse there is some bug when interconnected with sorting
+ * need to change the ui and ux of customer profile page 
 
 
 

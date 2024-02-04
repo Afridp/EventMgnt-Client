@@ -74,3 +74,12 @@ export const cancelEvent = async(eventId) => {
     const data = await customerAxiosInstance.delete(`/deleteBooked/${eventId}`)
     return data
 }
+
+export const updateProfilePic = async({profile,customerId}) => {
+    const data = await customerAxiosInstance.post(`/updateProfilePic?customerId=${customerId}`,{profile})
+    return data
+}
+
+// export const fetchProfile = async(customerId) => {
+//     const data = await customerAxiosInstance.get()
+// }

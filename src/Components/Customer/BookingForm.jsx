@@ -7,10 +7,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete } from "@react-google-maps/api";
 import useGoogleMap from "../../CustomHooks/useGoogleMap";
-
 import { useState } from "react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import useFileToDataURLConverter from "../../CustomHooks/useFileToDataURLConverter";
 
 function BookingForm() {
   const { customer } = useSelector((state) => state.customerSlice);
@@ -20,6 +20,7 @@ function BookingForm() {
   const [location, setLocation] = useState("");
   const [errorLocation, setErrorLocation] = useState("");
   // const [themeImage, setThemeImage] = useState([]);
+  const { convertFileToDataURL } = useFileToDataURLConverter();
 
   const navigate = useNavigate();
 
@@ -83,16 +84,6 @@ function BookingForm() {
     }
   };
 
-  const convertFileToDataURL = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
 
   const {
     handleSubmit,
