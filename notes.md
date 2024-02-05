@@ -22,7 +22,8 @@
  * change the size of the image to a fixed size when uploading
  * chnge pagination to backend beacuse there is some bug when interconnected with sorting
  * need to change the ui and ux of customer profile page 
-
+ * change date format changing when inserting to db,change or convet the format where we are trying to show
+ * change customer profile page to simplified and compact using fnns and componts
 
 
 

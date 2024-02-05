@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useFileToDataURLConverter from "../../CustomHooks/useFileToDataURLConverter";
-
-import { updateProfilePic } from "../../Api/customer";
+import { profileUpdateValidation } from "../../ValidationSchemas/customerValidation/profileUpdate";
+import { updateProfilePic, updateProfile } from "../../Api/customer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logoutCustomer,
@@ -9,25 +9,53 @@ import {
 } from "../../Redux/slice/customerSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import DateFormatter from "./DateFormatter";
+import ChangePassword from "./ChangePassword";
+
+// import ChangePasswordModal from "./ChangePasswordModal";
 
 function ProfileBody() {
   const { customer } = useSelector((state) => state.customerSlice);
   const { convertFileToDataURL } = useFileToDataURLConverter();
   const [loading, setLoading] = useState(false);
-  const [newCustomer, setNewCustomer] = useState({
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [loading1, setLoading1] = useState(false);
+  const initialcustomer = {
     userName: customer.userName,
     email: customer.email,
-    mobile: customer,
-  });
+    mobile: customer.mobile,
+  };
 
-  const [isEditMode, setIsEditMode] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleEditProfile = () => {
     setIsEditMode(true);
   };
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const handleSaveChanges = async () => {
+    try {
+      setLoading1(true);
+      const res = await updateProfile(values, customer._id);
+      dispatch(
+        setCustomerDetails({
+          customer: res?.data?.updated,
+        })
+      );
+      toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
+    } finally {
+      setLoading1(false);
+    }
+    setIsEditMode(false);
+  };
+
+  const { values, handleBlur, handleSubmit, handleChange, touched, errors } =
+    useFormik({
+      initialValues: initialcustomer,
+      validationSchema: profileUpdateValidation,
+      onSubmit: handleSaveChanges,
+    });
 
   const handleImageChange = async (e) => {
     try {
@@ -77,7 +105,7 @@ function ProfileBody() {
         <div className="p-10 grid grid-cols-1 shadow-2xl lg:grid-cols-3 transform rounded-xl bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
           <div className="h-96 border-r-2 border-gray-400 grid-cols-1 grid gap-6">
             <div className="flex items-center justify-center mt-10">
-              <form action="">
+              <form action="" onSubmit={handleSubmit}>
                 <input
                   type="file"
                   accept="image/*"
@@ -105,7 +133,10 @@ function ProfileBody() {
 
             <div className="flex flex-col items-center gap-4">
               <h1 className="text-2xl font-bold">{customer?.userName}</h1>
-              <h3>Joined On {customer.createdAt}</h3>
+              <h3>
+                Since :
+                <DateFormatter createdAt={customer.createdAt} />
+              </h3>
             </div>
             <div className="flex items-center justify-center">
               <button className="mt- group flex items-center justify-start w-11 h-11 bg-red-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-300 shadow-lg hover:w-32 hover:rounded-lg active:translate-x-1 active:translate-y-1">
@@ -125,11 +156,8 @@ function ProfileBody() {
           </div>
 
           <div className="h-96 rounded-lg lg:col-span-2">
-            <div className="flex flex-col items-start gap-10 my-10 ml-10">
-              <label
-                htmlFor="UserName"
-                className="block overflow-hidden"
-              >
+            <div className="flex flex-col items-start gap-10 ml-10">
+              <label htmlFor="UserName" className="block overflow-hidden">
                 <span className="text-xs font-mono text-gray-700">
                   {" "}
                   User Name{" "}
@@ -137,72 +165,84 @@ function ProfileBody() {
 
                 <input
                   type="text"
-                  id="UserName"
-                  value={customer.userName}
-                  placeholder="anthony@rhcp.com"
+                  id="userName"
+                  value={values.userName}
+                  disabled={!isEditMode}
+                  // onChange={(e) =>
+                  //   handleInputChange("userName", e.target.value)
+                  // }
+                  onBlur={handleBlur}
+                  onChange={handleChange}
                   className="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                 />
+                {errors.userName && touched.userName && (
+                  <small className="text-red-800">{errors.userName}</small>
+                )}
               </label>
-              <label
-                htmlFor="Useremail"
-                className=""
-               
-              >
-                <span className="text-xs font-mono text-gray-700">
-                  {" "}
-                  Email{" "}
-                </span>
+              <label htmlFor="Useremail" className="">
+                <span className="text-xs font-mono text-gray-700"> Email </span>
 
                 <input
                   type="email"
-                  id="Useremail"
-                  value={customer.email}
-                  placeholder="anthony@rhcp.com"
-                  className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                  id="email"
+                  value={values.email}
+                  disabled={!isEditMode}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  // onChange={(e) => handleInputChange("email", e.target.value)}
+                  className="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                 />
+                {errors.email && touched.email && (
+                  <small className="text-red-800">{errors.email}</small>
+                )}
               </label>
-              <label
-                htmlFor="PhoneNumber"
-                className="block overflow-hidden"
-              >
+              <label htmlFor="PhoneNumber" className="block overflow-hidden">
                 <span className="text-xs font-mono text-gray-700">
                   {" "}
-                Phone Number{" "}
+                  Phone Number{" "}
                 </span>
 
                 <input
                   type="text"
-                  value={customer.mobile}
-                  id="PhoneNumber"
-                  placeholder="anthony@rhcp.com"
-                  className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                  value={values.mobile}
+                  // onChange={(e) => handleInputChange("mobile", e.target.value)}
+                  id="mobile"
+                  className="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                  disabled={!isEditMode}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
                 />
+                {errors.mobile && touched.mobile && (
+                  <small className="text-red-800">{errors.mobile}</small>
+                )}
               </label>
             </div>
-            <div className="flex items-end justify-end gap-4">
+            <div className="fixed bottom-0 right-0 flex items-end justify-end gap-4 mb-8 mr-8">
               {/* Base */}
 
-              <a
-                className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-                href="/download"
-              >
-                <span className="absolute inset-0 border border-red-800 group-active:border-red-800"></span>
-                <span className="block border border-red-800 bg-red-800 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
-                  Change Password
-                </span>
-              </a>
+              {/* <ChangePasswordModal /> */}
+              <ChangePassword customerId={customer._id} />
 
               {/* Border */}
 
-              <a
-                className="group relative inline-block text-sm font-medium text-red-800 focus:outline-none focus:ring active:text-red-500"
-                href="/download"
+              <button
+                className="group relative inline-block text-sm font-medium text-red-800 active:text-red-500"
+                onClick={isEditMode ? handleSaveChanges : handleEditProfile}
               >
-                <span className="absolute inset-0 border border-current"></span>
                 <span className="block border border-current bg-white px-12 py-3 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                  Edit Profile
+                  {loading1 ? (
+                    // Loading indicator (you can customize this part)
+                    <div className="flex items-center">
+                      <span className="loading loading-dots loading-xs"></span>
+                    </div>
+                  ) : // "Edit Profile" or "Save Changes" text
+                  isEditMode ? (
+                    "Save Changes"
+                  ) : (
+                    "Edit Profile"
+                  )}
                 </span>
-              </a>
+              </button>
             </div>
           </div>
         </div>

@@ -44,7 +44,6 @@ function Bookings() {
 
   const handleCancelBooking = async (eventId) => {
     try {
-      console.log(eventId);
       setLoading(true);
       const res = await cancelEvent(eventId);
 

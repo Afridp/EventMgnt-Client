@@ -14,7 +14,7 @@ const createAxiosInstance = (baseURL) => {
     const instance = axios.create({
         // setting base url, so every req made using managerapi,the url will be prefixed this base url
         baseURL,
-        timeout: 200000,
+        // timeout: 200000,
         timeoutErrorMessage: "Request timeout... Please try again !"
     })
     return instance;

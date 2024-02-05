@@ -24,6 +24,7 @@
         "@react-google-maps/api": "^2.19.2",
         "@reduxjs/toolkit": "^2.0.1",
         "@uiw/react-color": "^2.0.5",
+        "antd": "^5.14.0",
         "axios": "^1.6.4",
         "date-fns": "^3.3.1",
         "flowbite": "^2.2.1",
