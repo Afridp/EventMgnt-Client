@@ -69,3 +69,9 @@ export const getBookedEvents = async () => {
     const data = await managerAxiosInstance.get(`/getBookedEvents`)
     return data
 }
+
+export const getEventData = async(eventId) => {
+   
+    const data = await managerAxiosInstance.get(`/getEventData?eventId=${eventId}`)
+    return data
+}

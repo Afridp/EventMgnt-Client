@@ -23,7 +23,7 @@ const Signin = () => {
 
       dispatch(
         setCustomerDetails({
-          token: token,
+          token: token, 
           customer : customerData,
         })
       );

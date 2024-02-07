@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div>
-      <div
-        className="navbar bg-base-100"
-        style={{ border: "0.5px solid #bdbbbb" }}
-      >
+      <div className="navbar bg-blue-900">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -49,16 +46,16 @@ function Header() {
             </ul>
           </div>
 
-          <a className="btn btn-ghost text-xl">Event Brigadge</a>
+          <a className="btn btn-ghost text-xl text-white">Event Brigadge</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Home</a>
+              <a className="text-white">Home</a>
             </li>
             <li>
               <details>
-                <summary>Manage</summary>
+                <summary className="text-white">Manage</summary>
                 <ul className="p-1">
                   <li>
                     <Link to="/manager/events">Events</Link>

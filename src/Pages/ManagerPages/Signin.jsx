@@ -9,6 +9,7 @@ import { signinValidation } from "../../ValidationSchemas/managerValidation/sign
 import { toast } from "react-toastify";
 import { useState } from "react";
 
+
 function Signin() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -31,11 +32,11 @@ function Signin() {
 
       const { token, managerData } = res.data;
       localStorage.setItem("managerToken", token);
-
+      console.log(managerData);
       dispatch(
         setManagerDetails({
           token: token,
-          manger: managerData,
+          manager: managerData,
         })
       );
       toast.success(res?.data?.message, {

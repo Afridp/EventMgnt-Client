@@ -68,7 +68,7 @@ function SignUp() {
           </div>
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="email@gmail.com"
             className="input input-bordered w-full max-w-xs"
             name="cemail"
             id="cemail"
@@ -93,7 +93,7 @@ function SignUp() {
           </div>
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="Type here..."
             className="input input-bordered w-full max-w-xs"
             name="username"
             id="username"
@@ -114,7 +114,7 @@ function SignUp() {
           </div>
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="9000.."
             className="input input-bordered w-full max-w-xs"
             name="cmobile"
             id="cmobile"
@@ -135,7 +135,7 @@ function SignUp() {
             <span className="label-text">Password</span>
           </div>
           <input
-            type="text"
+            type="password"
             placeholder="Type here"
             className="input input-bordered w-full max-w-xs"
             name="password"
@@ -157,7 +157,7 @@ function SignUp() {
             <span className="label-text">ConfirmPassword</span>
           </div>
           <input
-            type="text"
+            type="password"
             placeholder="Type here"
             className="input input-bordered w-full max-w-xs"
             name="cpassword"
