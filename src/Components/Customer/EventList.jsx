@@ -67,7 +67,7 @@ function Event() {
                 forPage={"eventList"}
               />
               {currentEvents?.map((event, index) => (
-                <div key={event._id}>
+                <div className="fade-ef" key={event._id}>
                   <div
                     className={
                       event.id % 2 !== 0

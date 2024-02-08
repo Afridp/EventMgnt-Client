@@ -3,19 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getEventData } from "../../Api/manager";
 import { Box,  Modal,} from "@mui/material";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
+import { styleImageOpen } from '../../JsStyles/Styles';
 
 export const EventSeeMore = () => {
   const { eventId } = useParams();
@@ -273,7 +261,7 @@ export const EventSeeMore = () => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box sx={style}>
+              <Box sx={styleImageOpen}>
                 <img src={eventData.themeImage ? eventData.themeImage : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"} alt="" />
               </Box>
             </Modal>

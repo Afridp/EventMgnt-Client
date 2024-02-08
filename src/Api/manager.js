@@ -13,34 +13,25 @@ managerAxiosInstance.interceptors.response.use(
 
 // API's
 export const managerSignup = async (signupData) => {
-
     const data = await managerAxiosInstance.post('/signup', signupData)
     return data
-
 }
 
 export const otpVerification = async (verificationData) => {
-
-
     const data = await managerAxiosInstance.post('/otpVerification', verificationData)
     return data
-
 }
 export const resendOtp = async (managerId) => {
-
     const data = await managerAxiosInstance.post('/resendOtp', managerId)
     return data
-
 }
 
 export const managerSignin = async (signinData) => {
-
     const data = await managerAxiosInstance.post('/signin', signinData)
     return data
-
 }
 
-export const getEvents = async()=>{
+export const getEvents = async () => {
 
     const data = await managerAxiosInstance.get('/getEvents')
     return data
@@ -48,19 +39,16 @@ export const getEvents = async()=>{
 
 export const addingNewEvent = async (eventData) => {
 
-    const data = await managerAxiosInstance.post('/addEvent',eventData)
+    const data = await managerAxiosInstance.post('/addEvent', eventData)
     return data
 }
 
 export const editEvent = async (values) => {
-
-    const data = await managerAxiosInstance.patch('/editEvent',values)
+    const data = await managerAxiosInstance.patch('/editEvent', values)
     return data
-    
 }
 
 export const listAndUnlist = async (eventId) => {
-
     const data = await managerAxiosInstance.get(`/listing/${eventId}`)
     return data
 }
@@ -70,8 +58,13 @@ export const getBookedEvents = async () => {
     return data
 }
 
-export const getEventData = async(eventId) => {
-   
+export const getEventData = async (eventId) => {
+
     const data = await managerAxiosInstance.get(`/getEventData?eventId=${eventId}`)
     return data
 }
+
+export const getTodaysEvents = async () => {
+    const data = await managerAxiosInstance.get('/getTodaysEvents')
+    return data
+} 

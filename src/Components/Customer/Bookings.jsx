@@ -30,7 +30,9 @@ function Bookings() {
         search: debouncedSearchQuery,
         sort: sortOptions,
       });
+     
       setBookings(res?.data?.bookings);
+      
       setCurrentPage(1);
     } finally {
       setTimeout(() => {
@@ -84,7 +86,7 @@ function Bookings() {
             forPage={"bookings"}
           />
           {currentBookings?.map((event) => (
-            <div key={event._id}>
+            <div className="fade-ef" key={event._id}>
               <div className="border p-4 border-black m-4">
                 <div className="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
                   <dl className="-my-5 divide-y divide-gray-100 text-sm">
@@ -116,7 +118,9 @@ function Bookings() {
                     <div className="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
                       <dt className="font-semibold text-gray-900">Date</dt>
                       <dd className="text-gray-700 sm:col-span-2">
-                        {event.startDate}
+                   
+                        {new Date(event.startDate).toLocaleDateString("en-GB")}
+
                       </dd>
                     </div>
 

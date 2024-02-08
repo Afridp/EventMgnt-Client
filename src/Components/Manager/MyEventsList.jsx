@@ -104,7 +104,7 @@ const EventPage = () => {
   };
 
   return (
-    <div className="p-4 lg:p-12">
+    <div className="p-4 lg:p-12 mt-12">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
         <div className="bg-gray-300 rounded-lg">
           <div className="p-4 space-y-6">

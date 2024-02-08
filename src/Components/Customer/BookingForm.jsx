@@ -36,15 +36,15 @@ function BookingForm() {
 
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
-        setLocation( place.formatted_address);
+        setLocation(place.formatted_address);
         setErrorLocation("");
       });
     }
   }, [isLoaded]);
 
-  let handleColor = (time) => {
-    return time.getHours() > 12 ? "text-success" : "text-error";
-  };
+  // let handleColor = (time) => {
+  //   return time.getHours() > 12 ? "text-success" : "text-error";
+  // };
 
   const handleRadioChange = (value) => {
     setFieldValue("guestRequirement", value);
@@ -58,21 +58,16 @@ function BookingForm() {
       }
       setLoading(true);
       let updatedValues = values;
+
       if (values.themeImage) {
         const { themeImage, ...restValues } = values;
         const dataURL = await convertFileToDataURL(themeImage);
-        updatedValues = { ...restValues, themeImage: dataURL };
+        updatedValues = {
+          ...restValues,
+          themeImage: dataURL,
+          location: location,
+        };
       }
-
-      const { startDate, endDate, ...restValues } = updatedValues;
-      const sDate = handleStartDateChange(startDate);
-      const eDate = handleStartDateChange(endDate);
-      updatedValues = {
-        ...restValues,
-        location: location,
-        startDate: sDate,
-        endDate: eDate,
-      };
 
       const res = await bookEvent(updatedValues, customer._id, location);
       toast.success(res.data.message, {
@@ -83,7 +78,6 @@ function BookingForm() {
       setLoading(false);
     }
   };
-
 
   const {
     handleSubmit,
@@ -125,28 +119,28 @@ function BookingForm() {
     onSubmit,
   });
 
-  const handleStartDateChange = (date) => {
-    const dateObject = new Date(date);
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    };
+  // const handleStartDateChange = (date) => {
+  //   const dateObject = new Date(date);
+  //   const options = {
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //     hour: "numeric",
+  //     minute: "numeric",
+  //     hour12: true,
+  //   };
 
-    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-      dateObject
-    );
+  //   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+  //     dateObject
+  //   );
 
-    return formattedDate;
-  };
+  //   return formattedDate;
+  // };
   return (
     <>
       <section className="min-h-screen bg-cover">
         <div className="mx-auto max-w-screen-xl  px-4 py-14 sm:px-6 lg:px-8">
-          <div className="rounded-lg bg-white p-8 shadow-2xl border my-20  lg:col-span-3 lg:p-12">
+          <div className="rounded-lg bg-white p-8 shadow-2xl border my-20  lg:col-span-3 lg:p-12 fade-ef">
             <form action="" className="space-y-4" onSubmit={handleSubmit}>
               <span className="flex items-center">
                 <span className="pr-6 font-bold font-mono text-orange-900">
@@ -304,18 +298,13 @@ function BookingForm() {
                     <span className="mr-2">From:</span>
                     <ReactDatePicker
                       placeholderText="Select"
-                      showTimeSelect
                       selected={values.startDate}
                       onChange={(date) => setFieldValue("startDate", date)}
-                      timeFormat="HH:mm"
-                      timeIntervals={15}
-                      timeCaption="Time"
-                      dateFormat="MMMM d, yyyy h:mm aa"
-                      timeClassName={handleColor}
+                      showTimeSelect={false}
+                      dateFormat="MMMM d, yyyy"
                       className="md:w-96 rounded-lg border-gray-200 p-3 text-sm"
                       onBlur={handleBlur("startDate")}
-                      value={values.startDate}
-                      minDate={Date.now()}
+                  
                     />
                   </div>
                   <div className="label ml-12">
@@ -335,18 +324,13 @@ function BookingForm() {
                     <span className="mr-2">To:</span>
                     <ReactDatePicker
                       placeholderText="Select"
-                      showTimeSelect
+                      showTimeSelect={false}
                       selected={values.endDate}
                       onChange={(date) => setFieldValue("endDate", date)}
-                      timeFormat="HH:mm"
-                      timeIntervals={15}
-                      timeCaption="Time"
-                      dateFormat="MMMM d, yyyy h:mm aa"
-                      timeClassName={handleColor}
+                      dateFormat="MMMM d, yyyy"
                       className="md:w-96 w-full rounded-lg border-gray-200 p-3 text-sm"
                       onBlur={handleBlur("endDate")}
-                      value={values.endDate}
-                      minDate={new Date()}
+                    
                     />
                   </div>
                   <div className="label ml-8">

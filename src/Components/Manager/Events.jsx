@@ -21,7 +21,7 @@ function Events() {
   }, []);
   return (
     <>
-      <div className="container mx-auto my-7 flex justify-end">
+      <div className="container mx-auto my-7 flex justify-end mt-24">
         <div className="w-[150px] h-[50px] ">
           <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-black hover:outline-none hover:text-white duration-300 active:scale-[0.99]">
             <Link to="/manager/myEvents" className="font-bold" href="#">
@@ -80,9 +80,9 @@ function Events() {
                   </svg>
 
                   <div className="mt-1.5 sm:mt-0">
-                    <p className="text-gray-500 font-medium">From : {event.startDate}</p>
+                    <p className="text-gray-500 font-medium">From : {new Date(event.startDate).toLocaleDateString("en-GB")}</p>
 
-                    <p className="font-medium text-gray-500">To :{event.endDate}</p>
+                    <p className="font-medium text-gray-500">To :{new Date(event.endDate).toLocaleDateString("en-GB")}</p>
                   </div>
                 </div>
                 <div className="ml-28 mt-2 sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">

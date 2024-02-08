@@ -284,7 +284,7 @@ export const eventBookFormValidation = yup.object().shape({
         ? schema.min(startDate, 'To Date must be equal or after From Date')
         : schema;
     })
-    ,
+  ,
   guestRequirement: yup.string().required('Guest requirement is required'),
   cateringNeeds: yup.string().oneOf(['yes', 'no']).required('Please select catering needs'),
   eventName: yup.string().required('Event name is required'),
@@ -292,7 +292,7 @@ export const eventBookFormValidation = yup.object().shape({
   venueName: yup.string().required('Venue name is required'),
   venueType: yup.string().required('Venue type is required'),
   // venueLocation: yup.string().required('Venue location is required'),
-  noofGuests: yup.number().required('Number of guests is required').min(1,"minimum nuber should be 1"),
+  noofGuests: yup.number().required('Number of guests is required').min(1, "minimum nuber should be 1"),
   numberOfServices: yup.number().notRequired('Number of services is required'),
   foodPreference: yup
     .string()
@@ -300,32 +300,32 @@ export const eventBookFormValidation = yup.object().shape({
     .required("Please indicate whether you have food preferences."),
   cuisines: yup
     .string(),
-    
-    // .when("foodPreference", {
-    //   is: "yes",
-    //   then: yup.string().required("Please specify your preferred cuisines."),
-    // }),
+
+  // .when("foodPreference", {
+  //   is: "yes",
+  //   then: yup.string().required("Please specify your preferred cuisines."),
+  // }),
   desiredEntertainment: yup
     .string()
     .required("Please select your desired entertainment."),
   // Schema
   entertainer: yup
     .string(),
-    // .when("desiredEntertainment", {
-    //   is: (value) => ["Live Music", "DJ"].includes(value),  // Check if value is one of the specified strings
-    //   then: yup.string().required("Please specify the desired entertainer."),
-    //   otherwise: yup.string().notRequired(),
-    // }),
+  // .when("desiredEntertainment", {
+  //   is: (value) => ["Live Music", "DJ"].includes(value),  // Check if value is one of the specified strings
+  //   then: yup.string().required("Please specify the desired entertainer."),
+  //   otherwise: yup.string().notRequired(),
+  // }),
 
   eventTheme: yup
     .string()
     .required("Please select a theme for the event."),
   otherTheme: yup
     .string(),
-    // .when("eventTheme", {
-    //   is: "others",
-    //   then: yup.string().required("Please specify the other theme."),
-    // }),
+  // .when("eventTheme", {
+  //   is: "others",
+  //   then: yup.string().required("Please specify the other theme."),
+  // }),
   themeImage: yup
     .mixed()
     .test('fileType', 'Invalid file type', (value) => {
