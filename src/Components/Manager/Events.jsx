@@ -3,16 +3,24 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBookedEvents } from "../../Api/manager";
 
+import SubModal from "./SubModal";
+
 function Events() {
   // const { manager } = useSelector((state) => state.managerSlice);
 
   const [events, setEvents] = useState([]);
+  const [showSubModal, setShowSubModal] = useState(false);
 
   useEffect(() => {
     const fetchAllBookedEvevts = async () => {
       try {
         const res = await getBookedEvents();
-        setEvents(res?.data?.bookings);
+        if (!res.success) {
+          setShowSubModal(true);
+        }else{
+
+          setEvents(res?.data?.bookings);
+        }
       } catch (error) {
         console.error(error.message);
       }
@@ -21,6 +29,8 @@ function Events() {
   }, []);
   return (
     <>
+      {showSubModal && <SubModal />}
+
       <div className="container mx-auto my-7 flex justify-end mt-24">
         <div className="w-[150px] h-[50px] ">
           <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-black hover:outline-none hover:text-white duration-300 active:scale-[0.99]">
@@ -57,7 +67,9 @@ function Events() {
             <div className="mt-2">
               <dl>
                 <div>
-                  <dd className="text-md text-gray-500">{event.eventCategory}</dd>
+                  <dd className="text-md text-gray-500">
+                    {event.eventCategory}
+                  </dd>
                 </div>
 
                 <div>
@@ -80,19 +92,24 @@ function Events() {
                   </svg>
 
                   <div className="mt-1.5 sm:mt-0">
-                    <p className="text-gray-500 font-medium">From : {new Date(event.startDate).toLocaleDateString("en-GB")}</p>
+                    <p className="text-gray-500 font-medium">
+                      From :{" "}
+                      {new Date(event.startDate).toLocaleDateString("en-GB")}
+                    </p>
 
-                    <p className="font-medium text-gray-500">To :{new Date(event.endDate).toLocaleDateString("en-GB")}</p>
+                    <p className="font-medium text-gray-500">
+                      To :{new Date(event.endDate).toLocaleDateString("en-GB")}
+                    </p>
                   </div>
                 </div>
                 <div className="ml-28 mt-2 sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-                  <Link to={`/manager/events/seemore/${event._id}`} className="w-[100px] bg-blue-gray-900 h-[40px] ml-14 my-3 flex items-center justify-center rounded-xl cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#78817c] before:to-[rgb(126,128,127)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff]">
+                  <Link
+                    to={`/manager/events/seemore/${event._id}`}
+                    className="w-[100px] bg-blue-gray-900 h-[40px] ml-14 my-3 flex items-center justify-center rounded-xl cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#78817c] before:to-[rgb(126,128,127)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff]"
+                  >
                     See More
                   </Link>
                 </div>
-
-
-                
               </div>
             </div>
           </a>

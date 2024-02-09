@@ -32,7 +32,7 @@ function Signin() {
 
       const { token, managerData } = res.data;
       localStorage.setItem("managerToken", token);
-      console.log(managerData);
+      localStorage.setItem("managerId", managerData._id)
       dispatch(
         setManagerDetails({
           token: token,

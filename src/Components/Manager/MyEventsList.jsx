@@ -10,6 +10,7 @@ import { addEventValidation } from "../../ValidationSchemas/managerValidation/ad
 import PreviewImage from "./PreviewImage";
 import { toast } from "react-toastify";
 import useFileToDataURLConverter from "../../CustomHooks/useFileToDataURLConverter";
+import SubModal from "./SubModal";
 
 const EventPage = () => {
   // const [editImage, setEditImage] = useState("");
@@ -17,13 +18,18 @@ const EventPage = () => {
   const [Loading, setLoading] = useState(false);
   const [editingEvent, setEditingEvent] = useState(false);
   const { convertFileToDataURL } = useFileToDataURLConverter();
+  const [showSubModal, setShowSubModal] = useState(false);
   const fileRef = useRef(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const res = await getEvents();
+        if(!res.success){
+          setShowSubModal(true)
+        }else{
         setEvents(res?.data?.event);
+        }
       } catch (error) {
         console.error("Error fetching events:", error.message);
       }
@@ -105,6 +111,7 @@ const EventPage = () => {
 
   return (
     <div className="p-4 lg:p-12 mt-12">
+      {showSubModal && <SubModal />}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
         <div className="bg-gray-300 rounded-lg">
           <div className="p-4 space-y-6">

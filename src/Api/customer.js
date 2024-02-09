@@ -1,9 +1,9 @@
 
-import { attachToken, customerAxiosInstance, handleError } from "./axiosConfig";
+import {  attachTokenAndMnagerId, customerAxiosInstance, handleError } from "./axiosConfig";
 
 // request interceptor
 customerAxiosInstance.interceptors.request.use(async (req) => {
-    let modifiedRequest = attachToken(req, "clientToken")
+    let modifiedRequest = attachTokenAndMnagerId(req, "clientToken","")
     return modifiedRequest
 })
 

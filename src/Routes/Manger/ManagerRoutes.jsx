@@ -23,6 +23,7 @@ function ManagerRoute() {
             <Route path="/otp" element={<Public><Otp/></Public>}/>
             <Route path="/signin" element={<Public><Siginin/></Public>}/>
             <Route path="/" element={<Protect><Home/></Protect> }/>
+
             <Route path="/events" element={<Protect><Event/></Protect>}/>
             <Route path="/events/seemore/:eventId" element={<EventSeemore/>}/>
             <Route path="/pro" element={<Subscription/>}/>

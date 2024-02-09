@@ -11,7 +11,7 @@ function Home() {
       <Jumbortron />
       <Aboutus />
       <Jobs />
-      <Footer/>
+      <Footer />
       {/* need to chnge the move problem */}
     </>
   );
