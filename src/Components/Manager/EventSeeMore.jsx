@@ -2,32 +2,34 @@ import { Input, Textarea } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getEventData } from "../../Api/manager";
-import { Box,  Modal,} from "@mui/material";
-import { styleImageOpen } from '../../JsStyles/Styles';
+import { Box, Modal } from "@mui/material";
+import { styleImageOpen } from "../../JsStyles/Styles";
 
 export const EventSeeMore = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState([]);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchEventData = async () => {
-      try {
-        const res = await getEventData(eventId);
-        setEventData(res?.data?.eventData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchEventData();
-  }, []);
+  const fetchEventData = async () => {
+    try {
+      const res = await getEventData(eventId);
+      setEventData(res?.data?.eventData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+   
   const handleClose = () => {
     setOpen(false);
-  }
+  };
+
   const handleOpen = () => {
     setOpen(true);
   };
+  
+  useEffect(() => {
+    fetchEventData();
+  }, []);
   return (
     <section className="min-h-screen bg-cover">
       <div className="mx-auto max-w-screen-xl  px-4 py-0 sm:px-6 lg:px-8">
@@ -251,8 +253,13 @@ export const EventSeeMore = () => {
                 <span className="label-text text-base from-neutral-500">
                   Uploaded image.
                 </span>
-                
-            <button className="block w-full rounded-lg border border-gray-400 p-3 text-blue-800 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white" onClick={handleOpen}>See Image</button>
+
+                <button
+                  className="block w-full rounded-lg border border-gray-400 p-3 text-blue-800 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
+                  onClick={handleOpen}
+                >
+                  See Image
+                </button>
               </div>
             </div>
             <Modal
@@ -262,7 +269,14 @@ export const EventSeeMore = () => {
               aria-describedby="modal-modal-description"
             >
               <Box sx={styleImageOpen}>
-                <img src={eventData.themeImage ? eventData.themeImage : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"} alt="" />
+                <img
+                  src={
+                    eventData.themeImage
+                      ? eventData.themeImage
+                      : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+                  }
+                  alt=""
+                />
               </Box>
             </Modal>
             {/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}

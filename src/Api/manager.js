@@ -1,9 +1,9 @@
 
-import { managerAxiosInstance, handleError, attachTokenAndMnagerId } from "./axiosConfig";
+import { managerAxiosInstance, handleError, attachToken } from "./axiosConfig";
 
 // request interceptor
 managerAxiosInstance.interceptors.request.use(async (req) => {
-    let modifiedRequest = await attachTokenAndMnagerId(req, "managerToken","managerId")
+    let modifiedRequest = await attachToken(req, "managerToken")
     return modifiedRequest
 })
 // response interceptor
@@ -75,7 +75,7 @@ export const getUpcomingEvents = async()=>{
     return data
 }
 
-export const subscribedPlan = async(datas)=>{
+export const  subscribe = async(datas)=>{
    
     const data = await managerAxiosInstance.post('/subscribe',datas)
     return data

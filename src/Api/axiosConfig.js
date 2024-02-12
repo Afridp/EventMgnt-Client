@@ -21,17 +21,14 @@ const createAxiosInstance = (baseURL) => {
 }
 
 // Token attacher
-export const attachTokenAndMnagerId = (req, tokenName, managerIdName) => {
+export const attachToken = (req, tokenName) => {
     let authToken = localStorage.getItem(tokenName)
-    let managerId = localStorage.getItem(managerIdName)
+
     if (authToken) {
     
         req.headers["Authorization"] = `Bearer${authToken}`;
     }
-    if(managerId){
-        
-        req.headers["Managerid"] = managerId
-    }
+   
     return req
 }
 

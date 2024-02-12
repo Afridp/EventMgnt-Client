@@ -92,7 +92,7 @@ function Header() {
                     strokeLinecap="round"
                   ></path>
                 </svg>
-                Go Premium
+                Upgrage
               </div>
             </div>
           </Link>

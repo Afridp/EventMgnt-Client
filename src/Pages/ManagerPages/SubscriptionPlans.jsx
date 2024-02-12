@@ -2,7 +2,7 @@
 import Header from '../../Components/Manager/Header'
 import ProPlans from '../../Components/Manager/ProPlans'
 
-function Subscription() {
+function SubscriptionPlans() {
   return (
     <>
      <Header/>
@@ -11,4 +11,4 @@ function Subscription() {
   )
 }
 
-export default Subscription
+export default SubscriptionPlans

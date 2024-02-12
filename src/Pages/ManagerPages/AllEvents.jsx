@@ -2,7 +2,7 @@
 import Events from '../../Components/Manager/Events'
 import Header from '../../Components/Manager/Header'
 
-function Event() {
+function AllEvents() {
   return (
     <>
     <Header/>
@@ -11,4 +11,4 @@ function Event() {
   )
 }
 
-export default Event
+export default AllEvents

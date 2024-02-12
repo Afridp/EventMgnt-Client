@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCustomerDetails } from "../../Redux/slice/customerSlice";
 
+
 const Signin = () => {
   const [loading, setLoading] = useState(false);
 
@@ -28,7 +29,7 @@ const Signin = () => {
         })
       );
       toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
-
+  
       navigate("/");
     } finally {
       setLoading(false);
