@@ -1,16 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import SignUp from "../../Pages/ManagerPages/Signup";
-import Siginin from "../../Pages/ManagerPages/Signin";
-import Home from "../../Pages/ManagerPages/Home";
-import AllEvents from "../../Pages/ManagerPages/AllEvents";
+import SignUp from "../../Pages/Manager/Signup";
+import Siginin from "../../Pages/Manager/Signin";
+import Home from "../../Pages/Manager/Home";
+import AllEvents from "../../Pages/Manager/AllEvents";
 // import AddEvent from "../../Pages/ManagerPages/AddEvent";
-import MyEvents from "../../Pages/ManagerPages/MyEvents";
-import Otp from "../../Pages/ManagerPages/Otp";
+import MyEvents from "../../Pages/Manager/MyEvents";
+import Otp from "../../Pages/Manager/Otp";
 import Public from "./Public";
 import Protect from "./protect";
-import EventSeemore from "../../Pages/ManagerPages/EventSeemore";
-import SubscriptionPlans from "../../Pages/ManagerPages/SubscriptionPlans";
+import EventSeemore from "../../Pages/Manager/EventSeemore";
+import SubscriptionPlans from "../../Pages/Manager/SubscriptionPlans";
 import IsSubscribed from "./IsSubscribed";
+import Employees from "../../Pages/Manager/Employees";
 
 
 function ManagerRoute() {
@@ -26,7 +27,8 @@ function ManagerRoute() {
             <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
             <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
             {/* <Route path="/addEvent" element={<AddEvent/>}/> */}
-            <Route path="/myEvents" element={<MyEvents/>}/>
+            <Route path="/myEvents" element={<Protect><IsSubscribed><MyEvents/></IsSubscribed></Protect>}/>
+            <Route path="/employeeMgt" element={<Protect><IsSubscribed><Employees/></IsSubscribed></Protect>}/>
            
         </Routes>
       

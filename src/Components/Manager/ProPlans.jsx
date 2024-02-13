@@ -15,27 +15,31 @@ import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
 
 function ProPlans() {
   const { manager } = useSelector((state) => state.managerSlice);
+  console.log(manager);
 
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const showModal = () => {
     if (manager.isTrailed) {
       setOpen(true);
     }
-    setLoading(false)
+    setLoading(false);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
 
   const subscriptionSelected = async (scheme) => {
     try {
-     
       setLoading(true);
-      const res = await subscribe({ selectedPlan: scheme, managerId : manager.id });
+      const res = await subscribe({
+        selectedPlan: scheme,
+        managerId: manager._id,
+      });
       toast(`🦄 ${res.data.message}`, {
         position: "top-center",
         autoClose: 5000,
@@ -57,35 +61,33 @@ function ProPlans() {
     }
   };
   useEffect(() => {
-    setLoading(true)
-    showModal()
+    setLoading(true);
+    if(manager.isTrailed){
+    showModal();
+    }
   }, []);
   return (
     <>
-    {/* <LoaderManager loading={loading}/> */}
-      <>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Subcription Ended"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Your trail plan is ended kindly upgrage the the plan to use our service. 
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            {/* <Button FonClick={handleClose}>Disagree</Button> */}
-            <Button onClick={handleClose} >
-              Okay
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </>
+      <LoaderManager loading={loading} />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Subcription Ended"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Your current plan is expired,Please upgrage your account to continue
+            our service.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          {/* <Button onClick={handleClose}>Disagree</Button> */}
+          <Button onClick={handleClose}>Okay</Button>
+        </DialogActions>
+      </Dialog>
+
       <div className="absolute top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
         <div className="mx-auto max-w-3xl px-4 py-24 sm:px-6 sm:pt-52 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-center md:gap-8">
@@ -223,8 +225,7 @@ function ProPlans() {
               </ul>
 
               <a
-                href="#"
-                onClick={subscriptionSelected("Yearly")}
+                onClick={() => subscriptionSelected("Yearly")}
                 className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-indigo-700 hover:ring-1 hover:ring-indigo-700 focus:outline-none focus:ring "
               >
                 Get Started
@@ -328,7 +329,7 @@ function ProPlans() {
 
               <a
                 href="#"
-                onClick={subscriptionSelected("Monthly")}
+                onClick={() => subscriptionSelected("Monthly")}
                 //   className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-indigo-600 hover:ring-1 hover:ring-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
                 className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-indigo-700 hover:ring-1 hover:ring-indigo-700 focus:outline-none focus:ring active:text-white"
               >

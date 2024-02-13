@@ -6,6 +6,7 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 
 const customerUrl = baseURL
 const managerUrl = ` ${baseURL}/manager`
+const employeeUrl = `${baseURL}/employee`
 
 
 // Axios instance creator
@@ -54,4 +55,6 @@ export const handleError = (error) => {
 
 
 export const managerAxiosInstance = createAxiosInstance(managerUrl)
-export const customerAxiosInstance = createAxiosInstance(customerUrl);
+export const customerAxiosInstance = createAxiosInstance(customerUrl)
+export const employeeAxiosInstance = createAxiosInstance(employeeUrl)
+ 

@@ -123,7 +123,7 @@ function Event() {
               </div>
             ) : (
               <>
-                <div className="container mx-auto pt-10 flex items-center justify-center ">
+                <div className="container mx-auto py-24 flex items-center justify-center ">
                   <div className="grid h-auto place-content-center bg-white">
                     <DataNotFound />
                   </div>

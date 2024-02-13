@@ -61,17 +61,15 @@ function Header() {
                     <Link to="/manager/events">Events</Link>
                   </li>
                   <li>
-                    <a>Employees</a>
+                    <Link to={"/manager/employeeMgt"}>Employee Management</Link>
                   </li>
-                  <li>
-                    <a>Employees</a>
-                  </li>
+                 
                 </ul>
               </details>
             </li>
-            {/* <li>
-              <a>Item 3</a>
-            </li> */}
+            <li>
+              <Link className="text-white">Account</Link>
+            </li>
           </ul>
         </div>
         <div className="navbar-end">

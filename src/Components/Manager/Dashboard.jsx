@@ -41,7 +41,7 @@ function Dashboard() {
       {loading ? (
         <LoaderManager loading={loading} />
       ) : (
-        <div className="mt-16  top-0 z-[-2] h-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+        <div className="mt-16 top-0 z-[-2] h-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
           <div className="carousel-container">
             <h2 className="text-center py-10 font-sans">TODAYS EVENTS</h2>
             {todaysEvents?.length > 0 ? (
