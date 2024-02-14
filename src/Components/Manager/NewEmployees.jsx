@@ -76,7 +76,7 @@ export default function NewEmployees({ open, setOpen }) {
                       <th>Name</th>
                       <th>Email</th>
                       <th>Registered On</th>
-                      <th></th>
+                      <th>Approve</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -96,11 +96,11 @@ export default function NewEmployees({ open, setOpen }) {
                           <td>
                             <button
                               className="group cursor-pointer outline-none hover:rotate-90 duration-300"
-                              title="Add New"
+                              title="Approve"
                               onClick={() => handleApproval(employee._id)}
                             >
                               <svg
-                                className="stroke-black fill-none group-hover:white group-active:stroke-black group-active:fill-blue-gray-600 group-active:duration-0 duration-300"
+                                className="stroke-black fill-none group-hover:white group-active:stroke-black group-active:fill-blue-gray-100 group-active:duration-0 duration-300"
                                 viewBox="0 0 24 24"
                                 height="30px"
                                 width="30px"

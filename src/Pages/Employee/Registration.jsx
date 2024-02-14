@@ -27,12 +27,14 @@ function Registration() {
         setErrorName("Name cannot contain numbers.");
         return;
       }
-      const res = await employeeRegister({email,name});
+      const res = await employeeRegister({ email, name });
 
-      toast.success(res.data.message, {
+      toast.success(res?.data?.message, {
         position: "top-center",
         hideProgressBar: true,
       });
+      setEmail("");
+      setName("");
     } finally {
       setTimeout(() => {
         setLoading(false);

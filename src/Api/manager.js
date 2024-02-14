@@ -68,30 +68,42 @@ export const getEventData = async (eventId) => {
 export const getTodaysEvents = async () => {
     const data = await managerAxiosInstance.get('/getTodaysEvents')
     return data
-} 
+}
 
-export const getUpcomingEvents = async()=>{
+export const getUpcomingEvents = async () => {
     const data = await managerAxiosInstance.get('/getUpcomingEvents')
     return data
 }
 
-export const  subscribe = async(datas)=>{
-   
-    const data = await managerAxiosInstance.post('/subscribe',datas)
+export const subscribe = async (datas) => {
+
+    const data = await managerAxiosInstance.post('/subscribe', datas)
     return data
 }
 
-export const isSubscribed = async() => {
+export const isSubscribed = async () => {
     const data = await managerAxiosInstance.get('/isSubscribed')
     return data
 }
 
-export const getNewEmployees = async() => {
+export const getNewEmployees = async () => {
     const data = await managerAxiosInstance.get('/getNewEmployees')
     return data
 }
 
 export const approveNewEmployees = async (employeeId) => {
+    console.log(employeeId);
     const data = await managerAxiosInstance.get(`/approveEmployee?employeeId=${employeeId}`)
+    return data
+}
+
+export const getAllEmployees = async () => {
+    const data = await managerAxiosInstance.get('/getAllEmployees')
+    return data
+}
+
+export const blockAndUnblockEmployee = async (employeeId) => {
+    console.log(employeeId);
+    const data = await managerAxiosInstance.patch(`/blockUnblockEmployee?employeeId=${employeeId}`)
     return data
 }

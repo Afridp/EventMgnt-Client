@@ -42,6 +42,7 @@ function Event() {
   if (events?.length) {
     currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
   }
+  console.log(currentEvents,"this is vcu");
   const paginate = (number) => setCurrentPage(number);
 
   return (

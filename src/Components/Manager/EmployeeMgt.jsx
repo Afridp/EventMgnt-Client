@@ -1,222 +1,236 @@
-
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import {
-  Card,
-  CardHeader,
-  Typography,
-  Button,
-  CardBody,
-  Chip,
-  CardFooter,
-  Avatar,
-  IconButton,
-  Tooltip,
-} from "@material-tailwind/react";
+import { Typography, Chip, Avatar } from "@material-tailwind/react";
 
 import NewEmployees from "./NewEmployees";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { blockAndUnblockEmployee, getAllEmployees } from "../../Api/manager";
+import Search from "./Search";
+import Pagination from "./Pagination";
 
 const TABLE_HEAD = ["Employee", "Position", "Status", "Employed On", "Action"];
 
-const TABLE_ROWS = [
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "john@creative-tim.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
-];
-
-
 export function EmployeeMgt() {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className="h-scrren sm:mx-20 sm:mt-16 mt-14">
-      <Card className="h-full w-full">
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-            
-          <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
-            <div>
-              <Typography variant="h5" color="blue-gray">
-                Employees list
-              </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
-                See information about all employees
-              </Typography>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Button variant="outlined" size="sm" onClick={()=>setOpen(true)}>
-                
-                New Employees
-                
-              </Button>
-              {open && <NewEmployees open={open} setOpen={setOpen}/>}
-              
-              <Button className="flex items-center gap-3" size="sm">
-                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Create Employee
-              </Button>
-            </div>
-          </div>
-         
-        </CardHeader>
-        <CardBody className="overflow-scroll px-0">
-          <div className="overflow-x-auto">
-            <table className="mt-4 w-full min-w-max table-auto text-left">
-              <thead>
-                <tr>
-                  {TABLE_HEAD.map((head) => (
-                    <th
-                      key={head}
-                      className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal leading-none opacity-70"
-                      >
-                        {head}
-                      </Typography>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {TABLE_ROWS.map(
-                  ({ img, name, email, job, org, online, date }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
-                    const classes = isLast
-                      ? "p-4"
-                      : "p-4 border-b border-blue-gray-50";
+  const [open, setOpen] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const [currentPage, setCurrentPage] = useState("");
+  const [employeesPerPage] = useState(6);
 
-                    return (
-                      <tr key={name}>
-                        <td className={classes}>
-                          <div className="flex items-center gap-3">
-                            <Avatar src={img} alt={name} size="sm" />
-                            <div className="flex flex-col">
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {name}
-                              </Typography>
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal opacity-70"
-                              >
-                                {email}
-                              </Typography>
-                            </div>
-                          </div>
-                        </td>
-                        <td className={classes}>
+  const fetchAllEmployees = async () => {
+    try {
+      const res = await getAllEmployees();
+      setEmployees(res.data.employees);
+      setCurrentPage(1);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // const handleDetails = async() =>{
+  //   try {
+
+  //   } catch (error) {
+
+  //   }
+  // }
+
+  const handleBlockUnblock = async (employeeId) => {
+    try {
+      const res = await blockAndUnblockEmployee(employeeId);
+      const updatedEmployees = employees.map((employee) => {
+        if (employee._id === employeeId) {
+          return {
+            ...employee,
+            isBlocked: res.data.isBlocked, // Assuming the response structure
+          };
+        }
+        return employee;
+      });
+      setEmployees(updatedEmployees);
+    } finally {
+      setLoadig(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllEmployees();
+  }, [open]);
+
+  let currentEmployees;
+  console.log(employees, "this is emplot");
+  const indexOfLastEmployee = currentPage * employeesPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+
+  if (employees?.length) {
+    console.log(employees, "this is inside ");
+    currentEmployees = employees.slice(
+      indexOfFirstEmployee,
+      indexOfLastEmployee
+    );
+  }
+  console.log(currentEmployees, "this is cusr");
+  const paginate = (number) => setCurrentPage(number);
+  return (
+    <>
+      <div className="container mx-auto mt-28 flex items-center justify-between ">
+        <Search />
+        <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-blue-800 hover:text-white hover:outline-none duration-300 active:scale-[0.99]">
+          <a className="font-bold" onClick={() => setOpen(true)}>
+            New Employees
+          </a>
+        </button>
+      </div>
+      {open && <NewEmployees open={open} setOpen={setOpen} />}
+      <div className="sm:mx-20 sm:mt-12 border rounded-lg overflow-x-auto">
+        <table className="w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th
+                  key={head}
+                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                >
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal leading-none opacity-70"
+                  >
+                    {head}
+                  </Typography>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {currentEmployees?.length > 0 ? (
+              currentEmployees.map(
+                (
+                  {
+                    profile,
+                    name,
+                    email,
+                    position,
+                    status,
+                    createdAt,
+                    isBlocked,
+                    _id,
+                  },
+                  index
+                ) => {
+                  const isLast = index === employees.length - 1;
+                  const classes = isLast
+                    ? "p-4 "
+                    : "p-4 border-b border-blue-gray-50";
+
+                  return (
+                    <tr key={_id}>
+                      <td className={classes}>
+                        <div className="flex items-center gap-3">
+                          <Avatar
+                            src={
+                              profile ??
+                              "https://www.svgrepo.com/show/507440/user.svg"
+                            }
+                            alt={name}
+                            size="sm"
+                          />
                           <div className="flex flex-col">
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal"
                             >
-                              {job}
+                              {name}
                             </Typography>
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal opacity-70"
                             >
-                              {org}
+                              {email}
                             </Typography>
                           </div>
-                        </td>
-                        <td className={classes}>
-                          <div className="w-max">
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {position ?? "Nil"}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <div className="w-max">
+                          <Chip
+                            variant="ghost"
+                            size="sm"
+                            icon={
+                              status ? (
+                                <span className="mx-auto mt-1 block h-2 w-2 rounded-full bg-green-900 content-['']" />
+                              ) : (
+                                <span className="mx-auto mt-1 block h-2 w-2 rounded-full bg-blue-gray-700 content-['']" />
+                              )
+                            }
+                            value={status ? "Active" : "Inactive"}
+                            color={status ? "green" : "blue-gray"}
+                          />
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {new Date(createdAt).toLocaleDateString("en-GB")}
+                        </Typography>
+                      </td>
+
+                      <td className={classes}>
+                        <div className="flex items-center gap-3 w-max">
+                          <button>
                             <Chip
-                              variant="ghost"
+                              variant="filled"
+                              onClick={() => handleBlockUnblock(_id)}
                               size="sm"
-                              value={online ? "Active" : "Inactive"}
-                              color={online ? "green" : "blue-gray"}
+                              value={isBlocked ? "Block" : "unblock"}
+                              color={isBlocked ? "red" : "green"}
                             />
-                          </div>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {date}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Tooltip content="Edit User">
-                            <IconButton variant="text">
-                              <PencilIcon className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
-                      </tr>
-                    );
-                  }
-                )}
-              </tbody>
-            </table>
-          </div>
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 10
-          </Typography>
-          <div className="flex gap-2">
-            <Button variant="outlined" size="sm">
-              Previous
-            </Button>
-            <Button variant="outlined" size="sm">
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-      </Card>
-    </div>
+                          </button>
+
+                          <button>
+                            <Chip
+                              variant="filled"
+                              size="sm"
+                              value="Details"
+                              color="blue"
+                              // onClick={() => handleDetails(_id)}
+                            />
+                          </button>
+                          {/* Details Button */}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                }
+              )
+            ) : (
+              <tr>
+                <td colSpan="5" className="text-center">
+                  <h1 className="my-4 text">No Employees</h1>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-10">
+        <Pagination
+          datasPerPage={employeesPerPage}
+          totalData={employees.length}
+          paginate={paginate}
+        />
+      </div>
+    </>
   );
 }
