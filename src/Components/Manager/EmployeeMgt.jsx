@@ -12,7 +12,7 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+
 import NewEmployees from "./NewEmployees";
 import { useState } from "react";
 
@@ -90,7 +90,7 @@ export function EmployeeMgt() {
                 New Employees
                 
               </Button>
-              {open && <NewEmployees/>}
+              {open && <NewEmployees open={open} setOpen={setOpen}/>}
               
               <Button className="flex items-center gap-3" size="sm">
                 <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Create Employee
