@@ -65,6 +65,7 @@ function ProPlans() {
     if(manager.isTrailed){
     showModal();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
