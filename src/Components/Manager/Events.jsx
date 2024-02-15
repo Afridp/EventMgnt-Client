@@ -36,7 +36,7 @@ function Events() {
         <LoaderManager loading={loading} />
       ) : (
         <>
-          <div className="container mx-auto my-7 flex justify-end mt-24">
+          <div className="container mx-auto my-7 flex justify-end ">
             <div className="w-[150px] h-[50px] ">
               <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-black hover:outline-none hover:text-white duration-300 active:scale-[0.99]">
                 <Link to="/manager/myEvents" className="font-bold" href="#">
@@ -46,9 +46,9 @@ function Events() {
             </div>
             <div className="w-[150px] h-[50px] ">
               <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-blue-800 hover:text-white hover:outline-none duration-300 active:scale-[0.99]">
-                <a className="font-bold" href="#">
-                  New events
-                </a>
+                <Link to={'/manager/newEvents'} className="font-bold">
+                  New Events
+                </Link>
               </button>
             </div>
           </div>{" "}
@@ -56,7 +56,7 @@ function Events() {
             events.map((event) => (
               <div
                 key={event._id}
-                className="container mx-auto my-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border"
+                className="container mx-auto my-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 fade-ef"
               >
                 <a
                   href="#"

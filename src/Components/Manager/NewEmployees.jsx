@@ -20,7 +20,7 @@ export default function NewEmployees({ open, setOpen }) {
     } finally {
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 200);
     }
   };
 

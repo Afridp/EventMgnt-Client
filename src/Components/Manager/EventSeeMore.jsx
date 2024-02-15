@@ -29,7 +29,9 @@ export const EventSeeMore = () => {
   
   useEffect(() => {
     fetchEventData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <section className="min-h-screen bg-cover">
       <div className="mx-auto max-w-screen-xl  px-4 py-0 sm:px-6 lg:px-8">

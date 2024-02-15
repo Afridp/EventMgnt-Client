@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div>
-      <div className="navbar fixed top-0 left-0 w-full  bg-black bg-opacity-50 backdrop-blur-md z-50">
+      <div className="navbar sticky top-0 left-0 w-full  bg-black bg-opacity-50 backdrop-blur-md z-50">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,12 +56,15 @@ function Header() {
             <li>
               <details>
                 <summary className="text-white">Manage</summary>
-                <ul className="p-1">
+                <ul className="p-1 font-bold">
                   <li>
                     <Link to="/manager/events">Events</Link>
                   </li>
                   <li>
-                    <Link to={"/manager/employeeMgt"}>Employee Management</Link>
+                    <Link to={"/manager/employeeMgt"}>Employees</Link>
+                  </li>
+                  <li>
+                    <Link to={"/manager/customerMgt"}>Customers</Link>
                   </li>
                  
                 </ul>

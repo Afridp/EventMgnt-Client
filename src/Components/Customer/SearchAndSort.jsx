@@ -4,7 +4,6 @@ import React from "react";
 const SearchAndSort = React.memo(
   // eslint-disable-next-line react/prop-types
   ({ searchQuery, setSearchQuery, setSortOptions, sortOptions, forPage }) => {
-   
     // const [sortOptions, setSortOptions] = useState("");
 
     // useEffect(() => {
@@ -21,8 +20,6 @@ const SearchAndSort = React.memo(
     //   setSortOptions(sortOption);
     //   onSort(sortOption);
     // };
-
- 
 
     return (
       <div className="flex items-center justify-around">
@@ -71,31 +68,29 @@ const SearchAndSort = React.memo(
               value={sortOptions}
               onChange={(e) => setSortOptions(e.target.value)}
             >
-              {
-                forPage == "eventList" ? (
-                  <>
-                    {/* <Option value="dateAscending">Date Ascending</Option> */}
-                    <option value="" disabled defaultValue={true}>
-                      Sort By{" "}
-                    </option>
-                    <option value="eventNameAscending">
-                      Event Name Ascending{" "}
-                    </option>
-                    <option value="eventNameDescending">
-                      Event Name Descending
-                    </option>
-                    {/* <Option value="dateDescending">Date Descending</Option> */}
-                  </>
-                ) : (
-                  <>
-                    <option value="" disabled defaultValue={true}>
-                      Sort By{" "}
-                    </option>
-                    <option value="dateAscending">Date Ascending</option>
-                    <option value="dateDescending">Date Descending</option>
-                  </>
-                )
-              }
+              {forPage == "eventList" ? (
+                <>
+                  {/* <Option value="dateAscending">Date Ascending</Option> */}
+                  <option value="" disabled defaultValue={true}>
+                    Sort By{" "}
+                  </option>
+                  <option value="eventNameAscending">
+                    Event Name Ascending{" "}
+                  </option>
+                  <option value="eventNameDescending">
+                    Event Name Descending
+                  </option>
+                  {/* <Option value="dateDescending">Date Descending</Option> */}
+                </>
+              ) : (
+                <>
+                  <option value="" disabled defaultValue={true}>
+                    Sort By{" "}
+                  </option>
+                  <option value="dateAscending">Date Ascending</option>
+                  <option value="dateDescending">Date Descending</option>
+                </>
+              )}
             </select>
           </div>
         </div>

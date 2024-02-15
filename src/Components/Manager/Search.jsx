@@ -1,5 +1,6 @@
+import PropTypes from "prop-types";
 
-function Search() {
+function Search({ searchQuery, setSearchQuery }) {
   return (
     <>
       <div className="relative">
@@ -11,8 +12,10 @@ function Search() {
         <input
           type="text"
           id="Search"
-          placeholder="Search for..."
+          placeholder="Search for Names..."
           className="w-full rounded-md border-gray-200 py-2.5 pe-36 shadow-sm sm:text-sm"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
 
         <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
@@ -39,5 +42,10 @@ function Search() {
     </>
   );
 }
+
+Search.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
+  setSearchQuery: PropTypes.func.isRequired,
+};
 
 export default Search;

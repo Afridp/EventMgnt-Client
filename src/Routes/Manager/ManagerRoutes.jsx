@@ -12,6 +12,7 @@ import EventSeemore from "../../Pages/Manager/EventSeemore";
 import SubscriptionPlans from "../../Pages/Manager/SubscriptionPlans";
 import IsSubscribed from "./IsSubscribed";
 import Employees from "../../Pages/Manager/Employees";
+import NewEvents from "../../Pages/Manager/NewBookings";
 
 
 function ManagerRoute() {
@@ -28,6 +29,7 @@ function ManagerRoute() {
             <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
             {/* <Route path="/addEvent" element={<AddEvent/>}/> */}
             <Route path="/myEvents" element={<Protect><IsSubscribed><MyEvents/></IsSubscribed></Protect>}/>
+            <Route path="/newEvents" element={<Protect><IsSubscribed><NewEvents/></IsSubscribed></Protect>}/>
             <Route path="/employeeMgt" element={<Protect><IsSubscribed><Employees/></IsSubscribed></Protect>}/>
            
         </Routes>

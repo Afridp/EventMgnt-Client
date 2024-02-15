@@ -92,18 +92,21 @@ export const getNewEmployees = async () => {
 }
 
 export const approveNewEmployees = async (employeeId) => {
-    console.log(employeeId);
     const data = await managerAxiosInstance.get(`/approveEmployee?employeeId=${employeeId}`)
     return data
 }
 
-export const getAllEmployees = async () => {
-    const data = await managerAxiosInstance.get('/getAllEmployees')
+export const getAllEmployees = async ({search}) => {
+    const data = await managerAxiosInstance.get(`/getAllEmployees?search=${search}`)
     return data
 }
 
 export const blockAndUnblockEmployee = async (employeeId) => {
-    console.log(employeeId);
     const data = await managerAxiosInstance.patch(`/blockUnblockEmployee?employeeId=${employeeId}`)
+    return data
+}
+
+export const getNewBookings = async () =>{
+    const data = await managerAxiosInstance.get(`/getNewBookings`)
     return data
 }
