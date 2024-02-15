@@ -7,22 +7,34 @@ import LoaderEmployee from "../ErrorPages/LoaderEmployee";
 
 function Registration() {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [name, setName] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorName, setErrorName] = useState("");
   const [loading, setLoading] = useState(false);
   const handleSubmit = async () => {
     try {
       setLoading(true);
       const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       if (!isValidEmail) {
-        setError("Please enter a valid email address.");
+        setErrorEmail("Please enter a valid email address.");
         return;
       }
-      const res = await employeeRegister(email);
+      if (!name.trim()) {
+        setErrorName("Please enter your name.");
+        return;
+      }
+      if (/\d/.test(name)) {
+        setErrorName("Name cannot contain numbers.");
+        return;
+      }
+      const res = await employeeRegister({ email, name });
 
-      toast.success(res.data.message, {
+      toast.success(res?.data?.message, {
         position: "top-center",
         hideProgressBar: true,
       });
+      setEmail("");
+      setName("");
     } finally {
       setTimeout(() => {
         setLoading(false);
@@ -53,7 +65,9 @@ function Registration() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
               />
-              {error && <div className="col-span-2 text-red-600">{error}</div>}
+              {errorEmail && (
+                <div className="col-span-2 text-red-600">{errorEmail}</div>
+              )}
 
               <span className="absolute start-0 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
                 Email
@@ -64,14 +78,16 @@ function Registration() {
               className="relative block mx-20 mb-14 overflow-hidden border-b border-gray-200 bg-transparent pt-3 focus-within:border-blue-600"
             >
               <input
-                type="email"
-                id="UserEmail"
-                value={email}
-                placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                id="name"
+                value={name}
+                placeholder="name"
+                onChange={(e) => setName(e.target.value)}
                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
               />
-              {error && <div className="col-span-2 text-red-600">{error}</div>}
+              {errorName && (
+                <div className="col-span-2 text-red-600">{errorName}</div>
+              )}
 
               <span className="absolute start-0 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
                 Name
@@ -88,12 +104,14 @@ function Registration() {
             </Link>
           </Typography>
           <div className="flex items-center justify-center -mt-10 pb-7">
-            <a
+            <button
               className="inline-block bg-black px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
               onClick={() => handleSubmit()}
+              role="button"
+              tabIndex="0"
             >
               Submit
-            </a>
+            </button>
           </div>
         </div>
       )}

@@ -17,7 +17,7 @@ function Bookings() {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOptions, setSortOptions] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState("");
   const [bookingsPerPage] = useState(5);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
@@ -61,9 +61,12 @@ function Bookings() {
   let currentBookings = null;
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
+
   if (bookings?.length) {
+    console.log(bookings,"this i");
     currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
   }
+
   const paginate = (number) => setCurrentPage(number);
 
   return (

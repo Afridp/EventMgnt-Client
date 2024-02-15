@@ -57,6 +57,7 @@ function BookingForm() {
         return;
       }
       setLoading(true);
+      values.location = location
       let updatedValues = values;
 
       if (values.themeImage) {
@@ -65,11 +66,11 @@ function BookingForm() {
         updatedValues = {
           ...restValues,
           themeImage: dataURL,
-          location: location,
+          
         };
       }
 
-      const res = await bookEvent(updatedValues, customer._id, location);
+      const res = await bookEvent(updatedValues, customer._id);
       toast.success(res.data.message, {
         position: toast.POSITION.TOP_CENTER,
       });

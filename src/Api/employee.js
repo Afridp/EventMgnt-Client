@@ -14,8 +14,7 @@ employeeAxiosInstance.interceptors.response.use(
 
 // Api's
 
-export const employeeRegister = async(email) => {
-    
-    const data = await employeeAxiosInstance.post('/register',{email})
+export const employeeRegister = async(values) => {
+    const data = await employeeAxiosInstance.post('/register',values)
     return data
 }
