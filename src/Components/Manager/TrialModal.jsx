@@ -8,15 +8,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import {  subscribe } from "../../Api/manager";
+import { subscribe } from "../../Api/manager";
 import { Bounce, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setManagerDetails } from "../../Redux/slice/managerSlice";
 // import { swal } from "sweetalert2/dist/sweetalert2";
 
 // eslint-disable-next-line react/prop-types
-function TrialModal({ managerId }) {
-  
+function TrialModal({ managerId, showTrail }) {
   const [subNotification, setSubNotification] = useState(false);
   const [openConfirmation, setOpenConfimation] = useState(false);
   const [loading, setloading] = useState(false);
@@ -69,17 +68,6 @@ function TrialModal({ managerId }) {
     }
   };
 
-  //   const checkSubscribed = async () => {
-  //     try {
-  //       const res = await isSubscribed();
-  //       console.log(res.status);
-  //       if (res.status === 200) {
-  //        setSubNotification(true)
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
 
   useEffect(() => {
     handleOpenNotification();
@@ -113,11 +101,15 @@ function TrialModal({ managerId }) {
                     <div className="flex flex-wrap items-center -mx-4">
                       <div className="w-full px-4 lg:w-1/2">
                         <span className="block mb-4 text-base font-medium text-white">
-                          Find Your Next Dream App
+                          {showTrail
+                            ? "Find Your Next Dream App"
+                            : "Plan is expired"}
                         </span>
                         <h2 className="mb-6 text-3xl font-bold leading-tight text-white sm:mb-8 sm:text-[40px]/[48px] lg:mb-0">
-                          <span className="xs:block"> Get started with </span>
-                          <span>our free trial</span>
+                          <span className="xs:block"> {showTrail ? "Get started with" : "Your current subscription plan is ended"} </span>
+                          <span>
+                            {showTrail ? "our free trial" : "Upgrage to any plan"}
+                          </span>
                         </h2>
                       </div>
                       <div className="w-full px-4 lg:w-1/2">
@@ -127,15 +119,17 @@ function TrialModal({ managerId }) {
                             href="javascript:void(0)"
                             className="inline-flex py-3 my-1 mr-4 text-base font-medium transition bg-white rounded-md hover:bg-yellow-300 hover:text-black hover:border-yellow-700 hover:border  text-primary px-7"
                           >
-                            Get Premium Now
+                            {showTrail ? "Get Premium Now" : "Upgrage Now"}
                           </Link>
-                          <a
-                            onClick={handleTrailConfirm}
-                            href="javascript:void(0)"
-                            className="inline-flex py-3 my-1 text-base font-medium text-white transition rounded-md bg-secondary px-7 hover:bg-opacity-90 hover:border hover:border-white"
-                          >
-                            Start Free Trial
-                          </a>
+                          {showTrail && (
+                            <a
+                              onClick={handleTrailConfirm}
+                              href="javascript:void(0)"
+                              className="inline-flex py-3 my-1 text-base font-medium text-white transition rounded-md bg-secondary px-7 hover:bg-opacity-90 hover:border hover:border-white"
+                            >
+                              Start Free Trial
+                            </a>
+                          )}
                         </div>
                       </div>
                     </div>

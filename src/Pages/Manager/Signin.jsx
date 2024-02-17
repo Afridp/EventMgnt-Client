@@ -2,19 +2,26 @@
 import { Typography } from "@material-tailwind/react";
 import { managerSignin } from "../../Api/manager";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { setManagerDetails } from "../../Redux/slice/managerSlice";
 import { useFormik } from "formik";
 import { signinValidation } from "../../ValidationSchemas/managerValidation/signin";
 import { toast } from "react-toastify";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 
 function Signin() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const location = useLocation();
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParam = new URLSearchParams(location.search);
+    const msg = queryParam.get("msg");
+    if (msg) {
+      toast.success(queryParam, { position: toast.POSITION.TOP_CENTER });
+    }
+  }, []);
 
   const { values, errors, touched, getFieldProps, handleSubmit } = useFormik({
     initialValues: {
@@ -32,7 +39,7 @@ function Signin() {
 
       const { token, managerData } = res.data;
       localStorage.setItem("managerToken", token);
-      // localStorage.setItem("managerId", managerData._id) 
+      // localStorage.setItem("managerId", managerData._id)
       dispatch(
         setManagerDetails({
           token: token,
@@ -71,8 +78,6 @@ function Signin() {
             value={values.signinDetails}
             {...getFieldProps("signinDetails")}
 
-         
-
             // * short usage of these three *
 
             // {...getFieldProps("cemail")}
@@ -83,7 +88,6 @@ function Signin() {
             )}
           </div>
         </label>
-       
 
         <label className="form-control w-full max-w-xs">
           <div className="label">
@@ -98,18 +102,16 @@ function Signin() {
             value={values.password}
             {...getFieldProps("password")}
 
-         
-
             // * short usage of these three *
 
             // {...getFieldProps("cemail")}
           />
-      
-        <div className="label">
-          {errors.password && touched.password && (
-            <small className="text-red-800">{errors.password}</small>
-          )}
-        </div>
+
+          <div className="label">
+            {errors.password && touched.password && (
+              <small className="text-red-800">{errors.password}</small>
+            )}
+          </div>
         </label>
 
         <div className="flex justify-center">

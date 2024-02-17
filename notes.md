@@ -24,11 +24,7 @@
  * need to change the ui and ux of customer profile page 
  * change date format changing when inserting to db,change or convet the format where we are trying to show
  * change customer profile page to simplified and compact using fnns and componts
-
-
-
-
-
+ * change local storage to cookies storage
 
 
  > doubts to ask 

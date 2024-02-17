@@ -62,10 +62,11 @@ function ProPlans() {
   };
   useEffect(() => {
     setLoading(true);
-    if(manager.isTrailed){
-    showModal();
+    if (manager.isTrailed && !manager.subscribed) {
+      showModal();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

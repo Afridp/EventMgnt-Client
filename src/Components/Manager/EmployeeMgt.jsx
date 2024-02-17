@@ -44,15 +44,15 @@ export function EmployeeMgt() {
     try {
       setLoadig(true);
       const res = await blockAndUnblockEmployee(employeeId);
-      const updatedEmployees = employees.map((employee) => {
-        if (employee._id === employeeId) {
-          return {
-            ...employee,
-            isBlocked: res.data.isBlocked, // Assuming the response structure
-          };
-        }
-        return employee;
-      });
+        const updatedEmployees = employees.map((employee) => {
+          if (employee._id === employeeId) {
+            return {
+              ...employee,
+              isBlocked: res.data.isBlocked, // Assuming the response structure
+            };
+          }
+          return employee;
+        });
       setEmployees(updatedEmployees);
     } finally {
       setLoadig(false);

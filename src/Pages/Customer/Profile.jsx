@@ -5,12 +5,9 @@ import Footer from "../../Components/Customer/Footer";
 function Profile() {
   return (
     <>
-      
-        
-        <Navbar />
-        <ProfileBody />
-        <Footer />
-
+      <Navbar />
+      <ProfileBody />
+      <Footer />
     </>
   );
 }

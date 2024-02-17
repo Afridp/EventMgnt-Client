@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
 import DataNotFoundManager from "../../Pages/ErrorPages/DataNotFoundManager";
 
-
 function Dashboard() {
   const { manager } = useSelector((state) => state.managerSlice);
 
@@ -13,9 +12,6 @@ function Dashboard() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
-  
-  
   const fetchTodaysUpcomingEvents = async () => {
     try {
       const res = await getTodaysEvents();
@@ -36,8 +32,12 @@ function Dashboard() {
 
   return (
     <>
-      
-      {!manager.isTrailed && <TrialModal managerId={manager._id} />}
+      {manager.isTrailed && !manager.subscribed && (
+        <TrialModal showTrail={false} managerId={manager._id} />
+      )}
+      {!manager.isTrailed && (
+        <TrialModal showTrail={true} managerId={manager._id} />
+      )}
       {loading ? (
         <LoaderManager loading={loading} />
       ) : (
@@ -48,7 +48,7 @@ function Dashboard() {
               todaysEvents.map((event) => (
                 <div
                   key={event._id}
-                  className="carousel carousel-end rounded-box px-10 "
+                  className="carousel carousel-end rounded-box px-1 "
                 >
                   <div className="carousel-item mr-4">
                     <img
@@ -76,7 +76,7 @@ function Dashboard() {
               upcomingEvents.map((event) => (
                 <div
                   key={event._id}
-                  className="carousel carousel-end rounded-box px-10"
+                  className="carousel carousel-end rounded-box px-1"
                 >
                   <div className="carousel-item mr-4">
                     <img

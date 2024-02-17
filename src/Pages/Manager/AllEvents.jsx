@@ -1,14 +1,13 @@
-
-import Events from '../../Components/Manager/Events'
-import Header from '../../Components/Manager/Header'
+import Events from "../../Components/Manager/Events";
+import Header from "../../Components/Manager/Header";
 
 function AllEvents() {
   return (
     <>
-    <Header/>
-    <Events/>
+      <Header />
+      <Events />
     </>
-  )
+  );
 }
 
-export default AllEvents
+export default AllEvents;

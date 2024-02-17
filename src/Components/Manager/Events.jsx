@@ -46,19 +46,17 @@ function Events() {
             </div>
             <div className="w-[150px] h-[50px] ">
               <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-blue-800 hover:text-white hover:outline-none duration-300 active:scale-[0.99]">
-                <Link to={'/manager/newEvents'} className="font-bold">
+                <Link to={"/manager/newEvents"} className="font-bold">
                   New Events
                 </Link>
               </button>
             </div>
           </div>{" "}
-          {events?.length > 0 ? (
-            events.map((event) => (
-              <div
-                key={event._id}
-                className="container mx-auto my-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 fade-ef"
-              >
+          <div className="container mx-auto my-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 fade-ef">
+            {events?.length > 0 ? (
+              events.map((event) => (
                 <a
+                  key={event._id}
                   href="#"
                   className="block rounded-lg p-4 shadow-md border-gray-200 border shadow-gray-300"
                 >
@@ -126,15 +124,15 @@ function Events() {
                     </div>
                   </div>
                 </a>
-              </div>
-            ))
-          ) : (
-            <>
-              <div className="mt-64">
-                <DataNotFoundManager />
-              </div>
-            </>
-          )}
+              ))
+            ) : (
+              <>
+                <div className="mt-64">
+                  <DataNotFoundManager />
+                </div>
+              </>
+            )}
+          </div>
         </>
       )}
     </>

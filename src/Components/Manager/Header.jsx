@@ -71,7 +71,7 @@ function Header() {
               </details>
             </li>
             <li>
-              <Link className="text-white">Account</Link>
+              <Link to={'/manager/account'} className="text-white">Account</Link>
             </li>
           </ul>
         </div>

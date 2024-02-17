@@ -1,14 +1,13 @@
-
-import Header from '../../Components/Manager/Header'
-import ProPlans from '../../Components/Manager/ProPlans'
+import Header from "../../Components/Manager/Header";
+import ProPlans from "../../Components/Manager/ProPlans";
 
 function SubscriptionPlans() {
   return (
     <>
-     <Header/>
-     <ProPlans/> 
+      <Header />
+      <ProPlans />
     </>
-  )
+  );
 }
 
-export default SubscriptionPlans
+export default SubscriptionPlans;

@@ -95,8 +95,16 @@ const EventPage = () => {
   const handleListing = async (eventId) => {
     try {
       const res = await listAndUnlist(eventId);
-      setEvents((prevEvents) => [...prevEvents, res.data.event]);
-
+      const updatedEvents = events.map((event) => {
+        if (event._id === eventId) {
+          return {
+            ...event,
+            isBlocked: res.data.event, // Assuming the response structure
+          };
+        }
+        return event;
+      });
+      setEvents(updatedEvents);
       toast.success(res.data.message, {
         position: toast.POSITION.TOP_CENTER,
       });
