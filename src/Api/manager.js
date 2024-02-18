@@ -76,27 +76,31 @@ export const getUpcomingEvents = async () => {
 }
 
 export const subscribe = async (datas) => {
-
     const data = await managerAxiosInstance.post('/subscribe', datas)
     return data
 }
 
-export const isSubscribed = async () => {
-    const data = await managerAxiosInstance.get('/isSubscribed')
+// export const isSubscribed = async () => {
+//     const data = await managerAxiosInstance.get('/isSubscribed')
+//     return data
+// }
+
+// export const getNewEmployees = async () => {
+//     const data = await managerAxiosInstance.get('/getNewEmployees')
+//     return data
+// }
+
+// export const approveNewEmployees = async (employeeId) => {
+//     const data = await managerAxiosInstance.get(`/approveEmployee?employeeId=${employeeId}`)
+//     return data
+// }
+
+export const employeeRegister = async (values) => {
+    const data = await managerAxiosInstance.post('/register', values)
     return data
 }
 
-export const getNewEmployees = async () => {
-    const data = await managerAxiosInstance.get('/getNewEmployees')
-    return data
-}
-
-export const approveNewEmployees = async (employeeId) => {
-    const data = await managerAxiosInstance.get(`/approveEmployee?employeeId=${employeeId}`)
-    return data
-}
-
-export const getAllEmployees = async ({search}) => {
+export const getAllEmployees = async ({ search }) => {
     const data = await managerAxiosInstance.get(`/getAllEmployees?search=${search}`)
     return data
 }
@@ -106,7 +110,7 @@ export const blockAndUnblockEmployee = async (employeeId) => {
     return data
 }
 
-export const getNewBookings = async () =>{
+export const getNewBookings = async () => {
     const data = await managerAxiosInstance.get(`/getNewBookings`)
     return data
 }

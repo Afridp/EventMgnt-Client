@@ -1,6 +1,6 @@
 import { Typography, Chip, Avatar } from "@material-tailwind/react";
 
-import NewEmployees from "./NewEmployees";
+import NewEmployees from "./AddEmployees";
 import { useEffect, useState } from "react";
 import { blockAndUnblockEmployee, getAllEmployees } from "../../Api/manager";
 import Search from "./Search";
@@ -63,7 +63,7 @@ export function EmployeeMgt() {
     setLoadig(true);
     fetchAllEmployees();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, debouncedSearchQuery]);
+  }, [debouncedSearchQuery]);
 
   let currentEmployees;
   const indexOfLastEmployee = currentPage * employeesPerPage;
@@ -85,11 +85,11 @@ export function EmployeeMgt() {
           <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-blue-800 hover:text-white hover:outline-none duration-300 active:scale-[0.99]">
             <a className="font-bold" onClick={() => setOpen(true)}>
-              New Employees
+              Add Employees
             </a>
           </button>
         </div>
-        {open && <NewEmployees open={open} setOpen={setOpen} />}
+        <NewEmployees open={open} setOpen={setOpen} />
         <div className="sm:mx-20 sm:mt-12 border rounded-lg overflow-x-auto fade-ef">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
