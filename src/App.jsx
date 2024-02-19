@@ -1,22 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-
-
 import "./App.css";
 
 import "react-toastify/dist/ReactToastify.css";
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 
-
-
-
 import ManagerRoutes from "./Routes/Manager/ManagerRoutes";
 import CustomerRoutes from "./Routes/Customer/CustomerRoutes";
-import TestTailwind from "./Pages/Manager/TestTailwind";
 import EmployeeeRoutes from "./Routes/Employee/EmployeeeRoutes";
-
-
 
 function App() {
   return (
@@ -25,8 +17,7 @@ function App() {
       <Routes>
         <Route path="/manager/*" element={<ManagerRoutes />} />
         <Route path="/*" element={<CustomerRoutes />} />
-        <Route path="/Employee/*" element={<EmployeeeRoutes/>}/>
-        <Route path="/test" element={<TestTailwind />} />
+        <Route path="/Employee/*" element={<EmployeeeRoutes />} />
       </Routes>
     </Router>
   );

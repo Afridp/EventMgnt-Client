@@ -23,7 +23,7 @@ export function EmployeeMgt() {
   const fetchAllEmployees = async () => {
     try {
       const res = await getAllEmployees({ search: debouncedSearchQuery });
-      setEmployees(res.data.employees);
+      setEmployees(res?.data?.employees);
       setCurrentPage(1);
     } finally {
       setTimeout(() => {
@@ -112,7 +112,7 @@ export function EmployeeMgt() {
             </thead>
             <tbody>
               {currentEmployees?.length > 0 ? (
-                currentEmployees.map(
+                currentEmployees?.map(
                   (
                     {
                       profile,
@@ -204,8 +204,8 @@ export function EmployeeMgt() {
                                 variant="filled"
                                 onClick={() => handleBlockUnblock(_id)}
                                 size="sm"
-                                value={isBlocked ? "Block" : "unblock"}
-                                color={isBlocked ? "red" : "green"}
+                                value={isBlocked ? "unblock" : "block"}
+                                color={isBlocked ? "green" : "red"}
                               />
                             </button>
 

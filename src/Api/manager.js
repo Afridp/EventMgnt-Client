@@ -80,23 +80,8 @@ export const subscribe = async (datas) => {
     return data
 }
 
-// export const isSubscribed = async () => {
-//     const data = await managerAxiosInstance.get('/isSubscribed')
-//     return data
-// }
-
-// export const getNewEmployees = async () => {
-//     const data = await managerAxiosInstance.get('/getNewEmployees')
-//     return data
-// }
-
-// export const approveNewEmployees = async (employeeId) => {
-//     const data = await managerAxiosInstance.get(`/approveEmployee?employeeId=${employeeId}`)
-//     return data
-// }
-
-export const employeeRegister = async (values) => {
-    const data = await managerAxiosInstance.post('/register', values)
+export const addEmployee = async (values) => {
+    const data = await managerAxiosInstance.post('/addEmployee', values)
     return data
 }
 

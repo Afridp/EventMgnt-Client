@@ -75,6 +75,8 @@ function Signin() {
             className="input input-bordered w-full max-w-xs"
             name="signinDetails"
             id="signinDetails"
+            autoComplete="on"
+            autoSave="on"
             value={values.signinDetails}
             {...getFieldProps("signinDetails")}
 
@@ -99,6 +101,8 @@ function Signin() {
             className="input input-bordered w-full max-w-xs"
             name="password"
             id="password"
+            autoComplete="on"
+            autoSave="on"
             value={values.password}
             {...getFieldProps("password")}
 

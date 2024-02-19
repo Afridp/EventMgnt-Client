@@ -1,13 +1,18 @@
-
 import { Route, Routes } from "react-router-dom";
-import Registration from "../../Pages/Employee/Registration";
+import Login from "../../Pages/Employee/Login";
+import Details from "../../Pages/Employee/Details";
+import Home from "../../Pages/Employee/Home";
 
 function EmployeeeRoutes() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Registration/>}/>
-      </Routes>
+      <div className="h-screen bg-gray-100">
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/details" element={<Details />} />
+          <Route path="/home" element={<Home/>}/>
+        </Routes>
+      </div>
     </>
   );
 }

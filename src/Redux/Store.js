@@ -5,6 +5,7 @@ import {persistStore, persistReducer,FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, RE
 import storage from 'redux-persist/lib/storage'
 import managerSlice from './slice/managerSlice'
 import customerSlice from './slice/customerSlice'
+import employeeSlice from './slice/employeeSlice'
 
 
 // const customizedMiddleware = getDefaultMiddleware({
@@ -19,7 +20,8 @@ const persistConfig = {
 
 const reducer = combineReducers({
     customerSlice,
-    managerSlice
+    managerSlice,
+    employeeSlice
 })
 
 // making a persistance data including some logic for persistance with config and slice,its only creating a data for persistance,its only stored in storage as persistance in susequent steps

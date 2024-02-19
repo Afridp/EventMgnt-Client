@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
 import { toast } from "react-toastify";
 import { Backdrop, Box, Fade, Modal, Typography } from "@mui/material";
-import { employeeRegister } from "../../Api/employee";
+import { addEmployee } from "../../Api/manager";
 
 const style = {
   position: "absolute",
@@ -13,6 +13,7 @@ const style = {
   width: 1500,
   bgcolor: "background.paper",
   p: 7,
+  boxShadow : 24,
 };
 
 export default function AddEmployees({ open, setOpen }) {
@@ -33,7 +34,7 @@ export default function AddEmployees({ open, setOpen }) {
         return;
       }
 
-      const res = await employeeRegister({ email });
+      const res = await addEmployee({ email });
       toast.success(res?.data?.message, {
         position: "top-center",
         hideProgressBar: true,
@@ -71,8 +72,8 @@ export default function AddEmployees({ open, setOpen }) {
               <Typography id="transition-modal-description">
                 <div className=" grid grid-cols-2">
                   <h1 className="relative mt-24 text-center text-pretty font-normal">
-                    Adding New Employee..? please enter new employee email to
-                    genarete Employee credential to login,credentials will send
+                    Adding New Employee..? Please enter employee email to
+                    genarete employee credential to login,credentials will send
                     to this email id.
                   </h1>
 
