@@ -7,13 +7,14 @@ import AllEvents from "../../Pages/Manager/AllEvents";
 import MyEvents from "../../Pages/Manager/MyEvents";
 import Otp from "../../Pages/Manager/Otp";
 import Public from "./Public";
-import Protect from "./protect";
+import Protect from "./Protect";
 import EventSeemore from "../../Pages/Manager/EventSeemore";
 import SubscriptionPlans from "../../Pages/Manager/SubscriptionPlans";
 import IsSubscribed from "./IsSubscribed";
 import Employees from "../../Pages/Manager/Employees";
 import NewEvents from "../../Pages/Manager/NewBookings";
 import Account from "../../Pages/Manager/Account";
+import CustomerMgt from "../../Pages/Manager/CustomerMgt";
 
 
 function ManagerRoute() {
@@ -31,6 +32,7 @@ function ManagerRoute() {
             <Route path="/myEvents" element={<Protect><IsSubscribed><MyEvents/></IsSubscribed></Protect>}/>
             <Route path="/newEvents" element={<Protect><IsSubscribed><NewEvents/></IsSubscribed></Protect>}/>
             <Route path="/employeeMgt" element={<Protect><IsSubscribed><Employees/></IsSubscribed></Protect>}/>
+            <Route path="/customerMgt" element={<Protect><CustomerMgt/></Protect>}/>
             <Route path="/account" element={<Protect><Account/></Protect>}/>
            
         </Routes>

@@ -1,4 +1,18 @@
+
+import { useDispatch } from "react-redux";
+import { logoutEmployee } from "../../Redux/slice/employeeSlice";
+import { toast } from "react-toastify";
+
 function Sidebar() {
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    localStorage.removeItem("employeeToken");
+    dispatch(logoutEmployee());
+    window.location.reload();
+    toast.success("Logout successful", { Position: toast.POSITION.TOP_CENTER });
+  };
+
   return (
     <>
       <nav className="flex flex-col justify-between w-20 bg-black border-r">
@@ -106,6 +120,7 @@ function Sidebar() {
                 name="log-out-outline"
                 role="img"
                 aria-label="log out outline"
+                onClick={() => handleLogout}
               />
               <span className="sr-only">logout</span>
             </p>

@@ -26,10 +26,10 @@ export const attachToken = (req, tokenName) => {
     let authToken = localStorage.getItem(tokenName)
 
     if (authToken) {
-    
+
         req.headers["Authorization"] = `Bearer${authToken}`;
     }
-   
+
     return req
 }
 
@@ -57,4 +57,3 @@ export const handleError = (error) => {
 export const managerAxiosInstance = createAxiosInstance(managerUrl)
 export const customerAxiosInstance = createAxiosInstance(customerUrl)
 export const employeeAxiosInstance = createAxiosInstance(employeeUrl)
- 

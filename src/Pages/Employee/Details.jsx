@@ -2,19 +2,25 @@
 import { useFormik } from "formik";
 import { personalDetailsValidation } from "../../ValidationSchemas/employeeValidation/personalDetails";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { employeeDetailsSubmit } from "../../Api/employee";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import { setEmployeeDetails } from "../../Redux/slice/employeeSlice";
+import { useNavigate } from "react-router-dom";
 
-function Details() {
+function Details({ employeeId }) {
+  // Add propTypes validation
+
+  Details.propTypes = {
+    employeeId: PropTypes.string.isRequired,
+  };
+
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
-  const { employeeId } = location.state;
-  console.log(employeeId);
   const onSubmit = async () => {
     try {
       setLoading(true);
@@ -29,6 +35,7 @@ function Details() {
         })
       );
       toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
+      navigate("/employee/home");
     } finally {
       setLoading(false);
     }

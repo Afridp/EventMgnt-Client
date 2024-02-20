@@ -1,11 +1,12 @@
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { logoutManager } from "../../Redux/slice/managerSlice";
+import { logoutEmployee } from "../../Redux/slice/employeeSlice";
+
 
 function Protect(props) {
   const dispatch = useDispatch();
-  const token = localStorage.getItem("managerToken");
+  const token = localStorage.getItem("employeeToken");
 
   if (token) {
     const decodedToken = jwtDecode(token);
@@ -14,14 +15,14 @@ function Protect(props) {
       // eslint-disable-next-line react/prop-types
       return props.children;
     } else {
-      localStorage.removeItem("managerToken");
-      dispatch(logoutManager());
+      localStorage.removeItem("empployeeToken");
+      dispatch(logoutEmployee());
       return (
-        <Navigate to="/manager/signin" />
+        <Navigate to="/employee" />
       );
     }
   } else {
-    return <Navigate to="/manager/signin" />;
+    return <Navigate to="/employee" />;
   }
 }
 
