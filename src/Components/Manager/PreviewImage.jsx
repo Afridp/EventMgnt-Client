@@ -4,36 +4,37 @@ import { useState, useEffect } from "react";
 
 function PreviewImage({ file }) {
   const [preview, setPreview] = useState(null);
-  const [Loading, setLoading] = useState(true);
+  const [Loading1, setLoading1] = useState(true);
 
   useEffect(() => {
     if (file instanceof Blob) {
+      console.log("haai preview");
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
         setPreview(reader.result);
         // Simulate a delay before hiding the loading spinner (e.g., 2 seconds)
         setTimeout(() => {
-          setLoading(false);
+          setLoading1(false);
         }, 1000);
       };
     } else {
       setPreview(file);
       setTimeout(() => {
-        setLoading(false);
+        setLoading1(false);
       }, 1000);
     }
   }, [file]);
 
   return (
     <div className="mb-4 ml-20 relative">
-      {Loading ? (
+      {Loading1 ? (
         <span className="loading loading-spinner loading-sm"></span>
       ) : (
         <img
           src={preview}
           alt="Preview"
-          className="w-64 h-48 object-cover rounded-lg"
+          className="w-96 h-56 object-cover rounded-md"
         />
       )}
     </div>

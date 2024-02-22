@@ -16,12 +16,10 @@ function Protect(props) {
     } else {
       localStorage.removeItem("customerToken");
       dispatch(logoutCustomer());
-      return (
-        <Navigate to="/signin?msg=Your session is expired,please login again" />
-      );
+      return <Navigate to="/signin" />;
     }
   } else {
-    return <Navigate to="/signin?=" />;
+    return <Navigate to="/signin" />;
   }
 }
 

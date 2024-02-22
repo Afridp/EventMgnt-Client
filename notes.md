@@ -24,9 +24,12 @@
  * need to change the ui and ux of customer profile page 
  * change date format changing when inserting to db,change or convet the format where we are trying to show
  * change customer profile page to simplified and compact using fnns and componts
- * change local storage to cookies storage
+ * change local storage to cookies storage\
+ * try to use 
+ * implement skelton to appropriate image loading place
+ * use PurgeCSS tool to remove duplicate or unused css
 
 
- > doubts to ask 
+ > doubts to ask x
  * when edited events getting but still not rerendering but changed whn upated in useeffect dependency
  * ask about client or user is coding standard

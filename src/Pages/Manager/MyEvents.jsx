@@ -1,12 +1,14 @@
 
+
 import Header from '../../Components/Manager/Header'
-import MyEventsList from '../../Components/Manager/AddEvents'
+import MyEventListAndAddEvent from '../../Components/Manager/MyEventListAndAddEvent'
 
 function MyEvents() {
   return (
     <>
     <Header/>
-    <MyEventsList/>
+    <MyEventListAndAddEvent/>
+  
     </>
   )
 }

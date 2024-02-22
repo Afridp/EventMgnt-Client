@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const CustomerAppearanceForm = () => {
+const CustomerCustomization = () => {
   const [tab, setTab] = useState("tab1");
   return (
     <>
@@ -127,4 +127,4 @@ const CustomerAppearanceForm = () => {
   );
 };
 
-export default CustomerAppearanceForm;
+export default CustomerCustomization;

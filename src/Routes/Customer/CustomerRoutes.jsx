@@ -26,8 +26,8 @@ function CustomerRoutes() {
             <Route path="/events" element={<Events/>}/>
             <Route path="/events/book" element={<Protect><CreateEventPage/></Protect>}/>
             <Route path="/myEvents" element={<Protect><MyEvents/></Protect>}/>
-            <Route path="/myEvents/seemore/:eventId" element={<ViewOrEditBooked/>}/>
-            <Route path="/profile" element={<Profile/>}/>
+            <Route path="/myEvents/seemore/:eventId" element={<Protect><ViewOrEditBooked/></Protect>}/>
+            <Route path="/profile" element={<Protect><Profile/></Protect>}/>
         </Routes>
     </div>
   )

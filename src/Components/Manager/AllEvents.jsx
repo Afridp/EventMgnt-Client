@@ -7,16 +7,16 @@ import DataNotFoundManager from "../../Pages/ErrorPages/DataNotFoundManager";
 
 // import SubModal from "./SubModal";
 
-function Events() {
+function AllEvents() {
   // const { manager } = useSelector((state) => state.managerSlice);
 
-  const [events, setEvents] = useState([]);
+  const [bookedEvents, setBookedEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   // const [showSubModal, setShowSubModal] = useState(false);
   const fetchAllBookedEvevts = async () => {
     try {
       const res = await getBookedEvents();
-      setEvents(res?.data?.bookings);
+      setBookedEvents(res?.data?.bookings);
     } finally {
       setTimeout(() => {
         setLoading(false);
@@ -31,30 +31,30 @@ function Events() {
 
   return (
     <>
+      <div className="container mx-auto my-7 flex justify-end ">
+        <div className="w-[150px] h-[50px] ">
+          <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-black hover:outline-none hover:text-white duration-300 active:scale-[0.99]">
+            <Link to="/manager/myEvents" className="font-bold" href="#">
+              My Events
+            </Link>
+          </button>
+        </div>
+        <div className="w-[150px] h-[50px] ">
+          <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-blue-800 hover:text-white hover:outline-none duration-300 active:scale-[0.99]">
+            <Link to={"/manager/newEvents"} className="font-bold">
+              New Events
+            </Link>
+          </button>
+        </div>
+      </div>{" "}
       {/* {showSubModal && <SubModal />} */}
       {loading ? (
         <LoaderManager loading={loading} />
       ) : (
         <>
-          <div className="container mx-auto my-7 flex justify-end ">
-            <div className="w-[150px] h-[50px] ">
-              <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-black hover:outline-none hover:text-white duration-300 active:scale-[0.99]">
-                <Link to="/manager/myEvents" className="font-bold" href="#">
-                  Add Event
-                </Link>
-              </button>
-            </div>
-            <div className="w-[150px] h-[50px] ">
-              <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-blue-800 hover:text-white hover:outline-none duration-300 active:scale-[0.99]">
-                <Link to={"/manager/newEvents"} className="font-bold">
-                  New Events
-                </Link>
-              </button>
-            </div>
-          </div>{" "}
           <div className="container mx-auto my-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 fade-ef">
-            {events?.length > 0 ? (
-              events.map((event) => (
+            {bookedEvents?.length > 0 ? (
+              bookedEvents.map((event) => (
                 <a
                   key={event._id}
                   href="#"
@@ -139,4 +139,4 @@ function Events() {
   );
 }
 
-export default Events;
+export default AllEvents;

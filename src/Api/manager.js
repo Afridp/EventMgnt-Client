@@ -32,9 +32,9 @@ export const managerSignin = async (signinData) => {
     return data
 }
 
-export const getEvents = async () => {
-
-    const data = await managerAxiosInstance.get('/getEvents')
+export const getEvents = async ({managerUUID}) => {
+   
+    const data = await managerAxiosInstance.get(`/getEvents?managerUUID=${managerUUID}`)
     return data
 }
 
@@ -97,5 +97,15 @@ export const blockAndUnblockEmployee = async (employeeId) => {
 
 export const getNewBookings = async () => {
     const data = await managerAxiosInstance.get(`/getNewBookings`)
+    return data
+}
+
+export const getEventForm = async (eventUUID) => {
+    const data = await managerAxiosInstance.get(`/getFormOfEvent?eventUUID=${eventUUID}`)
+    return data
+}
+
+export const submitForm = async(values) => {
+    const data = await managerAxiosInstance.post('/submitForm',values)
     return data
 }

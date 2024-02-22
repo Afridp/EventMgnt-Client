@@ -15,7 +15,7 @@ function Protect(props) {
       // eslint-disable-next-line react/prop-types
       return props.children;
     } else {
-      localStorage.removeItem("empployeeToken");
+      localStorage.removeItem("employeeToken");
       dispatch(logoutEmployee());
       return (
         <Navigate to="/employee" />

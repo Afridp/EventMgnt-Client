@@ -1,7 +1,7 @@
-import CustomerAppearanceForm from "../../Components/Manager/CustomerAppearanceForm";
+import CustomerAppearanceForm from "../../Components/Manager/CustomerCustomization";
 import Header from "../../Components/Manager/Header";
 
-function CustomerMgt() {
+function Customer() {
   return (
     <>
       <Header />
@@ -10,4 +10,4 @@ function CustomerMgt() {
   );
 }
 
-export default CustomerMgt;
+export default Customer;

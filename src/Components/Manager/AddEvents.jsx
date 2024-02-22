@@ -11,6 +11,7 @@ import PreviewImage from "./PreviewImage";
 import { toast } from "react-toastify";
 import useFileToDataURLConverter from "../../CustomHooks/useFileToDataURLConverter";
 
+
 const EventPage = () => {
   // const [editImage, setEditImage] = useState("");
   const [events, setEvents] = useState([]);
@@ -193,9 +194,6 @@ const EventPage = () => {
                       ? "btn btn-disabled w-full bg-slate-400 hover:bg-slate-200"
                       : "btn w-full bg-slate-400 hover:bg-slate-200"
                   }
-                  onClick={() => {
-                    fileRef.current.click();
-                  }}
                 >
                   Select
                 </button>
