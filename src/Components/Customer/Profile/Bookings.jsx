@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { cancelEvent, fetchBookings } from "../../Api/customer";
+import { cancelEvent, fetchBookings } from "../../../Api/customer";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import DataNotFound from "../../Pages/ErrorPages/DataNotFound";
+import DataNotFound from "../../../Pages/ErrorPages/DataNotFound";
 import { Link } from "react-router-dom";
-import CancelModal from "./CancelModal";
+import CancelModal from "./BookingCancelModal";
 import { toast } from "react-toastify";
-import Pagination from "./Pagination";
-import SearchAndSort from "./SearchAndSort";
-import useDebounce from "../../CustomHooks/useDebounce";
+import Pagination from "../Common/Pagination";
+import SearchAndSort from "../Common/SearchAndSort";
+import useDebounce from "../../../CustomHooks/useDebounce";
 
 function Bookings() {
   const { customer } = useSelector((state) => state.customerSlice);

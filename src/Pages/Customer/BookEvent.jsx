@@ -1,16 +1,18 @@
 
 import Navbar from "../../Components/Customer/Navbar";
-import CreateEventForm from "../../Components/Customer/BookingForm";
+// import CreateEventForm from "../../Components/Customer/BookingForm";
 import Footer from "../../Components/Customer/Footer";
+import Booking from "../../Components/Customer/Booking/Booking";
 
-function CreateEventPage() {
+function BookEvent() {
   return (
     <>
       <Navbar />
-      <CreateEventForm />
+      {/* <CreateEventForm /> */}
+      <Booking/>
       <Footer />
     </>
   );
 }
 
-export default CreateEventPage;
+export default BookEvent;

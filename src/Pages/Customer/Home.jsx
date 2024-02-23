@@ -1,7 +1,7 @@
-import Aboutus from "../../Components/Customer/Aboutus";
+import Aboutus from "../../Components/Customer/Home/Aboutus";
 import Footer from "../../Components/Customer/Footer";
-import Jobs from "../../Components/Customer/Jobs";
-import Jumbortron from "../../Components/Customer/Jumbortron";
+import Jobs from "../../Components/Customer/Home/Jobs";
+import Jumbortron from "../../Components/Customer/Home/Jumbortron";
 import Navbar from "../../Components/Customer/Navbar";
 
 function Home() {

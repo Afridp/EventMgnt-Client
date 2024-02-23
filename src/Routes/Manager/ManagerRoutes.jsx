@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import SignUp from "../../Pages/Manager/Signup";
 import Siginin from "../../Pages/Manager/Signin";
 import Home from "../../Pages/Manager/Home";
-import Events from "../../Pages/Manager/Events";
+// import Events from "../../Pages/Manager/Events";
 // import AddEvent from "../../Pages/ManagerPages/AddEvent";
 import MyEvents from "../../Pages/Manager/MyEvents";
 import Otp from "../../Pages/Manager/Otp";
@@ -15,6 +15,7 @@ import Employees from "../../Pages/Manager/Employees";
 import NewEvents from "../../Pages/Manager/NewBookings";
 import Account from "../../Pages/Manager/Account";
 import Customer from "../../Pages/Manager/Customer";
+import AllEvents from "../../Components/Manager/Bookings/AllEvents";
 
 
 function ManagerRoute() {
@@ -25,7 +26,7 @@ function ManagerRoute() {
             <Route path="/otp" element={<Public><Otp/></Public>}/>
             <Route path="/signin" element={<Public><Siginin/></Public>}/>
             <Route path="/" element={<Protect><Home/></Protect> }/>
-            <Route path="/events" element={<Protect><IsSubscribed><Events/></IsSubscribed></Protect>}/>
+            <Route path="/events" element={<Protect><IsSubscribed><AllEvents/></IsSubscribed></Protect>}/>
             <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
             <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
             {/* <Route path="/addEvent" element={<AddEvent/>}/> */}

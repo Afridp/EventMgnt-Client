@@ -4,7 +4,7 @@ import Otp from "../../Pages/Customer/Otp"
 import Signin from "../../Pages/Customer/Signin"
 import Home from "../../Pages/Customer/Home"
 import Events from "../../Pages/Customer/Events"
-import CreateEventPage from "../../Pages/Customer/BookEvent"
+import BookEvent from "../../Pages/Customer/BookEvent"
 import MyEvents from "../../Pages/Customer/MyEvents"
 import Protect from "./Protect"
 import Public from "./Public"
@@ -24,7 +24,7 @@ function CustomerRoutes() {
             <Route path="/signin" element={<Public><Signin/></Public>}/>
             <Route path="/" element={<Home/>}/>
             <Route path="/events" element={<Events/>}/>
-            <Route path="/events/book" element={<Protect><CreateEventPage/></Protect>}/>
+            <Route path="/events/book/:eventUUID" element={<Protect><BookEvent/></Protect>}/>
             <Route path="/myEvents" element={<Protect><MyEvents/></Protect>}/>
             <Route path="/myEvents/seemore/:eventId" element={<Protect><ViewOrEditBooked/></Protect>}/>
             <Route path="/profile" element={<Protect><Profile/></Protect>}/>

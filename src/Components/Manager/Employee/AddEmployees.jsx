@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
+import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 import { toast } from "react-toastify";
 import { Backdrop, Box, Fade, Modal, Typography } from "@mui/material";
-import { addEmployee } from "../../Api/manager";
+import { addEmployee } from "../../../Api/manager";
 
 const style = {
   position: "absolute",

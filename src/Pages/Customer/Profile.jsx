@@ -1,5 +1,5 @@
 import Navbar from "../../Components/Customer/Navbar";
-import ProfileBody from "../../Components/Customer/ProfileBody";
+import ProfileBody from "../../Components/Customer/Profile/ProfileBody";
 import Footer from "../../Components/Customer/Footer";
 
 function Profile() {

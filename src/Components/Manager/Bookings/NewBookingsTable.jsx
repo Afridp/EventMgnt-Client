@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getNewBookings } from "../../Api/manager";
-import DataNotFoundManager from "../../Pages/ErrorPages/DataNotFoundManager";
+import { getNewBookings } from "../../../Api/manager";
+import DataNotFoundManager from "../../../Pages/ErrorPages/DataNotFoundManager";
 
 function NewBookingsTable() {
   const [newBookings, setNewBookings] = useState([]);

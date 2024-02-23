@@ -1,4 +1,4 @@
-import CustomerAppearanceForm from "../../Components/Manager/CustomerCustomization";
+import CustomerAppearanceForm from "../../Components/Manager/Customer/CustomerCustomization";
 import Header from "../../Components/Manager/Header";
 
 function Customer() {

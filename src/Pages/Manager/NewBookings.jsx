@@ -1,5 +1,5 @@
 import Header from '../../Components/Manager/Header'
-import NewBookingsTable from '../../Components/Manager/NewBookingsTable'
+import NewBookingsTable from '../../Components/Manager/Bookings/NewBookingsTable'
 
 function NewEvents() {
   return (

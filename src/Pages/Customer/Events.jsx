@@ -1,4 +1,4 @@
-import EventList from "../../Components/Customer/EventList"
+import EventList from "../../Components/Customer/Booking/EventList"
 import Footer from "../../Components/Customer/Footer"
 import Navbar from "../../Components/Customer/Navbar"
 

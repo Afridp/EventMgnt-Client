@@ -1,7 +1,7 @@
 
 
 import Header from '../../Components/Manager/Header'
-import MyEventListAndAddEvent from '../../Components/Manager/MyEventListAndAddEvent'
+import MyEventListAndAddEvent from '../../Components/Manager/Event/MyEventListAndAddEvent'
 
 function MyEvents() {
   return (

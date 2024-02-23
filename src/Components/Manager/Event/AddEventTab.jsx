@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useFormik } from "formik";
-import PreviewImage from "./PreviewImage";
-import { addEventValidation } from "../../ValidationSchemas/managerValidation/addEvent";
+import PreviewImage from "../Common/PreviewImage";
+import { addEventValidation } from "../../../ValidationSchemas/managerValidation/addEvent";
 import { useRef } from "react";
-import useFileToDataURLConverter from "../../CustomHooks/useFileToDataURLConverter";
-import { addingNewEvent, editEvent } from "../../Api/manager";
+import useFileToDataURLConverter from "../../../CustomHooks/useFileToDataURLConverter";
+import { addingNewEvent, editEvent } from "../../../Api/manager";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 

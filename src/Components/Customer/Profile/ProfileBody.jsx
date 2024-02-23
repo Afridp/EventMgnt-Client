@@ -1,16 +1,16 @@
 import { useState } from "react";
-import useFileToDataURLConverter from "../../CustomHooks/useFileToDataURLConverter";
-import { profileUpdateValidation } from "../../ValidationSchemas/customerValidation/profileUpdate";
-import { updateProfilePic, updateProfile } from "../../Api/customer";
+import useFileToDataURLConverter from "../../../CustomHooks/useFileToDataURLConverter";
+import { profileUpdateValidation } from "../../../ValidationSchemas/customerValidation/profileUpdate";
+import { updateProfilePic, updateProfile } from "../../../Api/customer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logoutCustomer,
   setCustomerDetails,
-} from "../../Redux/slice/customerSlice";
+} from "../../../Redux/slice/customerSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import DateFormatter from "./DateFormatter";
+import DateFormatter from "../Common/DateFormatter";
 import ChangePassword from "./ChangePassword";
 
 // import ChangePasswordModal from "./ChangePasswordModal";

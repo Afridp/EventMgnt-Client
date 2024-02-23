@@ -2,11 +2,11 @@ import { Typography, Chip, Avatar } from "@material-tailwind/react";
 
 import NewEmployees from "./AddEmployees";
 import { useEffect, useState } from "react";
-import { blockAndUnblockEmployee, getAllEmployees } from "../../Api/manager";
-import Search from "./Search";
-import Pagination from "./Pagination";
-import useDebounce from "../../CustomHooks/useDebounce";
-import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
+import { blockAndUnblockEmployee, getAllEmployees } from "../../../Api/manager";
+import Search from "../Common/Search";
+import Pagination from "../Common/Pagination";
+import useDebounce from "../../../CustomHooks/useDebounce";
+import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 
 const TABLE_HEAD = ["Employee", "Position", "Status", "Employed On", "Action"];
 

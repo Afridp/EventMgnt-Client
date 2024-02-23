@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-function CancelModal({ onConfirm, eventId }) {
+function BookingCancelModal({ onConfirm, eventId }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleConfirmCancellation = () => {
@@ -79,4 +79,4 @@ function CancelModal({ onConfirm, eventId }) {
   );
 }
 
-export default CancelModal;
+export default BookingCancelModal;

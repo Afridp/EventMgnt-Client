@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchEvents } from "../../Api/customer";
-import DataNotFound from "../../Pages/ErrorPages/DataNotFound";
+import { fetchEvents } from "../../../Api/customer";
+import DataNotFound from "../../../Pages/ErrorPages/DataNotFound";
 
-import Pagination from "./Pagination";
-import SearchAndSort from "./SearchAndSort";
-import useDebounce from "../../CustomHooks/useDebounce";
+import Pagination from "../Common/Pagination";
+import SearchAndSort from "../Common/SearchAndSort";
+import useDebounce from "../../../CustomHooks/useDebounce";
 
 function Event() {
   const [events, setEvents] = useState([]);
@@ -42,7 +42,7 @@ function Event() {
   if (events?.length) {
     currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
   }
-  console.log(currentEvents,"this is vcu");
+
   const paginate = (number) => setCurrentPage(number);
 
   return (
@@ -93,7 +93,7 @@ function Event() {
                         <div className="lg:mt-0 lg:flex-shrink-0">
                           <div className="mt-6 inline-flex rounded-md shadow">
                             <Link
-                              to="/events/book"
+                              to={`/events/book/${event.uuid}`}
                               className="relative px-8 py-2 rounded-md bg-white isolation-auto z-10 border-2 border-lime-500
                                   before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-right-full before:hover:right-0 before:rounded-full  before:bg-lime-500 before:-z-10  before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-700"
                             >

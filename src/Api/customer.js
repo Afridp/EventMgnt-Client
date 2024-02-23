@@ -45,6 +45,11 @@ export const fetchEvents = async ({ search, sort }) => {
     return data
 }
 
+export const getEventForm = async (eventUUID) => {
+    const data = await customerAxiosInstance.get(`/getEventFormField?eventUUID=${eventUUID}`)
+    return data
+}
+
 export const bookEvent = async (values, customerId) => {
     const data = await customerAxiosInstance.post(`/bookEvent/${customerId}`, values)
     return data
@@ -89,3 +94,4 @@ export const changePassword = async (values, customerId) => {
     const data = await customerAxiosInstance.post(`/changePassword?customerId=${customerId}`, values)
     return data
 }
+

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { getEvents, listAndUnlist } from "../../Api/manager";
+import { getEvents, listAndUnlist } from "../../../Api/manager";
 import { toast } from "react-toastify";
-import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
+import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 
 import MyEventsTab from "./MyEventsTab";
 import AddEventTab from "./AddEventTab";

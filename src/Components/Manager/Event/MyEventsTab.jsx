@@ -1,6 +1,6 @@
+// eslint-disable-next-line react/prop-types
 import { Chip } from "@material-tailwind/react";
 import { Tooltip } from "@mui/material";
-// eslint-disable-next-line react/prop-types
 import PropTypes from "prop-types";
 import FormBuilder from "./FormBuilder";
 import { useState } from "react";
@@ -8,8 +8,10 @@ import { useState } from "react";
 function MyEventsTab({ events, handleListing }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventUUID, setEventUUID] = useState("");
+  const [eventName, setEventName] = useState("")
 
-  const toggleModal = (eventUUID) => {
+  const toggleModal = (eventUUID, eventName) => {
+    setEventName(eventName)
     setEventUUID(eventUUID);
     setIsModalOpen(!isModalOpen);
   };
@@ -21,6 +23,7 @@ function MyEventsTab({ events, handleListing }) {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           eventUUID={eventUUID}
+          eventName={eventName}
           
         />
       )}
@@ -31,7 +34,7 @@ function MyEventsTab({ events, handleListing }) {
               <div className="col-span-2">
                 {/* Set a fixed size for the image */}
                 <img
-                  src={event.eventImage}
+                  src={event?.eventImage}
                   alt="Event Image"
                   className="w-40 h-32 rounded-md object-cover"
                 />
@@ -48,7 +51,7 @@ function MyEventsTab({ events, handleListing }) {
 
               <button
                 className="col-span-2 flex items-center justify-center"
-                onClick={() => toggleModal(event.uuid)}
+                onClick={() => toggleModal(event.uuid,event.eventName)}
               >
                 <Tooltip title="Form">
                   <a className="p-2 border text-white rounded-md">

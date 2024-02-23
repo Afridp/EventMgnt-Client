@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { editBooked, fetchEvent } from "../../Api/customer";
+import { editBooked, fetchEvent } from "../../../Api/customer";
 import { useFormik } from "formik";
-import { eventEditFormValidation } from "../../ValidationSchemas/customerValidation/eventEditForm";
+import { eventEditFormValidation } from "../../../ValidationSchemas/customerValidation/eventEditForm";
 import { Tooltip } from "react-tooltip";
 import { toast } from "react-toastify";
 
-function EventEdit() {
+function EditBooked() {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -951,4 +951,4 @@ function EventEdit() {
   );
 }
 
-export default EventEdit;
+export default EditBooked;

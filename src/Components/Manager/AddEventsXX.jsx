@@ -7,7 +7,7 @@ import {
 } from "../../Api/manager";
 import { useFormik } from "formik";
 import { addEventValidation } from "../../ValidationSchemas/managerValidation/addEvent";
-import PreviewImage from "./PreviewImage";
+import PreviewImage from "./Common/PreviewImage";
 import { toast } from "react-toastify";
 import useFileToDataURLConverter from "../../CustomHooks/useFileToDataURLConverter";
 

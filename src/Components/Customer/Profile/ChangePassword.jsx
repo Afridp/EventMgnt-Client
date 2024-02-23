@@ -1,8 +1,8 @@
 import { Modal } from "antd";
 import { useState } from "react";
-import { changePassword } from "../../Api/customer";
+import { changePassword } from "../../../Api/customer";
 import { useFormik } from "formik";
-import { changePasswordValidation } from "../../ValidationSchemas/customerValidation/changePassword";
+import { changePasswordValidation } from "../../../ValidationSchemas/customerValidation/changePassword";
 import { toast } from "react-toastify";
 
 // eslint-disable-next-line react/prop-types

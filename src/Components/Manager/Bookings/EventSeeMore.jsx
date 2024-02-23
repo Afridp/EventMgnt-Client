@@ -1,9 +1,9 @@
 import { Input, Textarea } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getEventData } from "../../Api/manager";
+import { getEventData } from "../../../Api/manager";
 import { Box, Modal } from "@mui/material";
-import { styleImageOpen } from "../../JsStyles/Styles";
+import { styleImageOpen } from "../../../JsStyles/Styles";
 
 export const EventSeeMore = () => {
   const { eventId } = useParams();
