@@ -50,6 +50,7 @@ function BookingForm() {
     setFieldValue("guestRequirement", value);
     setFieldTouched("guestRequirement", true);
   };
+  
   const onSubmit = async (values) => {
     try {
       if (!location.trim()) {

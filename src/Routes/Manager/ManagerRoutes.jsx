@@ -15,7 +15,7 @@ import Employees from "../../Pages/Manager/Employees";
 import NewEvents from "../../Pages/Manager/NewBookings";
 import Account from "../../Pages/Manager/Account";
 import Customer from "../../Pages/Manager/Customer";
-import AllEvents from "../../Components/Manager/Bookings/AllEvents";
+import Events from "../../Pages/Manager/Events";
 
 
 function ManagerRoute() {
@@ -25,15 +25,19 @@ function ManagerRoute() {
             <Route path="/signup" element={<Public><SignUp/></Public> }/>
             <Route path="/otp" element={<Public><Otp/></Public>}/>
             <Route path="/signin" element={<Public><Siginin/></Public>}/>
-            <Route path="/" element={<Protect><Home/></Protect> }/>
-            <Route path="/events" element={<Protect><IsSubscribed><AllEvents/></IsSubscribed></Protect>}/>
-            <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
             <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
-            {/* <Route path="/addEvent" element={<AddEvent/>}/> */}
+            <Route path="/" element={<Protect><Home/></Protect> }/>
+
+            <Route path="/events" element={<Protect><IsSubscribed><Events/></IsSubscribed></Protect>}/>
+            <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
+
             <Route path="/myEvents" element={<Protect><IsSubscribed><MyEvents/></IsSubscribed></Protect>}/>
             <Route path="/newEvents" element={<Protect><IsSubscribed><NewEvents/></IsSubscribed></Protect>}/>
+
             <Route path="/employeeMgt" element={<Protect><IsSubscribed><Employees/></IsSubscribed></Protect>}/>
+
             <Route path="/customerMgt" element={<Protect><Customer/></Protect>}/>
+            
             <Route path="/account" element={<Protect><Account/></Protect>}/>
            
         </Routes>

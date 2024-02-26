@@ -1,16 +1,20 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getEventForm } from "../../../Api/customer";
+import { bookEvent, getEventForm } from "../../../Api/customer";
 import { useState } from "react";
 import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
+import { useSelector } from "react-redux";
 // import DynamicForm from "./DynamicForm";
 
-function Booking() {
+function BookingForm() {
+  const { customer } = useSelector((state) => state.customerSlice);
   const { eventUUID } = useParams();
   const [formData, setFormData] = useState();
+  const [formValues, setFormValues] = useState({});
+
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [formValues, setFormValues] = useState({});
+
   const [formErrors, setFormErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
 
@@ -22,68 +26,74 @@ function Booking() {
   const fetchEventForm = async () => {
     try {
       const res = await getEventForm(eventUUID);
-      if (res.data.fields) {
-        setFormData(res.data.fields);
-      }
+      setFormData(res?.data?.fields);
     } finally {
       setLoading(false);
     }
   };
 
-  // Function to handle form field changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-  // Function to handle blur events
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    setTouchedFields({ ...touchedFields, [name]: true });
-
-    // Validate the field on blur
-    const field = formData.find((field) => field.label === name);
-    if (!field) return;
-    const error = validateField(field, formValues[name]);
-    setFormErrors({ ...formErrors, [name]: error });
-  };
-
-  // Function to validate a single field
-  const validateField = (field, value) => {
-    if (field.required && !value) {
-      return `${field.label} is required`;
-    }
-    return "";
-  };
-
-  // Function to handle form submission
-  const handleSubmit = (e) => {
+  // on submitting the submit button this function will work
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate form fields
+    // creates a blank object named errors
     const errors = {};
     // if (formData) {
+    // if formdata contains each field is taken to
     formData?.forEach((field) => {
       // if (!formValues[field.label]) {
       //   errors[field.label] = `${field.label} is required`;
       // }
+
+      // to here to check that the validation
       const error = validateField(field, formValues[field.label]);
       if (error) {
         errors[field.label] = error;
       }
     });
     // }
-
-    // Update form errors
     setFormErrors(errors);
 
-    // If there are no errors, proceed with form submission
+    // if tthe errors object is empty which is there is no error all fields are available,continue with submitting
     if (Object.keys(errors).length === 0) {
       setIsLoading(true);
-      // Handle form submission logic here
-      console.log("Form submitted:", formValues);
+      // Handle form submission'
+      console.log(formValues);
+      // const res = await bookEvent(formValues, customer._id);
+      
       setIsLoading(false);
     }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  // this fn will work when input is actived or focused(only for handle blur inputs)
+  const handleBlur = (e) => {
+    // got input name attribute which is labal
+    const { name } = e.target;
+    // setting values to touched fields [{ label : true},...]
+    setTouchedFields({ ...touchedFields, [name]: true });
+
+    // checking data fetched from bknd is available,if available finding that field that matches the-
+    // current invocation input is selected,so if true the field have that feild {label: name ,type: 'text , required : true}
+    const field = formData?.find((field) => field.label === name);
+    // if there id no field it will return,handle blur not work(this return is not neccessary because there will no data in the field)
+    if (!field) return;
+    // passing that field {label: name,type: 'text, required : true} and current input value
+    const error = validateField(field, formValues[name]);
+    setFormErrors({ ...formErrors, [name]: error });
+  };
+
+  const validateField = (field, value) => {
+    // here checking the field obj contain required true and also value not blank
+    if (field.required && !value) {
+      // which is here if the feild have the required field and value is blank it will return required message
+      return `${field.label} is required`;
+    }
+    // else return nothing
+    return "";
   };
 
   return (
@@ -124,15 +134,16 @@ function Booking() {
                     <div className="label">
                       {touchedFields[field.label] &&
                         formErrors[field.label] && (
-                          <div className="error">{formErrors[field.label]}</div>
+                          <p className="text-error text-sm">{formErrors[field.label]}</p>
                         )}
                     </div>
                   </div>
                 ))}
-                <div className="mt-5">
+                <div className="mt-5 flex  justify-end">
                   <button
                     type="submit"
-                    className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+                    className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium  text-white sm:w-auto"
+                    onClick={handleSubmit}
                   >
                     {isLoading ? "Submiting.." : "Submit Details"}
                   </button>
@@ -146,4 +157,4 @@ function Booking() {
   );
 }
 
-export default Booking;
+export default BookingForm;

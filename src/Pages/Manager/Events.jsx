@@ -1,4 +1,4 @@
-import AllEvents from "../../Components/Manager/Event/AllEvents";
+import AllEvents from "../../Components/Manager/Bookings/AllEvents";
 import Header from "../../Components/Manager/Header";
 
 function Events() {

@@ -10,11 +10,12 @@ import { useSelector } from "react-redux";
 
 function MyEventListAndAddEvent() {
   const { manager } = useSelector((state) => state.managerSlice);
-
+  
   const [tab, setTab] = useState("tab1");
   const [events, setEvents] = useState([]);
-  const [editingEvent, setEditingEvent] = useState(false);
+  // const [editingEvent, setEditingEvent] = useState(false);
   const [Loading, setLoading] = useState(false);
+  // const [editingEvent, setEditingEvent] = useState({})
 
   useEffect(() => {
     setLoading(true);
@@ -28,7 +29,7 @@ function MyEventListAndAddEvent() {
     } finally {
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 600);
     }
   };
 
@@ -54,6 +55,14 @@ function MyEventListAndAddEvent() {
     }
   };
 
+  // const handleEditEvent = ({eventName,eventDescription,image,uuid}) => {
+    
+  //   setEditingEvent({eventName,eventDescription,image,uuid})
+  
+  //   // setEditingEvent(eventName,eventDescription,image,uuid)
+  //   setTab("tab2")
+  // }
+
   return (
     <>
       <section>
@@ -66,7 +75,7 @@ function MyEventListAndAddEvent() {
                     onClick={() => setTab("tab1")}
                     className={`inline-block py-2 font-medium border-b-2 px-6 w-full  ${
                       tab === "tab1"
-                        ? "bg-white text-blue-500 border-blue-500 border-b-2 font-semibold "
+                        ? "bg-white text-red-800 border-red-800 border-b-2 font-semibold "
                         : ""
                     }`}
                   >
@@ -78,7 +87,7 @@ function MyEventListAndAddEvent() {
                     onClick={() => setTab("tab2")}
                     className={`inline-block py-2 font-medium border-b-2 px-6 w-full  ${
                       tab === "tab2"
-                        ? "bg-white text-blue-500 border-blue-500 border-b-2 font-semibold"
+                        ? "bg-white text-red-800 border-red-800 border-b-2 font-semibold"
                         : ""
                     }`}
                   >
@@ -94,14 +103,17 @@ function MyEventListAndAddEvent() {
                     <MyEventsTab
                       events={events}
                       handleListing={handleListing}
+                      // fetchEvents={fetchEvents}
+                      // editEvent={handleEditEvent}
                     />
                   )}
                   {tab === "tab2" && (
                     <AddEventTab
+                      // editingEvent={editingEvent}
                       setEvents={setEvents}
                       setLoading={setLoading}
-                      editingEvent={editingEvent}
-                      setEditingEvent={setEditingEvent}
+                      
+                      
                     />
                   )}
                 </div>

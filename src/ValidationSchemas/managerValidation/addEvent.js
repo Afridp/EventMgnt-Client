@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export const addEventValidation = Yup.object().shape({
-    _id: Yup.string(),
+    uuid: Yup.string(),
     eventName: Yup.string().required('Event Name is required'),
     eventDescription: Yup.string().required('Event Description is required'),
     image: Yup.mixed()

@@ -23,7 +23,7 @@ function FormBuilder({ isModalOpen, setIsModalOpen, eventUUID, eventName }) {
   }, [isModalOpen]);
 
   const handleAddFields = () => {
-    setFields([...fields, { label: "", type: "" }]);
+    setFields([...fields, { label: "", type: "", required: true }]);
   };
 
   /**
@@ -76,15 +76,6 @@ function FormBuilder({ isModalOpen, setIsModalOpen, eventUUID, eventName }) {
     setIsModalOpen(false);
   };
 
-  //   const handleInputChange = (index, event) => {
-  //     const values = [...fields];
-  //     if (event.target.name === "label") {
-  //       values[index].label = event.target.value;
-  //     } else if (event.target.name === "type") {
-  //       values[index].type = event.target.value;
-  //     }
-  //     setFields(values);
-  //   };
   return (
     <>
       <Dialog
@@ -133,7 +124,7 @@ function FormBuilder({ isModalOpen, setIsModalOpen, eventUUID, eventName }) {
               <div className="dialog-content-text">
                 {fields?.map((field, index) => (
                   <div
-                    key={field.label} 
+                    key={index}
                     className="flex mt-4 font-normal text-black"
                   >
                     <div className="w-8/12">
