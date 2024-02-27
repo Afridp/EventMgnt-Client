@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { bookEvent, getEventForm } from "../../../Api/customer";
 import { useState } from "react";
 import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 // import DynamicForm from "./DynamicForm";
 
 function BookingForm() {
@@ -18,6 +20,7 @@ function BookingForm() {
   const [formErrors, setFormErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
 
+  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
     fetchEventForm();
@@ -35,31 +38,41 @@ function BookingForm() {
   // on submitting the submit button this function will work
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // creates a blank object named errors
-    const errors = {};
-    // if (formData) {
-    // if formdata contains each field is taken to
-    formData?.forEach((field) => {
-      // if (!formValues[field.label]) {
-      //   errors[field.label] = `${field.label} is required`;
+    try {
+      // creates a blank object named errors
+      const errors = {};
+      // if (formData) {
+      // if formdata contains each field is taken to
+      formData?.forEach((field) => {
+        // if (!formValues[field.label]) {
+        //   errors[field.label] = `${field.label} is required`;
+        // }
+
+        // to here to check that the validation
+        const error = validateField(field, formValues[field.label]);
+        if (error) {
+          errors[field.label] = error;
+        }
+      });
       // }
+      setFormErrors(errors);
 
-      // to here to check that the validation
-      const error = validateField(field, formValues[field.label]);
-      if (error) {
-        errors[field.label] = error;
+      // if tthe errors object is empty which is there is no error all fields are available,continue with submitting
+      if (Object.keys(errors).length === 0) {
+        setIsLoading(true);
+        // Handle form submission'
+
+        const res = await bookEvent(
+          { formValues, formData },
+          customer._id,
+          eventUUID
+        );
+        toast.success(res.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        navigate("/myEvents");
       }
-    });
-    // }
-    setFormErrors(errors);
-
-    // if tthe errors object is empty which is there is no error all fields are available,continue with submitting
-    if (Object.keys(errors).length === 0) {
-      setIsLoading(true);
-      // Handle form submission'
-      console.log(formValues);
-      // const res = await bookEvent(formValues, customer._id);
-      
+    } finally {
       setIsLoading(false);
     }
   };
@@ -112,6 +125,7 @@ function BookingForm() {
                   </span>
                   <span className="h-px flex-1 bg-black"></span>
                 </span>
+                {/* <input type="text" name="uuid" id="uuid" value={eventUUID} hidden/> */}
                 {formData?.map((field) => (
                   <div key={field.label}>
                     <label htmlFor={field.label} className="label">
@@ -120,7 +134,7 @@ function BookingForm() {
                       </span>
                     </label>
 
-                    <input
+                    {/* <input
                       className="w-full rounded-lg border-gray-200 p-3 text-sm"
                       placeholder="Type Here..."
                       type={field.type}
@@ -129,12 +143,68 @@ function BookingForm() {
                       value={formValues[field.label] || ""}
                       onChange={handleInputChange}
                       onBlur={handleBlur}
-                    />
+                    /> */}
+                    {field.type === "text" && (
+                      <input
+                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                        placeholder="Type Here..."
+                        type="text"
+                        id={field.label}
+                        name={field.label}
+                        value={formValues[field.label] || ""}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
+                      />
+                    )}
+
+                    {field.type === "number" && (
+                      <input
+                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                        placeholder="Enter a number..."
+                        type="number"
+                        id={field.label}
+                        name={field.label}
+                        value={formValues[field.label] || ""}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
+                      />
+                    )}
+
+                    {/* Add more conditions for other field types */}
+                    {/* Example: */}
+                    {field.type === "checkbox" && (
+                      <div>
+                        {Object.keys(field.options).map(
+                          (option, optionIndex) => (
+                            <div key={optionIndex}>
+                              <input
+                                type="checkbox"
+                                id={`${field.label}-${option}`}
+                                name={`${field.label}-${option}`}
+                                checked={
+                                  formValues[`${field.label}-${option}`] ||
+                                  false
+                                }
+                                onChange={(e) =>
+                                  handleOptionChange(index, option, e)
+                                }
+                                onBlur={handleBlur}
+                              />
+                              <label htmlFor={`${field.label}-${option}`}>
+                                {field.options[option]}
+                              </label>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    )}
 
                     <div className="label">
                       {touchedFields[field.label] &&
                         formErrors[field.label] && (
-                          <p className="text-error text-sm">{formErrors[field.label]}</p>
+                          <p className="text-error text-sm">
+                            {formErrors[field.label]}
+                          </p>
                         )}
                     </div>
                   </div>

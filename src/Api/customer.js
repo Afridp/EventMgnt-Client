@@ -4,6 +4,7 @@ import {  attachToken, customerAxiosInstance, handleError } from "./axiosConfig"
 // request interceptor
 customerAxiosInstance.interceptors.request.use(async (req) => {
     let modifiedRequest = attachToken(req, "clientToken")
+    
     return modifiedRequest
 })
 
@@ -50,8 +51,8 @@ export const getEventForm = async (eventUUID) => {
     return data
 }
 
-export const bookEvent = async (values, customerId) => {
-    const data = await customerAxiosInstance.post(`/bookEvent/${customerId}`, values)
+export const bookEvent = async (formValuesAndData, customerId, eventUUID) => {
+    const data = await customerAxiosInstance.post(`/bookEvent/${customerId}?eventUUID=${eventUUID}`, formValuesAndData)
     return data
 }
 
