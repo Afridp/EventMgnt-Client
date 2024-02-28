@@ -38,7 +38,7 @@ function Navbar() {
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-light"
+        className="p-1 font-ligt"
       >
         <Link to="/" className="flex items-center">
           Home
@@ -48,7 +48,7 @@ function Navbar() {
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-light"
+        className="p-1 font-ligt"
       >
         <Link to="/events" className="flex items-center">
           Events
