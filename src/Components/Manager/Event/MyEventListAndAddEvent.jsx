@@ -24,7 +24,7 @@ function MyEventListAndAddEvent() {
 
   const fetchEvents = async () => {
     try {
-      const res = await getEvents({ managerUUID: manager.uuid });
+      const res = await getEvents({ managerUUID: manager.uuid, managerId : manager._id });
       setEvents(res?.data?.event);
     } finally {
       setTimeout(() => {
@@ -103,7 +103,7 @@ function MyEventListAndAddEvent() {
                     <MyEventsTab
                       events={events}
                       handleListing={handleListing}
-                      // fetchEvents={fetchEvents}
+                      fetchEvents={fetchEvents}
                       // editEvent={handleEditEvent}
                     />
                   )}

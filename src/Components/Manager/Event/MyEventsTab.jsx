@@ -9,10 +9,12 @@ function MyEventsTab({ events, handleListing, fetchEvents }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventUUID, setEventUUID] = useState("");
   const [eventName, setEventName] = useState("");
+  const [eventId, setEventId] = useState("")
 
-  const toggleModal = (eventUUID, eventName) => {
+  const toggleModal = (eventUUID, eventId, eventName) => {
     setEventName(eventName);
     setEventUUID(eventUUID);
+    setEventId(eventId)
     setIsModalOpen(!isModalOpen);
   };
 
@@ -24,6 +26,7 @@ function MyEventsTab({ events, handleListing, fetchEvents }) {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           eventUUID={eventUUID}
+          eventId={eventId}
           eventName={eventName}
         />
       )}
@@ -51,7 +54,7 @@ function MyEventsTab({ events, handleListing, fetchEvents }) {
 
               <button
                 className="col-span-2 flex items-center justify-center"
-                onClick={() => toggleModal(event.uuid, event.eventName)}
+                onClick={() => toggleModal(event.uuid, event._id, event.eventName)}
               >
                 <Tooltip title="Form">
                   <a className="p-2 border text-white rounded-md">

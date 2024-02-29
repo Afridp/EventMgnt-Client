@@ -5,22 +5,26 @@ import { useState } from "react";
 import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import useGoogleMap from "../../../CustomHooks/useGoogleMap";
+import { Autocomplete } from "@react-google-maps/api";
 
 // import DynamicForm from "./DynamicForm";
 
 function BookingForm() {
   const { customer } = useSelector((state) => state.customerSlice);
-  const { eventUUID } = useParams();
+  const { eventId } = useParams();
   const [formData, setFormData] = useState();
   const [formValues, setFormValues] = useState({});
-
+  const { isLoaded } = useGoogleMap();
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [location, setLocation] = useState("");
+  const [errorLocation, setErrorLocation] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
 
   const navigate = useNavigate();
+
   useEffect(() => {
     setLoading(true);
     fetchEventForm();
@@ -28,18 +32,51 @@ function BookingForm() {
 
   const fetchEventForm = async () => {
     try {
-      const res = await getEventForm(eventUUID);
+      const res = await getEventForm(eventId);
       setFormData(res?.data?.fields);
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    const handleScriptLoad = () => {
+      const autocomplete = new window.google.maps.places.Autocomplete(
+        document.getElementById("location"),
+        {
+          componentRestrictions: { country: "IN" },
+          types: ["(cities)"],
+        }
+      );
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+
+        if (!place || !place.formatted_address) {
+          setErrorLocation("Invalid location");
+          return;
+        }
+
+        setLocation(place.formatted_address);
+        setErrorLocation("");
+      });
+
+      return () => {
+        autocomplete.unbindAll();
+      };
+    };
+
+    if (isLoaded && window.google && window.google.maps) {
+      handleScriptLoad();
+    }
+  }, [isLoaded]);
+
   // on submitting the submit button this function will work
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const errors = {};
+
       // if (formData) {
       // creates a blank object named errors
       // if formdata contains each field is taken to
@@ -47,8 +84,13 @@ function BookingForm() {
         // if (!formValues[field.label]) {
         //   errors[field.label] = `${field.label} is required`;
         // }
+        if (field.type === "Map") {
+          formValues[field.label] = location;
+          //
+        }
+
         // to here to check that the validation
-        const error = validateField(field, formValues[field.label]);
+        const error = validateField(field, formValues);
         if (error) {
           errors[field.label] = error;
         }
@@ -63,7 +105,7 @@ function BookingForm() {
         const res = await bookEvent(
           { formValues, formData },
           customer._id,
-          eventUUID
+          eventId
         );
         toast.success(res.data.message, {
           position: toast.POSITION.TOP_CENTER,
@@ -75,77 +117,115 @@ function BookingForm() {
     }
   };
 
-  const validateField = (field, value) => {
-    // here checking the field obj contain required true and also value not blank
-    if (field.required && !value) {
-      // which is here if the feild have the required field and value is blank it will return required message
-      return `${field.label} is required`;
-    }
-    // else return nothing
-    return "";
-  };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
   const handleSelectChange = (index, e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
+    const { value } = e.target;
     setFormValues((prevFormValues) => ({
       ...prevFormValues,
       [`${formData[index].label}`]: value,
     }));
   };
 
-  const handleOptionChange = (index, option, e, value) => {
-    if (formData) {
-      const { checked } = e.target;
-      // Check the type of checkbox based on the key
-      const capitalizedValue = value.toUpperCase();
-      const isExclusive =
-        capitalizedValue === "YES" || capitalizedValue === "NO";
-      // If the checkbox is being checked (i.e., checked is true)
-      if (checked) {
-        // If it's an exclusive checkbox (e.g., yes/no), uncheck other options in the same group
-        if (isExclusive) {
-          Object.keys(formValues).forEach((key) => {
-            const [fieldLabel, opt] = key.split("-");
-            if (fieldLabel === formData[index].label && opt !== option) {
-              setFormValues((prevFormValues) => ({
-                ...prevFormValues,
-                [key]: false,
-              }));
-            }
-          });
-        }
-      }
+  const handleOptionChange = (index, option, e, optionIndex) => {
+    const { checked } = e.target;
+    const optionValue = formData[index].options[optionIndex];
+    const isExclusive =
+      optionValue.toUpperCase() === "YES" || optionValue.toUpperCase() === "NO";
 
-      // Update the state with the value of the clicked option
-      setFormValues((prevFormValues) => ({
-        ...prevFormValues,
-        [`${formData[index].label}-${option}`]: checked,
-      }));
+    if (isExclusive && checked) {
+      // Uncheck other options in the same group
+      Object.keys(formValues).forEach((key) => {
+        const [fieldLabel, opt] = key.split("-");
+        if (fieldLabel === formData[index].label && opt !== option) {
+          setFormValues((prevFormValues) => ({
+            ...prevFormValues,
+            [key]: false,
+          }));
+        }
+      });
     }
+
+    // Update the state with the value of the clicked option
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+
+      [`${formData[index].label}-${option}`]: checked,
+    }));
   };
 
-  // this fn will work when input is actived or focused(only for handle blur inputs)
+  // // this fn will work when input is actived or focused(only for handle blur inputs)
+  // const handleBlur = (e) => {
+  //   // got input name attribute which is labal
+  //   const { name } = e.target;
+
+  //   // setting values to touched fields [{ label : true},...]
+  //   setTouchedFields({ ...touchedFields, [name]: true });
+
+  //   // checking data fetched from bknd is available,if available finding that field that matches the-
+  //   // current invocation input is selected,so if true the field have that feild {label: name ,type: 'text , required : true}
+  //   const field = formData?.find((field) => field.label === name);
+  //   // if there id no field it will return,handle blur not work(this return is not neccessary because there will no data in the field)
+  //   if (!field) return;
+  //   // passing that field {label: name,type: 'text, required : true} and current input value
+  //   const error = validateField(field, formValues);
+  //   setFormErrors({ ...formErrors, [name]: error });
+  // };
+  console.log(errorLocation);
+
   const handleBlur = (e) => {
-    // got input name attribute which is labal
-    const { name } = e.target;
-
-    // setting values to touched fields [{ label : true},...]
+    const { name, type, checked } = e.target;
     setTouchedFields({ ...touchedFields, [name]: true });
+    console.log(name);
+    const fieldName = type === "checkbox" ? name.split("-")[0] : name;
+    const field = formData?.find((field) => field.label === fieldName);
 
-    // checking data fetched from bknd is available,if available finding that field that matches the-
-    // current invocation input is selected,so if true the field have that feild {label: name ,type: 'text , required : true}
-    const field = formData?.find((field) => field.label === name);
-    // if there id no field it will return,handle blur not work(this return is not neccessary because there will no data in the field)
-    if (!field) return;
-    // passing that field {label: name,type: 'text, required : true} and current input value
-    const error = validateField(field, formValues[name]);
-    setFormErrors({ ...formErrors, [name]: error });
+    console.log(fieldName);
+    console.log(field);
+
+    if (!field || (type === "checkbox" && checked)) {
+      console.log("haai");
+      setFormErrors((prevErrors) => {
+        const newErrors = { ...prevErrors };
+        delete newErrors[name];
+        return newErrors;
+      });
+      return;
+    }
+
+    const error = validateField(field, formValues);
+    setFormErrors({ ...formErrors, [fieldName]: error });
+  };
+
+  const validateField = (field, formValues) => {
+    // Check if the field is required
+    if (field.required) {
+      // If it's a checkbox, ensure at least one option is selected
+      if (field.type === "Checkbox") {
+        const selectedOptions = Object.keys(formValues).filter((key) =>
+          key.startsWith(`${field.label}-`)
+        );
+
+        // if (selectedOptions.length > 0 && selectedOptions.length < 4) {
+        //   return `${field.label} requires at least one option to be selected`;
+        // }
+
+        if (selectedOptions.length === 0) {
+          return `${field.label} is required`;
+        }
+      } else {
+        // For other field types, check if the value is empty
+        const value = formValues[field.label];
+        if (!value) {
+          return `${field.label} is required`;
+        }
+      }
+    }
+    // Return an empty string if no validation error
+    return "";
   };
 
   return (
@@ -274,7 +354,21 @@ function BookingForm() {
                       </>
                     )} */}
 
-                    {/* {field.type === "Map"} */}
+                    {field.type === "Map" && isLoaded && (
+                      <Autocomplete>
+                        <input
+                          className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                          placeholder="Type here"
+                          type="search"
+                          id="location"
+                          name="location"
+                          // onBlur={handleBlur}
+                          onChange={(e) => setLocation(e.target.value)}
+                          value={location}
+                          required=""
+                        />
+                      </Autocomplete>
+                    )}
 
                     {field.type === "Select" && (
                       <div className="mt-2 flex flex-row items-center">
@@ -299,33 +393,34 @@ function BookingForm() {
 
                     {field.type === "Checkbox" && (
                       <div className="flex flex-row items-center gap-5 mt-2">
-                        {Object.entries(field.options).map(
-                          ([option, value], optionIndex) => (
-                            <div key={optionIndex}>
-                              <input
-                                type="checkbox"
-                                id={`${field.label}-${option}`}
-                                name={`${field.label}-${option}`}
-                                checked={
-                                  formValues[`${field.label}-${option}`] ||
-                                  false
-                                }
-                                onChange={(e) =>
-                                  handleOptionChange(index, option, e, value)
-                                }
-                                onBlur={handleBlur}
-                                x
-                                className="radio"
-                              />
-                              <label
-                                className="ml-2"
-                                htmlFor={`${field.label}-${option}`}
-                              >
-                                {value}
-                              </label>
-                            </div>
-                          )
-                        )}
+                        {field.options.map((option, optionIndex) => (
+                          <div key={optionIndex}>
+                            <input
+                              type="checkbox"
+                              id={`${field.label}-${option}`}
+                              name={`${field.label}-${option}`}
+                              checked={
+                                formValues[`${field.label}-${option}`] || false
+                              }
+                              onChange={(e) =>
+                                handleOptionChange(
+                                  index,
+                                  option,
+                                  e,
+                                  optionIndex
+                                )
+                              }
+                              onBlur={handleBlur}
+                              className="radio"
+                            />
+                            <label
+                              className="ml-2"
+                              htmlFor={`${field.label}-${option}`}
+                            >
+                              {option}
+                            </label>
+                          </div>
+                        ))}
                       </div>
                     )}
 

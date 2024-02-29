@@ -22,6 +22,9 @@ function Bookings() {
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
+  useEffect(() => {
+    getBookings();
+  }, [debouncedSearchQuery, sortOptions]);
   const getBookings = async () => {
     try {
       setLoading(true);
@@ -40,9 +43,6 @@ function Bookings() {
       }, 10);
     }
   };
-  useEffect(() => {
-    getBookings();
-  }, [debouncedSearchQuery, sortOptions]);
 
   const handleCancelBooking = async (eventId) => {
     try {

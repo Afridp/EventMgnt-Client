@@ -28,6 +28,7 @@
  * try to use 
  * implement skelton to appropriate image loading place
  * use PurgeCSS tool to remove duplicate or unused css
+ * change google maps to sajad map which is user can choose by cursor
 
 
  > doubts to ask x

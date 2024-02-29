@@ -24,7 +24,7 @@ function CustomerRoutes() {
             <Route path="/signin" element={<Public><Signin/></Public>}/>
             <Route path="/" element={<Home/>}/>
             <Route path="/events" element={<Events/>}/>
-            <Route path="/events/book/:eventUUID" element={<Protect><BookEvent/></Protect>}/>
+            <Route path="/events/book/:eventId" element={<Protect><BookEvent/></Protect>}/>
             <Route path="/myEvents" element={
             // <Protect>
               <MyEvents/>

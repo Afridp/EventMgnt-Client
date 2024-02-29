@@ -46,13 +46,13 @@ export const fetchEvents = async ({ search, sort }) => {
     return data
 }
 
-export const getEventForm = async (eventUUID) => {
-    const data = await customerAxiosInstance.get(`/getEventFormField?eventUUID=${eventUUID}`)
+export const getEventForm = async (eventId) => {
+    const data = await customerAxiosInstance.get(`/getEventFormField?eventId=${eventId}`) 
     return data
 }
 
-export const bookEvent = async (formValuesAndData, customerId, eventUUID) => {
-    const data = await customerAxiosInstance.post(`/bookEvent/${customerId}?eventUUID=${eventUUID}`, formValuesAndData)
+export const bookEvent = async (formValuesAndData, customerId, eventId) => {
+    const data = await customerAxiosInstance.post(`/bookEvent/${customerId}?eventId=${eventId}`, formValuesAndData)
     return data
 }
 

@@ -31,6 +31,7 @@ function AddEventTab({ setEvents, setLoading, editingEvent }) {
           ...restValues,
           image: dataURL,
           managerUUID: manager.uuid,
+          managerId: manager._id
         };
         const res = await addingNewEvent(updatedValues);
         if (res) {
