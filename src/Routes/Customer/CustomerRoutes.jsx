@@ -30,7 +30,7 @@ function CustomerRoutes() {
               <MyEvents/>
               // </Protect>
             }/>
-            <Route path="/myEvents/seemore/:eventId" element={<Protect><ViewOrEditBooked/></Protect>}/>
+            <Route path="/myEvents/seemore/:bookingId" element={<Protect><ViewOrEditBooked/></Protect>}/>
             <Route path="/profile" element={<Protect><Profile/></Protect>}/>
         </Routes>
     </div>

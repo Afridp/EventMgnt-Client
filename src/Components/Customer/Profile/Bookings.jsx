@@ -63,7 +63,6 @@ function Bookings() {
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
 
   if (bookings?.length) {
-    console.log(bookings,"this i");
     currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
   }
 
@@ -92,69 +91,26 @@ function Bookings() {
             {/* Display current bookings */}
             {currentBookings.map((event) => (
               <div className="fade-ef" key={event._id}>
-                <div className="border p-4 border-black m-4">
-                  <div className="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
-                    <dl className="-my-5 divide-y divide-gray-100 text-sm">
-                      <div className="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt className="font-semibold text-gray-900">
-                          Event Name
-                        </dt>
-                        <dd className="text-gray-700 sm:col-span-2">
-                          {event.eventName}
-                        </dd>
-                      </div>
-
-                      <div className="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt className="font-semibold text-gray-900">
-                          Event Category
-                        </dt>
-                        <dd className="text-gray-700 sm:col-span-2">
-                          {event.eventCategory}
-                        </dd>
-                      </div>
-
-                      <div className="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt className="font-semibold text-gray-900">Venue</dt>
-                        <dd className="text-gray-700 sm:col-span-2">
-                          {event.venueName}
-                        </dd>
-                      </div>
-
-                      <div className="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt className="font-semibold text-gray-900">Date</dt>
-                        <dd className="text-gray-700 sm:col-span-2">
-                          {new Date(event.startDate).toLocaleDateString(
-                            "en-GB"
-                          )}
-                        </dd>
-                      </div>
-
-                      <div className="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                        <dt className="font-semibold text-gray-900">
-                          Additional Details
-                        </dt>
-                        <dd className="text-gray-700 sm:col-span-2">
-                          {event.venueLocation}
-                        </dd>
-                      </div>
-                    </dl>
-                  </div>
-
-                  <div className=" container mx-auto m-4 flex items-end justify-end gap-5">
-                    <CancelModal
-                      onConfirm={handleCancelBooking}
-                      eventId={event._id}
-                    />
-                    <Link
-                      to={`/myEvents/seemore/${event._id}`}
-                      className="inline-block mt-4  rounded border border-indigo-600 bg-indigo-800 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                    >
-                      Edit
-                    </Link>
+                <div className="border p-4 border-gray-300 rounded-sm m-4">
+                  <div className="flow-root rounded-lg py-3 shadow-sm">
+                    <div>{event.eventId.eventName}</div>
+                    <div className="container mx-auto m-4 flex items-end justify-end gap-5">
+                      <CancelModal
+                        onConfirm={handleCancelBooking}
+                        eventId={event._id}
+                      />
+                      <Link
+                        to={`/myEvents/seemore/${event._id}`}
+                        className="inline-block mt-4 rounded border border-indigo-600 bg-indigo-800 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+                      >
+                        Edit
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
+
             <div className="mt-14">
               <Pagination
                 datasPerPage={bookingsPerPage}

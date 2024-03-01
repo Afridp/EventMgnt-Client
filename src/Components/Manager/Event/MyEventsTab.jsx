@@ -8,11 +8,11 @@ import { useState } from "react";
 function MyEventsTab({ events, handleListing, fetchEvents }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventUUID, setEventUUID] = useState("");
-  const [eventName, setEventName] = useState("");
+  const [eventType, setEventType] = useState("");
   const [eventId, setEventId] = useState("")
 
-  const toggleModal = (eventUUID, eventId, eventName) => {
-    setEventName(eventName);
+  const toggleModal = (eventUUID, eventId, eventType) => {
+    setEventType(eventType);
     setEventUUID(eventUUID);
     setEventId(eventId)
     setIsModalOpen(!isModalOpen);
@@ -27,7 +27,7 @@ function MyEventsTab({ events, handleListing, fetchEvents }) {
           setIsModalOpen={setIsModalOpen}
           eventUUID={eventUUID}
           eventId={eventId}
-          eventName={eventName}
+          eventType={eventType}
         />
       )}
       {events?.map((event) => (

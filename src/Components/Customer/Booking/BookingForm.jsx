@@ -23,6 +23,7 @@ function BookingForm() {
   const [formErrors, setFormErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
 
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,52 +71,39 @@ function BookingForm() {
       handleScriptLoad();
     }
   }, [isLoaded]);
-
+  console.log(formValues);
   // on submitting the submit button this function will work
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const errors = {};
+        const errors = {};
 
-      // if (formData) {
-      // creates a blank object named errors
-      // if formdata contains each field is taken to
-      formData?.forEach((field) => {
-        // if (!formValues[field.label]) {
-        //   errors[field.label] = `${field.label} is required`;
-        // }
-        if (field.type === "Map") {
-          formValues[field.label] = location;
-          //
-        }
-
-        // to here to check that the validation
-        const error = validateField(field, formValues);
-        if (error) {
-          errors[field.label] = error;
-        }
-      });
-      // }
-      setFormErrors(errors);
-      // if tthe errors object is empty which is there is no error all fields are available,continue with submitting
-      if (Object.keys(errors).length === 0) {
-        setIsLoading(true);
-        // Handle form submission'
-
-        const res = await bookEvent(
-          { formValues, formData },
-          customer._id,
-          eventId
-        );
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
+        formData?.forEach((field) => {
+            const error = validateField(field, formValues);
+            if (error) {
+                errors[field.label] = error;
+            }
         });
-        navigate("/myEvents");
-      }
+
+        setFormErrors(errors);
+
+        if (Object.keys(errors).length === 0) {
+            setIsLoading(true);
+            const res = await bookEvent(
+                { formValues, formData },
+                customer._id,
+                eventId
+            );
+            toast.success(res.data.message, {
+                position: toast.POSITION.TOP_CENTER,
+            });
+            navigate("/myEvents");
+        }
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
-  };
+};
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -130,31 +118,23 @@ function BookingForm() {
     }));
   };
 
-  const handleOptionChange = (index, option, e, optionIndex) => {
+  const handleOptionChange = (index, option, e, optionIndex, field) => {
     const { checked } = e.target;
-    const optionValue = formData[index].options[optionIndex];
-    const isExclusive =
-      optionValue.toUpperCase() === "YES" || optionValue.toUpperCase() === "NO";
 
-    if (isExclusive && checked) {
-      // Uncheck other options in the same group
-      Object.keys(formValues).forEach((key) => {
-        const [fieldLabel, opt] = key.split("-");
-        if (fieldLabel === formData[index].label && opt !== option) {
-          setFormValues((prevFormValues) => ({
-            ...prevFormValues,
-            [key]: false,
-          }));
+    setFormValues((prevFormValues) => {
+      const updatedValues = [...(prevFormValues[field.label] || [])]; // Copy the current values array
+
+      if (checked) {
+        updatedValues.push(option); // Add the selected option to the array
+      } else {
+        const index = updatedValues.indexOf(option);
+        if (index !== -1) {
+          updatedValues.splice(index, 1); // Remove the unselected option from the array
         }
-      });
-    }
+      }
 
-    // Update the state with the value of the clicked option
-    setFormValues((prevFormValues) => ({
-      ...prevFormValues,
-
-      [`${formData[index].label}-${option}`]: checked,
-    }));
+      return { ...prevFormValues, [field.label]: updatedValues }; // Update the formValues state
+    });
   };
 
   // // this fn will work when input is actived or focused(only for handle blur inputs)
@@ -179,15 +159,10 @@ function BookingForm() {
   const handleBlur = (e) => {
     const { name, type, checked } = e.target;
     setTouchedFields({ ...touchedFields, [name]: true });
-    console.log(name);
     const fieldName = type === "checkbox" ? name.split("-")[0] : name;
     const field = formData?.find((field) => field.label === fieldName);
 
-    console.log(fieldName);
-    console.log(field);
-
     if (!field || (type === "checkbox" && checked)) {
-      console.log("haai");
       setFormErrors((prevErrors) => {
         const newErrors = { ...prevErrors };
         delete newErrors[name];
@@ -199,34 +174,23 @@ function BookingForm() {
     const error = validateField(field, formValues);
     setFormErrors({ ...formErrors, [fieldName]: error });
   };
-
+  // do another validatefeild fn for handleblur
   const validateField = (field, formValues) => {
-    // Check if the field is required
     if (field.required) {
-      // If it's a checkbox, ensure at least one option is selected
-      if (field.type === "Checkbox") {
-        const selectedOptions = Object.keys(formValues).filter((key) =>
-          key.startsWith(`${field.label}-`)
-        );
-
-        // if (selectedOptions.length > 0 && selectedOptions.length < 4) {
-        //   return `${field.label} requires at least one option to be selected`;
-        // }
-
-        if (selectedOptions.length === 0) {
-          return `${field.label} is required`;
+        if (field.type === "Checkbox") {
+            if (!formValues[field.label] || formValues[field.label].length === 0) {
+                return `${field.label} requires at least one option to be selected`;
+            }
+        } else {
+            const value = formValues[field.label];
+            if (!value) {
+                return `${field.label} is required`;
+            }
         }
-      } else {
-        // For other field types, check if the value is empty
-        const value = formValues[field.label];
-        if (!value) {
-          return `${field.label} is required`;
-        }
-      }
     }
-    // Return an empty string if no validation error
     return "";
-  };
+};
+
 
   return (
     <>
@@ -400,18 +364,20 @@ function BookingForm() {
                               id={`${field.label}-${option}`}
                               name={`${field.label}-${option}`}
                               checked={
-                                formValues[`${field.label}-${option}`] || false
+                                formValues[field.label]?.includes(option) ||
+                                false
                               }
                               onChange={(e) =>
                                 handleOptionChange(
                                   index,
                                   option,
                                   e,
-                                  optionIndex
+                                  optionIndex,
+                                  field
                                 )
                               }
                               onBlur={handleBlur}
-                              className="radio"
+                              className="checkbox"
                             />
                             <label
                               className="ml-2"

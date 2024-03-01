@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Tooltip } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -15,8 +16,9 @@ import { useSelector } from "react-redux";
 // eslint-disable-next-line react/prop-types
 function FormBuilder({
   isModalOpen,
+  // eslint-disable-next-line react/prop-types
   setIsModalOpen,
-  eventName,
+  eventType,
   eventId,
   fetchEvents,
 }) {
@@ -192,7 +194,7 @@ function FormBuilder({
         <LoaderManager loading={Loading} />
         <DialogTitle id="scroll-dialog-title">
           <div className="flex items-center justify-between borer">
-            <h1 className="flex-1">{eventName}</h1>
+            <h1 className="flex-1">{eventType}</h1>
 
             <a
               className="w-9 h-9 m-2 text-gray-800 dark:text-white cursor-pointer"

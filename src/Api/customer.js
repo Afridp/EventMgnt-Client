@@ -66,8 +66,8 @@ export const fetchBookings = async ({ customerId, search, sort }) => {
     return data
 }
 
-export const fetchEvent = async (eventId) => {
-    const data = await customerAxiosInstance.get(`/getEvent/${eventId}`)
+export const getEditingEvent = async (bookingId) => {
+    const data = await customerAxiosInstance.get(`/getEditingEvent/${bookingId}`)
     return data
 }
 

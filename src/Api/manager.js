@@ -32,8 +32,8 @@ export const managerSignin = async (signinData) => {
     return data
 }
 
-export const getEvents = async ({managerUUID, managerId}) => {
-   
+export const getEvents = async ({managerId}) => {
+
     const data = await managerAxiosInstance.get(`/getEvents?managerId=${managerId}`)
     return data
 }
