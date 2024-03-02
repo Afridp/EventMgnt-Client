@@ -103,7 +103,7 @@ function Bookings() {
                         to={`/myEvents/seemore/${event._id}`}
                         className="inline-block mt-4 rounded border border-indigo-600 bg-indigo-800 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
                       >
-                        Edit
+                        See More
                       </Link>
                     </div>
                   </div>

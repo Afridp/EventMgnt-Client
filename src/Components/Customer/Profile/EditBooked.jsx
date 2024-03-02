@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { editBooked, getEditingEvent } from "../../../Api/customer";
+import { useParams } from "react-router-dom";
+import { getEditingEvent } from "../../../Api/customer";
 
 function EditBooked() {
   const { bookingId } = useParams();
   const [eventData, setEventData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchEditingEventData = async () => {
       try {
         setIsLoading(true);
         const res = await getEditingEvent(bookingId);
-        setEventData(res?.data?.event);
+        setEventData(res?.data?.formData);
         setIsLoading(false);
       } catch (error) {
         console.error(error.message);
@@ -25,10 +24,6 @@ function EditBooked() {
     fetchEditingEventData();
   }, [bookingId]);
 
-  
- 
-
-  
   if (isLoading) {
     return (
       <div className="grid h-screen place-content-center bg-white">
@@ -39,28 +34,67 @@ function EditBooked() {
         </div>
       </div>
     );
-  }
+  } 
 
   return (
     <>
       <section className="min-h-screen bg-cover">
-        <div className="mx-auto max-w-screen-xl  px-4 py-14 sm:px-6 lg:px-8">
-          <div className="rounded-lg bg-white p-8 shadow-2xl border my-20  lg:col-span-3 lg:p-12">
-          <form action="" className="space-y-4" onSubmit={handleSubmit}>
-                <span className="flex items-center">
-                  <span className="pr-6 font-bold font-mono text-orange-900">
-                    Event Details
-                  </span>
-                  <span className="h-px flex-1 bg-black"></span>
+        <div className="mx-auto max-w-screen-xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="rounded-lg bg-white p-8 shadow-2xl border my-20 lg:col-span-3 lg:p-12">
+            <form action="" className="space-y-4">
+              <span className="flex items-center">
+                <span className="pr-6 font-bold font-mono text-orange-900">
+                  Event Details
                 </span>
-{/*               
-                {eventData?.map((field, index) => (
-                  
-
-                    
-                ))} */}
-                
-              </form>
+                <span className="h-px flex-1 bg-black"></span>
+              </span>
+              {Object.entries(eventData).map(
+                ([fieldName, fieldValue], index) => (
+                  <div key={index}>
+                    <label className="block font-semibold">{fieldName}</label>
+                    {Array.isArray(fieldValue) ? (
+                      // Render checkboxes for array values
+                      fieldValue.map((value, idx) => (
+                        <div key={idx} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            checked
+                            id={`${fieldName}-${idx}`}
+                            value={value}
+                            disabled
+                            className="checkbox"
+                          />
+                          <label htmlFor={`${fieldName}-${idx}`}>{value}</label>
+                        </div>
+                      ))
+                    ) : typeof fieldValue === "object" ? (
+                      // Render radio buttons for object values
+                      // eslint-disable-next-line no-unused-vars
+                      Object.entries(fieldValue).map(([key, val], idx) => (
+                        <div key={idx} className="flex items-center">
+                          <input
+                            type="radio"
+                            id={`${fieldName}-${idx}`}
+                            value={key}
+                            disabled
+                            className="mr-2"
+                          />
+                          <label htmlFor={`${fieldName}-${idx}`}>{key}</label>
+                        </div>
+                      ))
+                    ) : (
+                      // Render input for other types of values
+                      <input
+                        type="text"
+                        value={fieldValue}
+                        disabled
+                        className="w-full rounded-md border-gray-200 p-2 text-sm"
+                      />
+                    )}
+                  </div>
+                )
+              )}
+            </form>
           </div>
         </div>
       </section>
