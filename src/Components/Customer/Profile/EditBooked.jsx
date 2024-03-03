@@ -6,7 +6,6 @@ function EditBooked() {
   const { bookingId } = useParams();
   const [eventData, setEventData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  
 
   useEffect(() => {
     const fetchEditingEventData = async () => {
@@ -34,7 +33,7 @@ function EditBooked() {
         </div>
       </div>
     );
-  } 
+  }
 
   return (
     <>
@@ -43,10 +42,10 @@ function EditBooked() {
           <div className="rounded-lg bg-white p-8 shadow-2xl border my-20 lg:col-span-3 lg:p-12">
             <form action="" className="space-y-4">
               <span className="flex items-center">
-                <span className="pr-6 font-bold font-mono text-orange-900">
-                  Event Details
-                </span>
                 <span className="h-px flex-1 bg-black"></span>
+                <span className="pr-6 ml-4 font-bold font-mono text-orange-900">
+                  Booked Event Details
+                </span>
               </span>
               {Object.entries(eventData).map(
                 ([fieldName, fieldValue], index) => (
@@ -54,42 +53,51 @@ function EditBooked() {
                     <label className="block font-semibold">{fieldName}</label>
                     {Array.isArray(fieldValue) ? (
                       // Render checkboxes for array values
-                      fieldValue.map((value, idx) => (
-                        <div key={idx} className="flex items-center">
-                          <input
-                            type="checkbox"
-                            checked
-                            id={`${fieldName}-${idx}`}
-                            value={value}
-                            disabled
-                            className="checkbox"
-                          />
-                          <label htmlFor={`${fieldName}-${idx}`}>{value}</label>
-                        </div>
-                      ))
+                      <div className="flex flex-row items-center gap-5 mt-3">
+                        {fieldValue.map((value, idx) => (
+                          <div key={idx} className="flex items-center">
+                            <input
+                              type="checkbox"
+                              checked
+                              id={`${fieldName}-${idx}`}
+                              value={value}
+                              // disabled
+                              className="checkbox"
+                            />
+                            <label htmlFor={`${fieldName}-${idx}`} className="ml-3">
+                              {value}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
                     ) : typeof fieldValue === "object" ? (
-                      // Render radio buttons for object values
-                      // eslint-disable-next-line no-unused-vars
-                      Object.entries(fieldValue).map(([key, val], idx) => (
-                        <div key={idx} className="flex items-center">
+                      // Render radio buttons for object value
+                      Object.entries(fieldValue).map(([, val], idx) => (
+                        <div
+                          key={idx}
+                          className="flex flex-row items-center gap-5 mt-2"
+                        >
                           <input
                             type="radio"
                             id={`${fieldName}-${idx}`}
-                            value={key}
-                            disabled
-                            className="mr-2"
+                            value={val}
+                            checked
+                            // disabled
+                            className="radio"
                           />
-                          <label htmlFor={`${fieldName}-${idx}`}>{key}</label>
+                          <label htmlFor={`${fieldName}-${idx}`}>{val}</label>
                         </div>
                       ))
                     ) : (
                       // Render input for other types of values
-                      <input
+                     <div className="mt-3"> 
+                       <input
                         type="text"
                         value={fieldValue}
                         disabled
-                        className="w-full rounded-md border-gray-200 p-2 text-sm"
+                        className="w-full rounded-lg border-gray-200 p-3 text-sm  "
                       />
+                     </div>
                     )}
                   </div>
                 )

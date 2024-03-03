@@ -76,17 +76,17 @@ function MyEventsTab({ events, handleListing, fetchEvents }) {
                 </Tooltip>
               </button>
 
-              <div className="col-span-1 flex justify-center items-center">
+              {/* <div className="col-span-1 flex justify-center items-center">
                 <a
                   className="text-blue-500"
-                  // onClick={() =>
-                  //   editEvent({
-                  //     eventName: event.eventName,
-                  //     eventDescription: event.eventDescription,
-                  //     image: event.eventImage,
-                  //     uuid: event.uuid,
-                  //   })
-                  // }
+                  onClick={() =>
+                    editEvent({
+                      eventName: event.eventName,
+                      eventDescription: event.eventDescription,
+                      image: event.eventImage,
+                      uuid: event.uuid,
+                    })
+                  }
                 >
                   <svg
                     className="w-6 h-6 text-gray-800 dark:text-white"
@@ -104,8 +104,8 @@ function MyEventsTab({ events, handleListing, fetchEvents }) {
                     />
                   </svg>
                 </a>
-              </div>
-              <div className="col-span-1 flex justify-center items-center">
+              </div> */}
+              <div className="col-span-2 flex justify-center items-center">
                 <Chip
                   variant="filled"
                   onClick={

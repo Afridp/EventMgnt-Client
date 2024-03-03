@@ -15,7 +15,7 @@ import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
 
 function ProPlans() {
   const { manager } = useSelector((state) => state.managerSlice);
-  console.log(manager);
+
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -93,7 +93,7 @@ function ProPlans() {
       <div className="absolute top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
         <div className="mx-auto max-w-3xl px-4 py-24 sm:px-6 sm:pt-52 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-center md:gap-8">
-            <div className="rounded-2xl border border-gray-300  p-6 shadow-sm hover:border-indigo-600 hover:ring-1 hover:ring-indigo-600 sm:order-last sm:px-8 lg:p-12 transition-transform transform hover:scale-105 text-white">
+            <div className="rounded-2xl border border-gray-300  p-6 shadow-sm hover:border-indigo-600 hover:ring-1 hover:ring-indigo-600 sm:order-last sm:px-8 transition-transform transform hover:scale-105 text-white">
               <div className="text-center">
                 <h2 className="text-lg font-medium">
                   Yearly

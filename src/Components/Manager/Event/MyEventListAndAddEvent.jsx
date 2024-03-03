@@ -13,7 +13,7 @@ function MyEventListAndAddEvent() {
   
   const [tab, setTab] = useState("tab1");
   const [events, setEvents] = useState([]);
-  // const [editingEvent, setEditingEvent] = useState(false);
+  // const [isEditingEvent, setIsEditingEvent] = useState(false);
   const [Loading, setLoading] = useState(false);
   // const [editingEvent, setEditingEvent] = useState({})
 
@@ -104,7 +104,7 @@ function MyEventListAndAddEvent() {
                       events={events}
                       handleListing={handleListing}
                       fetchEvents={fetchEvents}
-                      // editEvent={handleEditEvent}
+                      // isEditEvent={setIsEditingEvent}
                     />
                   )}
                   {tab === "tab2" && (
