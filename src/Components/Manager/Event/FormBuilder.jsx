@@ -7,12 +7,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useEffect, useState } from "react";
-import { getEventForm, submitForm } from "../../../Api/manager";
+import { getEventForm, submitForm} from "../../../Api/manager";
 import { toast } from "react-toastify";
 import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 import useCapitalizedValue from "../../../CustomHooks/useCapitalizedValue";
 import { useSelector } from "react-redux";
 import { Checkbox } from "antd";
+
+
 
 // eslint-disable-next-line react/prop-types
 function FormBuilder({
@@ -31,6 +33,7 @@ function FormBuilder({
   const [newSelects, setNewSelects] = useState("");
   const [selectOptions, setSelectOptions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
+  const [isChecked, setIsChecked] = useState(false)
 
   useEffect(() => {
     setLoading(true);
@@ -42,32 +45,13 @@ function FormBuilder({
     try {
       const res = await getEventForm(eventId);
       setFields(res?.data?.fields);
+      setIsChecked(res?.data?.isChecked)
     } finally {
       setLoading(false);
     }
     setTimeout(() => {
       setDataLoader(false);
     }, 600);
-  };
-
-  const handlePersonalInfoCheck = (e) => {
-    const { checked } = e.target;
-    if (checked) {
-      setFields([
-        ...fields,
-        { label: "Name", type: "Text", required: true, isPersonal: true },
-        { label: "Address", type: "Text", required: true, isPersonal: true },
-        "info",
-      ]);
-    } else {
-      // Remove the "Name" and "Address" fields from the fields array
-      setFields(
-        fields.filter(
-          (field) => field.label !== "Name" && field.label !== "Address"
-        )
-      );
-      setFields(fields.filter((field) => field === "info"));
-    }
   };
 
   const handleAddFields = () => {
@@ -214,7 +198,7 @@ function FormBuilder({
     try {
       console.log(fields);
       setLoading(true);
-      const res = await submitForm({ eventId, managerId: manager._id, fields });
+      const res = await submitForm({ eventId, managerId: manager._id, fields, isChecked });
       toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
     } finally {
       setLoading(false);
@@ -242,8 +226,8 @@ function FormBuilder({
           <div className="flex items-center justify-between borer">
             <h1 className="flex-1">{eventType}</h1>
             <Checkbox
-              onChange={handlePersonalInfoCheck}
-              checked={fields.includes("info")}
+              onChange={()=>setIsChecked(prevValue => !prevValue)}
+              checked={isChecked}
             >
               Include Personal Information
             </Checkbox>
@@ -261,7 +245,7 @@ function FormBuilder({
                   fields?.map((field, index) => (
                     <div key={index}>
                       {typeof field === "object" && (
-                        <div className="flex flex-col mt-4 font-normal text-black border border-dashed rounded-sm p-3">
+                        <div className="flex flex-col mt-4 font-normal text-black border border-dashed rounded-sm p-3  fade-ef">
                           <div className="flex items-center">
                             <div className="w-8/12">
                               <input

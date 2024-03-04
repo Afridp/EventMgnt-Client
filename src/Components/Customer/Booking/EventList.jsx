@@ -25,6 +25,7 @@ function Event() {
           search: debouncedSearchQuery,
           sort: sortOptions,
         });
+
         setEvents(res?.data?.events);
         setCurrentPage(1);
       } finally {

@@ -1,29 +1,29 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { bookEvent, getEventForm } from "../../../Api/customer";
+import { useParams } from "react-router-dom";
+import { getEventForm } from "../../../Api/customer";
 import { useState } from "react";
 import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import useGoogleMap from "../../../CustomHooks/useGoogleMap";
 import { Autocomplete } from "@react-google-maps/api";
 
-// import DynamicForm from "./DynamicForm";
-
-function BookingForm() {
-  const { customer } = useSelector((state) => state.customerSlice);
+// eslint-disable-next-line react/prop-types
+function BookingForm({
+  formValues,
+  setFormValues,
+  handleNext,
+  loading,
+  setLoading,
+  setPersonalDetails,
+}) {
   const { eventId } = useParams();
   const [formData, setFormData] = useState();
-  const [formValues, setFormValues] = useState({});
   const { isLoaded } = useGoogleMap();
   const [isLoading, setIsLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState("");
   const [errorLocation, setErrorLocation] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -34,6 +34,7 @@ function BookingForm() {
     try {
       const res = await getEventForm(eventId);
       setFormData(res?.data?.fields);
+      setPersonalDetails(res?.data?.personalInfo);
     } finally {
       setLoading(false);
     }
@@ -99,15 +100,16 @@ function BookingForm() {
 
       if (Object.keys(errors).length === 0) {
         setIsLoading(true);
-        const res = await bookEvent(
-          { formValues, formData },
-          customer._id,
-          eventId
-        );
-        toast.success(res.data.message, {
-          position: toast.POSITION.TOP_CENTER,
-        });
-        navigate("/myEvents");
+        // const res = await bookEvent(
+        //   { formValues},
+        //   customer._id,
+        //   eventId1
+        // );
+        // toast.success(res.data.message, {
+        //   position: toast.POSITION.TOP_CENTER,
+        // });
+        // navigate("/myEvents");
+        handleNext();
       }
     } finally {
       setIsLoading(false);
@@ -166,24 +168,7 @@ function BookingForm() {
       return updatedFormValues;
     });
   };
-  console.log(formValues);
-  // // this fn will work when input is actived or focused(only for handle blur inputs)
-  // const handleBlur = (e) => {
-  //   // got input name attribute which is labal
-  //   const { name } = e.target;
 
-  //   // setting values to touched fields [{ label : true},...]
-  //   setTouchedFields({ ...touchedFields, [name]: true });
-
-  //   // checking data fetched from bknd is available,if available finding that field that matches the-
-  //   // current invocation input is selected,so if true the field have that feild {label: name ,type: 'text , required : true}
-  //   const field = formData?.find((field) => field.label === name);
-  //   // if there id no field it will return,handle blur not work(this return is not neccessary because there will no data in the field)
-  //   if (!field) return;
-  //   // passing that field {label: name,type: 'text, required : true} and current input value
-  //   const error = validateField(field, formValues);
-  //   setFormErrors({ ...formErrors, [name]: error });
-  // };
   console.log(errorLocation);
 
   const handleBlur = (e) => {
@@ -224,80 +209,81 @@ function BookingForm() {
   return (
     <>
       <section className="min-h-screen bg-cover">
-        <div className="mx-auto max-w-screen-xl px-4 py-14 sm:px-6 lg:px-8">
-          <div className="rounded-lg bg-white p-8 shadow-2xl border my-20 lg:col-span-3 lg:p-12 fade-ef">
+        <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-lg bg-white p-8 shadow-2xl border my-10 lg:col-span-3 lg:p-12 fade-ef">
             {/* {formData && <DynamicForm formData={formData} />} */}
             {loading ? (
               <LoaderManager loading={loading} />
             ) : (
-              <form action="" className="space-y-4" onSubmit={handleSubmit}>
-                <span className="flex items-center">
-                  <span className="pr-6 font-bold font-mono text-orange-900">
-                    Event Details
+              <>
+                <form action="" className="space-y-4" onSubmit={handleSubmit}>
+                  <span className="flex items-center">
+                    <span className="pr-6 font-bold font-mono text-orange-900">
+                      Event Details
+                    </span>
+                    <span className="h-px flex-1 bg-black"></span>
                   </span>
-                  <span className="h-px flex-1 bg-black"></span>
-                </span>
-                {/* <input type="text" name="uuid" id="uuid" value={eventUUID} hidden/> */}
-                {formData?.map((field, index) => (
-                  <div key={field.label}>
-                    <label htmlFor={field.label} className="label">
-                      <span className="label-text text-base font-semibold">
-                        {field.label}
-                      </span>
-                    </label>
+                  {/* <input type="text" name="uuid" id="uuid" value={eventUUID} hidden/> */}
+                  {formData?.map((field, index) => (
+                    <div key={field.label}>
+                      <label htmlFor={field.label} className="label">
+                        <span className="label-text text-base font-semibold">
+                          {field.label}
+                        </span>
+                      </label>
 
-                    {field.type === "Text" && (
-                      <input
-                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                        placeholder="Type Here..."
-                        type="text"
-                        id={field.label}
-                        name={field.label}
-                        value={formValues[field.label] || ""}
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                      />
-                    )}
+                      {field.type === "Text" && (
+                        <input
+                          className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                          placeholder="Type Here..."
+                          type="text"
+                          id={field.label}
+                          name={field.label}
+                          value={formValues[field.label] || ""}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                        />
+                      )}
 
-                    {field.type === "Number" && (
-                      <input
-                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                        placeholder="Enter a number..."
-                        type="number"
-                        id={field.label}
-                        name={field.label}
-                        value={formValues[field.label] || ""}
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                      />
-                    )}
+                      {field.type === "Number" && (
+                        <input
+                          className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                          placeholder="Enter a number..."
+                          type="number"
+                          id={field.label}
+                          name={field.label}
+                          value={formValues[field.label] || ""}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                        />
+                      )}
 
-                    {field.type === "Email" && (
-                      <input
-                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                        placeholder="Enter your email..."
-                        type="email"
-                        id={field.label}
-                        name={field.label}
-                        value={formValues[field.label] || ""}
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                      />
-                    )}
+                      {field.type === "Email" && (
+                        <input
+                          className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                          placeholder="Enter your email..."
+                          type="email"
+                          id={field.label}
+                          name={field.label}
+                          value={formValues[field.label] || ""}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                        />
+                      )}
 
-                    {field.type === "Textarea" && (
-                      <textarea
-                        className=" "
-                        placeholder="Type here..."
-                        id={field.label}
-                        name={field.label}
-                        value={formValues[field.label] || ""}
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                      ></textarea>
-                    )}
+                      {field.type === "Textarea" && (
+                        <textarea
+                          className=" "
+                          placeholder="Type here..."
+                          id={field.label}
+                          name={field.label}
+                          value={formValues[field.label] || ""}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                        ></textarea>
+                      )}
 
-                    {/* {field.type === "File" && (
+                      {/* {field.type === "File" && (
                       <>
                         <input
                           // ref={fileref}
@@ -347,137 +333,136 @@ function BookingForm() {
                       </>
                     )} */}
 
-                    {field.type === "Map" && isLoaded && (
-                      <Autocomplete>
-                        <input
-                          className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                          placeholder="Type here"
-                          type="search"
-                          id="location"
-                          name="location"
-                          // onBlur={handleBlur}
-                          onChange={(e) => setLocation(e.target.value)}
-                          value={location}
-                          required=""
-                        />
-                      </Autocomplete>
-                    )}
+                      {field.type === "Map" && isLoaded && (
+                        <Autocomplete>
+                          <input
+                            className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                            placeholder="Type here"
+                            type="search"
+                            id="location"
+                            name="location"
+                            // onBlur={handleBlur}
+                            onChange={(e) => setLocation(e.target.value)}
+                            value={location}
+                            required=""
+                          />
+                        </Autocomplete>
+                      )}
 
-                    {field.type === "Select" && (
-                      <div className="mt-2 flex flex-row items-center">
-                        <select
-                          className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                          value={formValues[field.label] || ""}
-                          onChange={(e) => handleSelectChange(index, e)}
-                          onBlur={handleBlur}
-                          name={field.label}
-                        >
-                          <option value="" disabled defaultChecked>
-                            Select an option
-                          </option>
-                          {field?.selects?.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                      {field.type === "Select" && (
+                        <div className="mt-2 flex flex-row items-center">
+                          <select
+                            className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                            value={formValues[field.label] || ""}
+                            onChange={(e) => handleSelectChange(index, e)}
+                            onBlur={handleBlur}
+                            name={field.label}
+                          >
+                            <option value="" disabled defaultChecked>
+                              Select an option
                             </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
+                            {field?.selects?.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
 
-                    {field.type === "Checkbox" && (
-                      <div className="flex flex-row items-center gap-5 mt-2">
-                        {field.options.map((option, optionIndex) => (
-                          <div key={optionIndex}>
-                            <input
-                              type="checkbox"
-                              id={`${field.label}-${option}`}
-                              name={`${field.label}-${option}`}
-                              checked={
-                                formValues[field.label]?.includes(option) ||
-                                false
-                              }
-                              onChange={(e) =>
-                                handleOptionChange(option, e, field)
-                              }
-                              onBlur={handleBlur}
-                              className="checkbox"
-                            />
-                            <label
-                              className="ml-2"
-                              htmlFor={`${field.label}-${option}`}
-                            >
-                              {option}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {field.type === "Radio" && (
-                      <div className="flex flex-row items-center gap-5 mt-2">
-                        {Object.entries(field.booleans).map(
-                          (entry, optionIndex) => (
+                      {field.type === "Checkbox" && (
+                        <div className="flex flex-row items-center gap-5 mt-2">
+                          {field.options.map((option, optionIndex) => (
                             <div key={optionIndex}>
                               <input
-                                type="radio"
-                                id={`${field.label}-${entry[0]}`}
-                                name={field.label}
-                                value={entry}
+                                type="checkbox"
+                                id={`${field.label}-${option}`}
+                                name={`${field.label}-${option}`}
                                 checked={
-                                  formValues[field.label]?.[1] === entry?.[1]
+                                  formValues[field.label]?.includes(option) ||
+                                  false
                                 }
-                                onChange={() =>
-                                  handleRadioChange(field.label, entry)
+                                onChange={(e) =>
+                                  handleOptionChange(option, e, field)
                                 }
                                 onBlur={handleBlur}
-                                className="radio"
+                                className="checkbox"
                               />
                               <label
                                 className="ml-2"
-                                htmlFor={`${field.label}-${entry[0]}`}
+                                htmlFor={`${field.label}-${option}`}
                               >
-                                {entry[1]}{" "}
-                                {/* Assuming entry[1] is the label/value you want to display */}
+                                {option}
                               </label>
                             </div>
-                          )
+                          ))}
+                        </div>
+                      )}
+
+                      {field.type === "Radio" && (
+                        <div className="flex flex-row items-center gap-5 mt-2">
+                          {Object.entries(field.booleans).map(
+                            (entry, optionIndex) => (
+                              <div key={optionIndex}>
+                                <input
+                                  type="radio"
+                                  id={`${field.label}-${entry[0]}`}
+                                  name={field.label}
+                                  value={entry}
+                                  checked={
+                                    formValues[field.label]?.[1] === entry?.[1]
+                                  }
+                                  onChange={() =>
+                                    handleRadioChange(field.label, entry)
+                                  }
+                                  onBlur={handleBlur}
+                                  className="radio"
+                                />
+                                <label
+                                  className="ml-2"
+                                  htmlFor={`${field.label}-${entry[0]}`}
+                                >
+                                  {entry[1]}{" "}
+                                  {/* Assuming entry[1] is the label/value you want to display */}
+                                </label>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      )}
+
+                      {field.type === "text" && (
+                        <div>
+                          <input
+                            className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                            placeholder="Name"
+                            type="text"
+                            id="name"
+                          />
+                        </div>
+                      )}
+
+                      <div className="label">
+                        {(touchedFields[field.label] ||
+                          formErrors[field.label]) && (
+                          <p className="text-error text-sm">
+                            {formErrors[field.label]}
+                          </p>
                         )}
                       </div>
-                    )}
-                   
-                    {field.type === "text" && (
-                      <div>
-                        <input
-                          className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                          placeholder="Name"
-                          type="text"
-                          id="name"
-                        />
-                      </div>
-                    )}
-
-                    
-                    <div className="label">
-                      {(touchedFields[field.label] ||
-                        formErrors[field.label]) && (
-                        <p className="text-error text-sm">
-                          {formErrors[field.label]}
-                        </p>
-                      )}
                     </div>
+                  ))}
+                  <div className="mt-5 flex  justify-end">
+                    <button
+                      type="submit"
+                      className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium  text-white sm:w-auto"
+                      onClick={handleSubmit}
+                    >
+                      {isLoading ? "Loading.." : "Next"}
+                    </button>
                   </div>
-                ))}
-
-                <div className="mt-5 flex  justify-end">
-                  <button
-                    type="submit"
-                    className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium  text-white sm:w-auto"
-                    onClick={handleSubmit}
-                  >
-                    {isLoading ? "Submiting.." : "Submit Details"}
-                  </button>
-                </div>
-              </form>
+                </form>
+              </>
             )}
           </div>
         </div>

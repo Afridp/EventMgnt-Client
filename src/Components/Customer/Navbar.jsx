@@ -62,7 +62,7 @@ function Navbar() {
       {loading ? (
         <div></div>
       ) : (
-        <header className="backdrop-blur-3xl bg-black/45 sticky top-0 w-full z-50">
+        <header className="backdrop-blur-3xl bg-black/45 fixed top-0 w-full z-50">
           <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-20 items-center justify-between">
               <div className="md:flex md:items-center md:gap-12">
