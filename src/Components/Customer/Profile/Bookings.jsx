@@ -10,6 +10,9 @@ import { toast } from "react-toastify";
 import Pagination from "../Common/Pagination";
 import SearchAndSort from "../Common/SearchAndSort";
 import useDebounce from "../../../CustomHooks/useDebounce";
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+
 
 function Bookings() {
   const { customer } = useSelector((state) => state.customerSlice);
@@ -87,13 +90,16 @@ function Bookings() {
             </div>
           </div>
         ) : currentBookings && currentBookings.length > 0 ? (
-          <div>
+          <div className="px-28">
             {/* Display current bookings */}
             {currentBookings.map((event) => (
               <div className="fade-ef" key={event._id}>
                 <div className="border p-4 border-gray-300 rounded-sm m-4">
                   <div className="flow-root rounded-lg py-3 shadow-sm">
-                    <div>{event.eventId.eventName}</div>
+                    <div className="flex flex-col item">
+-cenm                    <h1>{event.eventId.eventName}</h1>
+                    <Chip label="success" color="success" />
+                    </div>
                     <div className="container mx-auto m-4 flex items-end justify-end gap-5">
                       <CancelModal
                         onConfirm={handleCancelBooking}
@@ -101,7 +107,7 @@ function Bookings() {
                       />
                       <Link
                         to={`/myEvents/seemore/${event._id}`}
-                        className="inline-block mt-4 rounded border border-indigo-600 bg-indigo-800 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+                        className="inline-block mt-4 border border-red-900 bg-black px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-900 focus:outline-none focus:ring active:text-indigo-500"
                       >
                         See More
                       </Link>

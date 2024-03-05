@@ -16,7 +16,7 @@ function BookingCancelModal({ onConfirm, eventId }) {
   return (
     <>
       <button
-        className="mt-4 rounded border border-red-700 bg-red-800 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-700 focus:outline-none focus:ring active:text-red-700"
+        className="mt-4  border border-red-700 bg-red-800 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-700 focus:outline-none focus:ring active:text-red-700"
         onClick={toggleModal}
       >
         Cancel

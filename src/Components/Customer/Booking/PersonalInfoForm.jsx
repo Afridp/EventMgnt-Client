@@ -29,7 +29,7 @@ function PersonalInfoForm({ setPersonalValues, handleNext, handlePrev }) {
     <>
       <section className="min-h-screen bg-cover">
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-lg bg-white p-8 shadow-2xl border my-10 lg:col-span-3 lg:p-12 fade-ef">
+          <div className="rounded-lg bg-white p-8 shadow-2xl border my-20 lg:col-span-3 lg:p-12 fade-ef">
             <form action="" className="space-y-4" onSubmit={handleSubmit}>
               <span className="flex items-center">
                 <span className="pr-6 font-bold font-mono text-orange-900">
@@ -138,14 +138,14 @@ function PersonalInfoForm({ setPersonalValues, handleNext, handlePrev }) {
               <div className="mt-5 flex gap-3 justify-end">
                 <div
                   type="btn"
-                  className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium  text-white sm:w-auto cursor-pointer"
+                  className="inline-block w-full bg-black px-5 py-3 font-medium  text-white sm:w-auto cursor-pointer"
                   onClick={handlePrev}
                 >
                   {isLoading ? "Loading.." : "Back"}
                 </div>
                 <button
                   type="submit"
-                  className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium  text-white sm:w-auto"
+                  className="inline-block w-full bg-black px-5 py-3 font-medium  text-white sm:w-auto"
                 >
                   {isLoading ? "Loading.." : "Next"}
                 </button>

@@ -2,8 +2,14 @@ import { useState } from "react";
 import BookingForm from "./BookingForm";
 import PersonalInfoForm from "./PersonalInfoForm";
 import PaymentForm from "./PaymentForm";
+import { loadStripe } from "@stripe/stripe-js";
+import { useParams } from "react-router-dom";
+import { stripePaymentApi } from "../../../Api/customer";
+const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY;
 
 function Booking() {
+  const { eventId } = useParams();
+
   const [currentStep, setCurrentStep] = useState(0);
   const [personalDetails, setPersonalDetails] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,6 +29,33 @@ function Booking() {
       setCurrentStep(currentStep - 1);
     } else {
       setCurrentStep(0);
+    }
+  };
+
+  const handleBook = async (e, amt, paymentType) => {
+    try {
+    
+      e.preventDefault();
+      if (paymentType === "") {
+        alert("select payment types");
+        return;
+      }
+      if (paymentType === "Pay Now") {
+        const stripe = await loadStripe(STRIPE_KEY);
+        const res = await stripePaymentApi(formValues, personalVlaues, eventId, amt);
+        const sessionId = res.data.sessionId;
+        const result = stripe.redirectToCheckout({
+          sessionId: sessionId,
+        });
+
+        if (result.error) {
+          console.log((await result).error);
+        }
+      } else {
+        // make order without payment
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
   return (
@@ -83,9 +116,11 @@ function Booking() {
             </li>
 
             {personalDetails && (
-              <li    className={`relative flex justify-center font-semibold ${
-                currentStep >= 2 ? "text-red-800" : "text-gray-400"
-              }`}>
+              <li
+                className={`relative flex justify-center font-semibold ${
+                  currentStep >= 2 ? "text-red-800" : "text-gray-400"
+                }`}
+              >
                 <span
                   className={
                     currentStep >= 2
@@ -131,9 +166,11 @@ function Booking() {
               </li>
             )}
 
-            <li    className={`relative flex justify-end font-semibold ${
+            <li
+              className={`relative flex justify-end font-semibold ${
                 currentStep >= 3 ? "text-red-800" : "text-gray-400"
-              }`}>
+              }`}
+            >
               <span
                 className={
                   currentStep >= 3
@@ -193,7 +230,9 @@ function Booking() {
           handlePrev={handlePrev}
         />
       )}
-      {currentStep === 2 && <PaymentForm handlePrev={handlePrev} />}
+      {currentStep === 2 && (
+        <PaymentForm handlePrev={handlePrev} handleBook={handleBook} />
+      )}
     </>
   );
 }

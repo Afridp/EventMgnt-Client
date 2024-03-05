@@ -27,19 +27,14 @@ function ManagerRoute() {
             <Route path="/signin" element={<Public><Siginin/></Public>}/>
             <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
             <Route path="/" element={<Protect><Home/></Protect> }/>
-
             <Route path="/events" element={<Protect><IsSubscribed><Events/></IsSubscribed></Protect>}/>
             <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
-
             <Route path="/myEvents" element={<Protect><IsSubscribed><MyEvents/></IsSubscribed></Protect>}/>
             <Route path="/newEvents" element={<Protect><IsSubscribed><NewEvents/></IsSubscribed></Protect>}/>
-
             <Route path="/employeeMgt" element={<Protect><IsSubscribed><Employees/></IsSubscribed></Protect>}/>
-
             <Route path="/customerMgt" element={<Protect><Customer/></Protect>}/>
-            
             <Route path="/account" element={<Protect><Account/></Protect>}/>
-           
+          
         </Routes>
       
   );

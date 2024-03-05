@@ -1,12 +1,12 @@
 import Navbar from "../../Components/Customer/Navbar";
 import Footer from "../../Components/Customer/Footer";
-import EventEdit from "../../Components/Customer/Profile/EditBooked";
+import SeeMoreBooked from "../../Components/Customer/Profile/SeeMoreBooked";
 
 function ViewOrEditBooked() {
   return (
     <>
       <Navbar />
-      <EventEdit />
+      <SeeMoreBooked />
       <Footer />
     </>
   );

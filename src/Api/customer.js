@@ -96,3 +96,8 @@ export const changePassword = async (values, customerId) => {
     return data
 }
 
+export const stripePaymentApi = async(formValues, personalValues, eventId, amt)=>{
+    const data = customerAxiosInstance.post('/paymentCheckout',{formValues,personalValues,eventId, amt})
+    return data
+}
+    

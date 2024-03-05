@@ -1,22 +1,43 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-function PaymentForm({ handlePrev }) {
-  const [isLoading, setIsLoading] = useState(false);
+function PaymentForm({ handlePrev, handleBook }) {
   const [selectedOption, setSelectedOption] = useState("");
+  const [amount, setAmount] = useState("");
+  const [amountError, setAmountError] = useState("");
+  const [isAmountInputDisabled, setIsAmountInputDisabled] = useState(false);
 
   const handleButtonClick = (option) => {
     setSelectedOption(option);
+    if (option === "Pay Later") {
+      setIsAmountInputDisabled(true);
+      setAmount("");
+      setAmountError("");
+    } else {
+      setIsAmountInputDisabled(false);
+    }
   };
+
+  const handleAmountChange = (e) => {
+    setAmount(e.target.value);
+    setAmountError("");
+  };
+
+  const handleAmountBlur = () => {
+    if (amount === "" || isNaN(amount) || Number(amount) <= 0) {
+      setAmountError("Please enter a valid amount.");
+    }
+  };
+
   return (
     <>
       <section className="min-h-screen bg-cover">
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-lg bg-white p-8 shadow-2xl border my-10 lg:col-span-3 lg:p-12 fade-ef">
+          <div className="rounded-lg bg-white p-8 shadow-2xl border my-20 lg:col-span-3 lg:p-12 fade-ef">
             <form action="" className="space-y-4">
               <span className="flex items-center mb-10">
                 <span className="pr-6 font-bold font-mono text-orange-900">
-                  Paymant Details
+                  Payment Details
                 </span>
                 <span className="h-px flex-1 bg-black"></span>
               </span>
@@ -61,27 +82,35 @@ function PaymentForm({ handlePrev }) {
                 </div>
                 <input
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Enter Amount"
+                  placeholder="₹"
                   type="number"
                   id="amount"
+                  value={amount}
+                  onChange={handleAmountChange}
+                  onBlur={handleAmountBlur}
+                  disabled={isAmountInputDisabled}
                 />
-                <div className="label"></div>
+                <div className="label">
+                  {amountError && <a className="text-red-500">{amountError}</a>}
+                </div>
               </div>
 
               <div className="mt-5 flex gap-3 justify-end">
                 <div
                   type="btn"
-                  className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto cursor-pointer"
+                  className="inline-block w-full bg-black px-5 py-3 font-medium text-white sm:w-auto cursor-pointer"
                   onClick={handlePrev}
                 >
-                  {isLoading ? "Loading.." : "Back"}
+                  Back
                 </div>
 
                 <button
-                  type="submit"
-                  className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium  text-white  sm:w-auto "
+                  type="btn"
+                  className="inline-block w-full  bg-black hover:bg-red-900 px-5 py-3 font-medium text-white sm:w-auto"
+                  onClick={(e) => handleBook(e, amount, selectedOption)}
+                  // disabled={isAmountInputDisabled || amountError !== "" || selectedOption === ""}
                 >
-                  {isLoading ? "Loading.." : "Pay"}
+                  Pay
                 </button>
               </div>
             </form>
