@@ -23,7 +23,7 @@ function Jumbortron() {
             <Fade delay={800}>
             <Link
               to='/events'
-              className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-ce text-white rounded-lg bg-red-900 hover:bg-red-800 focus:ring-2 focus:ring-red-900 dark:focus:ring-blue-900"
+              className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-ce text-white  bg-red-900 hover:bg-red-800 focus:ring-2 focus:ring-red-900 dark:focus:ring-blue-900"
             >
               Book Now
               <svg
@@ -44,7 +44,7 @@ function Jumbortron() {
             </Link>
             <Link
               href="#"
-              className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-2 focus:ring-gray-400"
+              className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white border border-white hover:bg-gray-100 focus:ring-2 focus:ring-gray-400"
             >
               Learn more
             </Link>

@@ -1,5 +1,5 @@
 import Navbar from "../../Components/Customer/Navbar"
-import PaymentSuccess from "../../Components/Customer/PaymentSuccess"
+import PaymentSuccess from "../../Components/Customer/Booking/PaymentSuccess"
 
 
 function PaymentStatus() {

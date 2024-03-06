@@ -1,96 +1,17 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { subscribe } from "../../Api/manager";
-import { Bounce, toast } from "react-toastify";
-import { setManagerDetails } from "../../Redux/slice/managerSlice";
-import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
-
-function ProPlans() {
-  const { manager } = useSelector((state) => state.managerSlice);
+import { useLocation } from "react-router-dom";
 
 
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+function PaymentSuccess() {
 
-  const dispatch = useDispatch();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
 
-  const showModal = () => {
-    if (manager.isTrailed) {
-      setOpen(true);
-    }
-    setLoading(false);
-  };
+    // eslint-disable-next-line no-unused-vars
+    const plan = queryParams.get("plan");
+6
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const subscriptionSelected = async (scheme,amnt) => {
-    try {
-      setLoading(true);
-      const res = await subscribe({
-        selectedPlan: scheme,
-        amnt:amnt,
-        managerId: manager._id,
-      });
-      toast(`🦄 ${res.data.message}`, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-      dispatch(
-        setManagerDetails({
-          manager: res.data.managerSubscribed,
-        })
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    setLoading(true);
-    if (manager.isTrailed && !manager.subscribed) {
-      showModal();
-    }
-    setLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <>
-      <LoaderManager loading={loading} />
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Subcription Ended"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Your current plan is expired,Please upgrage your account to continue
-            our service.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          {/* <Button onClick={handleClose}>Disagree</Button> */}
-          <Button onClick={handleClose}>Okay</Button>
-        </DialogActions>
-      </Dialog>
-
       <div className="absolute top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
         <div className="mx-auto max-w-3xl px-4 py-24 sm:px-6 sm:pt-52 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-center md:gap-8">
@@ -227,10 +148,7 @@ function ProPlans() {
                 </li>
               </ul>
 
-              <a
-                onClick={() => subscriptionSelected("Yearly",6499)}
-                className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-indigo-700 hover:ring-1 hover:ring-indigo-700 focus:outline-none focus:ring "
-              >
+              <a className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-indigo-700 hover:ring-1 hover:ring-indigo-700 focus:outline-none focus:ring ">
                 Get Started
               </a>
             </div>
@@ -332,7 +250,6 @@ function ProPlans() {
 
               <a
                 href="#"
-                onClick={() => subscriptionSelected("Monthly",599)}
                 //   className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-indigo-600 hover:ring-1 hover:ring-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
                 className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-indigo-700 hover:ring-1 hover:ring-indigo-700 focus:outline-none focus:ring active:text-white"
               >
@@ -346,4 +263,4 @@ function ProPlans() {
   );
 }
 
-export default ProPlans;
+export default PaymentSuccess;

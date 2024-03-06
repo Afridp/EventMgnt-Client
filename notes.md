@@ -28,7 +28,8 @@
  * try to use 
  * implement skelton to appropriate image loading place
  * use PurgeCSS tool to remove duplicate or unused css
- * change google maps to sajad map which is user can choose by cursor
+ * change google maps to sajad map which is user can choose by cursor'
+ * bring stripe subscription plan 
 
 
  > doubts to ask x

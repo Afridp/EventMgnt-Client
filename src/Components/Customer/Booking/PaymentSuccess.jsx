@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { bookEvent } from "../../Api/customer";
+import { bookEvent } from "../../../Api/customer";
 import { toast } from "react-toastify";
 
 function PaymentSuccess() {
   const { customer } = useSelector((state) => state.customerSlice);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const [loading, setLoading] = useState(false);
 
   const eventId = queryParams.get("eventId");
   const personalValues = JSON.parse(
@@ -19,8 +19,10 @@ function PaymentSuccess() {
   );
 
   useEffect(() => {
+    if (customer._id) {
+      saveBooking();
+    }
     setLoading(true);
-    saveBooking();
   }, []);
 
   const saveBooking = async () => {
@@ -34,7 +36,9 @@ function PaymentSuccess() {
         position: toast.POSITION.TOP_CENTER,
       });
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   };
   return (
@@ -42,7 +46,7 @@ function PaymentSuccess() {
       <div className="mt-20">
         <div className="bg-blac p-6  md:mx-auto">
           {loading ? (
-            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+            <div className="w-16 h-16 mx-auto my-6 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
           ) : (
             <svg
               viewBox="0 0 24 24"

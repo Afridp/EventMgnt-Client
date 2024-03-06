@@ -81,7 +81,7 @@ function Event() {
                         <div className="gap-4 p-4 lg:p-12">
                           <img
                             src={event?.eventImage}
-                            className="w-200px h-40 rounded-lg"
+                            className="w-200px h-40"
                             alt="Tree"
                           />
                         </div>
@@ -95,8 +95,8 @@ function Event() {
                           <div className="mt-6 inline-flex rounded-md shadow">
                             <Link
                               to={`/events/book/${event._id}`}
-                              className="relative px-8 py-2 rounded-md bg-white isolation-auto z-10 border-2 border-lime-500
-                                  before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-right-full before:hover:right-0 before:rounded-full  before:bg-lime-500 before:-z-10  before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-700"
+                              className="relative px-8 py-2  bg-white isolation-auto z-10 border-2
+                                  before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-right-full before:hover:right-0 before:rounded-full  before:bg-red-800 hover:text-white before:-z-10  before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-700"
                             >
                               Book
                             </Link>
@@ -107,7 +107,7 @@ function Event() {
                         <div className="gap-4 p-4 lg:p-12">
                           <img
                             src={event?.eventImage}
-                            className="w-200px h-40 rounded-lg"
+                            className="w-200px h-40"
                             alt="Tree"
                           />
                         </div>

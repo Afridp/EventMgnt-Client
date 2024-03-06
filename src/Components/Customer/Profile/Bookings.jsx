@@ -10,8 +10,7 @@ import { toast } from "react-toastify";
 import Pagination from "../Common/Pagination";
 import SearchAndSort from "../Common/SearchAndSort";
 import useDebounce from "../../../CustomHooks/useDebounce";
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import Chip from "@mui/material/Chip";
 
 
 function Bookings() {
@@ -25,6 +24,7 @@ function Bookings() {
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
+  console.log(bookings);
   useEffect(() => {
     getBookings();
   }, [debouncedSearchQuery, sortOptions]);
@@ -95,24 +95,26 @@ function Bookings() {
             {currentBookings.map((event) => (
               <div className="fade-ef" key={event._id}>
                 <div className="border p-4 border-gray-300 rounded-sm m-4">
-                  <div className="flow-root rounded-lg py-3 shadow-sm">
-                    <div className="flex flex-col item">
--cenm                    <h1>{event.eventId.eventName}</h1>
-                    <Chip label="success" color="success" />
-                    </div>
-                    <div className="container mx-auto m-4 flex items-end justify-end gap-5">
+                  <div className="flex ">
+                    <h1>{event.eventId.eventName}</h1>
+                    
+                    <div className="container mx-auto flex items-end justify-end gap-5">
                       <CancelModal
                         onConfirm={handleCancelBooking}
                         eventId={event._id}
                       />
                       <Link
                         to={`/myEvents/seemore/${event._id}`}
-                        className="inline-block mt-4 border border-red-900 bg-black px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-900 focus:outline-none focus:ring active:text-indigo-500"
+                        className="inline-block border border-red-900 bg-black px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-900 focus:outline-none focus:ring active:text-indigo-500"
                       >
                         See More
                       </Link>
                     </div>
                   </div>
+              <div className="flex">
+                  <h1>Status:</h1>
+                  <Chip className="ml-4" label={event.status} color={event.status === "PENDING" ? "warning" : "success"} />
+              </div>
                 </div>
               </div>
             ))}
