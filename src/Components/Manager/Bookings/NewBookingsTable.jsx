@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { getNewBookings } from "../../../Api/manager";
 import DataNotFoundManager from "../../../Pages/ErrorPages/DataNotFoundManager";
+import { Link } from "react-router-dom";
+import SelectCaptian from "./SelectCaptian";
+import { approveEvent } from "../../../Api/manager";
+import { toast } from "react-toastify";
 
 function NewBookingsTable() {
   const [newBookings, setNewBookings] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [eventId, setEventId] = useState("");
 
   const fetchNewBookings = async () => {
     try {
@@ -13,140 +19,122 @@ function NewBookingsTable() {
       console.error(error.message);
     }
   };
+  const handleApproval = async () => {
+    try {
+      const res = await approveEvent(eventId);
+      const updatedBookings = newBookings.filter((event) => {
+        return event._id !== res.data.updatedEvent;
+      });
+      setNewBookings(updatedBookings);
+      toast.success(res.data.message);
+    } finally {
+      setOpen(false);
+    }
+  };
+  const toggleModal = (eventId) => {
+    setEventId(eventId);
+    setOpen(true);
+  };
   useEffect(() => {
     fetchNewBookings();
   }, []);
   return (
     <>
-      <div className="borer border-blak mx-20">
-        <div className="mx-auto  max-w-screen px-4 py-8 sm:px-8">
-          <div className="overflow-y-hidden rounded-lg border">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-blue-gray-50/50 text-left text-xs font-semibold uppercase tracking-widest">
-                    {/* <th className="px-5 py-3">image</th> */}
-                    <th className="px-5 py-3">Booked By</th>
-                    <th className="px-5 py-3">Category</th>
-                    <th className="px-5 py-3">Date</th>
-                    <th className="px-5 py-3">Location</th>
-                    
-                    <th className="px-5 py-3">See More</th>
-                  </tr>
-                </thead>
-                <tbody className="text-gray-500">
-                  {newBookings.length > 0 ? (
-                    newBookings.map(
-                      ({
-                        // themeImage,
-                        name,
-                        eventCategory,
-                        startDate,
-                        venueLocation,
-                      }) => (
-                        <tr key={name}>
-                          {/* <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                            <div className="flex items-center">
-                              <div className="h-20 w-20 flex-shrink-0">
-                                <img
-                                  className="h-full w-full rounded"
-                                  src={
-                                    themeImage ??
-                                    "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
-                                  }
-                                  alt=""
-                                />
-                              </div>
-                              <div className="ml-3">
-                                <p className="whitespace-no-wrap"></p>
-                              </div>
-                            </div>
-                          </td> */}
-                          <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                            <p className="whitespace-no-wrap">
-                              {/* {new Date(book.date).toLocaleDateString("en-GB")} */}
-                              {name}
-                            </p>
-                            {/* <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                          <p className="whitespace-no-wrap">
-                            
+      <div className="border-black p- mt-10 mx-">
+        <SelectCaptian
+          open={open}
+          setOpen={setOpen}
+          eventId={eventId}
+          handleApproval={handleApproval}
+        />
+        {/* <h2 className="m-8 text-2xl font-semibold">New Bookings</h2> */}
+        <div className="container p-2 mx-auto sm:p-0 text-black ">
+          <div className="overflow-x-auto">
+            <table className="min-w-full ">
+              <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+                <col className="w-24" />
+              </colgroup>
+              <thead className="dark:bg-gray-700 bg-blue-gray-100 ">
+                <tr className="text-left ">
+                  <th className="p-3">Event Type</th>
+                  <th className="p-3">Client Name</th>
+                  <th className="p-3">Booked Date</th>
+                  {/* <th className="p-3">Due Date</th> */}
+                  <th className="p-3 ">Amount Paid</th>
+                  <th className="p-3"></th>
+                  <th className="p-3">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {newBookings.length > 0 ? (
+                  newBookings.map(
+                    ({
+                      eventId,
+                      personalData,
+                      createdAt,
+                      paidAmount,
+                      _id,
+                      isAccepted,
+                    }) => (
+                      <tr
+                        key={_id}
+                        className="border-b text-xs border-opacity-20 dark:border-gray-700 dark:bg-gray-900 font-semibold"
+                      >
+                        <td className="p-5">
+                          <p>{eventId.eventName}</p>
+                        </td>
+                        <td className="p-3">
+                          <p>{personalData.name}</p>
+                        </td>
+                        <td className="p-3">
+                          <p>
+                            {new Date(createdAt).toLocaleDateString("en-GB")}
                           </p>
-                        </td> */}
-                          </td>
-                          <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                            <p className="whitespace-no-wrap">
-                              {/* {new Date(book.BookedFor).toLocaleDateString("en-GB")} */}
-                              {/* {event.name} */}
-                              {eventCategory}
-                            </p>
-                          </td>
-
-                          <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                            <p className="whitespace-no-wrap">
-                              {new Date(startDate).toLocaleDateString("en-GB")}
-                              {/* {startDate} */}
-                            </p>
-                          </td>
-                          <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                            <p className="whitespace-no-wrap">
-                              {/* {new Date(book.BookedFor).toLocaleDateString("en-GB")} */}
-                              {venueLocation}
-                            </p>
-                          </td>
-
-                          {/* <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                      {new Date(book.cancelExp) < now ? (
-                        <>
-                          <span className="rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-green-900">
-                            In Use
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          {book.isCancelled ? (
-                            <>
-                              <span className="rounded-full bg-yellow-200 px-3 py-1 text-xs font-semibold text-green-900">
-                                Cancelled
-                              </span>
-                            </>
-                          ) : (
-                            <>
-                              <span
-                                className="rounded-full bg-red-200 cursor-pointer px-3 py-1 text-xs font-semibold text-green-900"
-                                
-                              >
-                                Cancel
-                              </span>
-                            </>
-                          )}
-                        </>
-                      )}
-                    </td> */}
-                          <td className="whitespace-nowrap px-4 py-2">
-                            <a
-                              href="#"
-                              className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
-                            >
+                          {/* <p className="dark:text-gray-400">adsfkj</p> */}
+                        </td>
+                        {/* <td className="p-3">
+                        <p>01 Feb 2022</p>
+                        <p className="dark:text-gray-400">Tuesday</p>
+                      </td> */}
+                        <td className="p-3 ">
+                          <p>{paidAmount}</p>
+                        </td>
+                        <td className="p-3 ">
+                          <p className="text-blue-700">
+                            <Link to={`/manager/newEventViewMore/${_id}`}>
                               View
+                            </Link>
+                          </p>
+                        </td>
+                        <td className="p-3 ">
+                          <span className="font-semibold round bg-red-800 dark:bg-violet-400 text-white p-2 dark:text-gray-900 cursor-pointer hover:border ">
+                            <a onClick={() => toggleModal(_id)}>
+                              {isAccepted ? "approved" : "approve"}{" "}
                             </a>
-                          </td>
-                        </tr>
-                      )
+                          </span>
+                        </td>
+                      </tr>
                     )
-                  ) : (
-                    <tr>
-                      <td colSpan="6" className="text-center">
-                        <div className="my-8">
-                          <DataNotFoundManager />
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                  )
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="text-center">
+                      <div className="my-8">
+                        <DataNotFoundManager />
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
+        ;
       </div>
     </>
   );

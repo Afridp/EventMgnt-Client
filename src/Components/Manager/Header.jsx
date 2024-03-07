@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div>
-      <div className="navbar sticky top-0 left-0 w-full  bg-black bg-opacity-50 backdrop-blur-md z-50">
+      <div className="navbar sticky top-0 left-0 w-full bg-black bg-opacity-50 backdrop-blur-md z-50">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -46,7 +46,7 @@ function Header() {
             </ul>
           </div>
 
-          <Link to='/manager/' className="btn btn-ghost text-xl text-white">Event Brigadge</Link>
+          <Link to='/manager/' className="text-xl text-white">Event Brigadge</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -77,8 +77,8 @@ function Header() {
         </div>
         <div className="navbar-end">
           {/* <button className="btn btn-outline btn-secondary">Subscribe</button> */}
-          <Link to={"/manager/pro"} className="brightness-150 dark:brightness-100 group hover:shadow-lg transition ease-in-out hover:scale-105 p-1 rounded-xl bg-gradient-to-br  hover:from-yellow-700 hover:via-yellow-800 hover:to-yellow-600">
-            <div className="px-6 py-2 backdrop-blur-xl bg-black/80 rounded-xl font-bold w-full h-full">
+          <Link to={"/manager/pro"} className="brightness-150 dark:brightness-100 group hover:shadow-lg transition ease-in-out hover:scale-105 p-1  bg-gradient-to-br  hover:from-yellow-700 hover:via-yellow-800 hover:to-yellow-600">
+            <div className="px-6 py-2 backdrop-blur-xl bg-black/80 font-bold w-full h-full">
               <div className="group-hover:scale-100 flex group-hover:text-yellow-500 text-yellow-600 gap-1">
                 <svg
                   className="w-6 h-6 stroke-yellow-600 group-hover:stroke-yellow-500 group-hover:stroke-{1.99}"

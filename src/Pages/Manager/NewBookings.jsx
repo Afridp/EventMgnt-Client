@@ -1,7 +1,7 @@
 import Header from '../../Components/Manager/Header'
 import NewBookingsTable from '../../Components/Manager/Bookings/NewBookingsTable'
 
-function NewEvents() {
+function NewBookings() {
   return (
     <>
       <Header/>
@@ -10,4 +10,5 @@ function NewEvents() {
   )
 }
 
-export default NewEvents
+export default NewBookings
+  

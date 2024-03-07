@@ -44,15 +44,15 @@ export function EmployeeMgt() {
     try {
       setLoadig(true);
       const res = await blockAndUnblockEmployee(employeeId);
-        const updatedEmployees = employees.map((employee) => {
-          if (employee._id === employeeId) {
-            return {
-              ...employee,
-              isBlocked: res.data.isBlocked, // Assuming the response structure
-            };
-          }
-          return employee;
-        });
+      const updatedEmployees = employees.map((employee) => {
+        if (employee._id === employeeId) {
+          return {
+            ...employee,
+            isBlocked: res.data.isBlocked, // Assuming the response structure
+          };
+        }
+        return employee;
+      });
       setEmployees(updatedEmployees);
     } finally {
       setLoadig(false);
@@ -79,18 +79,18 @@ export function EmployeeMgt() {
   const paginate = (number) => setCurrentPage(number);
   return (
     <>
-      <div className="fadeef">
-        <LoaderManager loading={loading} />
+      <LoaderManager loading={loading} />
+      <div className="fade-ef">
         <div className="container mx-auto mt-8 flex items-center justify-between">
           <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 hover:bg-blue-800 hover:text-white hover:outline-none duration-300 active:scale-[0.99]">
+          <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600  bg-blue-800 text-white hover:outline-none duration-300 active:scale-[0.99]">
             <a className="font-bold" onClick={() => setOpen(true)}>
               Add Employees
             </a>
           </button>
         </div>
         <NewEmployees open={open} setOpen={setOpen} />
-        <div className="sm:mx-20 sm:mt-12 border rounded-lg overflow-x-auto fade-ef">
+        <div className="container sm:mx-auto sm:mt-12 border rounded-lg overflow-x-auto fade-ef">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>

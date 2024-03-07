@@ -10,6 +10,7 @@ function PaymentSuccess() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
+  const amount = queryParams.get("amount")
   const eventId = queryParams.get("eventId");
   const personalValues = JSON.parse(
     decodeURIComponent(queryParams.get("personalValues"))
@@ -28,7 +29,7 @@ function PaymentSuccess() {
   const saveBooking = async () => {
     try {
       const res = await bookEvent(
-        { formValues, personalValues },
+        { formValues, personalValues, amount },
         customer._id,
         eventId
       );

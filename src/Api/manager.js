@@ -110,3 +110,17 @@ export const submitForm = async(values) => {
     return data
 }
 
+export const getCaptians = async() => {
+    const data = await managerAxiosInstance.get('/getEmployees')
+    return data
+}
+
+// export const setCaptian = async() => {
+//     const data = await managerAxiosInstance.get('/setCaptianToEvent',{eventId,})
+// }
+
+export const approveEvent = async (eventId) => {
+
+    const data = await managerAxiosInstance.post('/approveEvent',{eventId})
+    return data
+} 
