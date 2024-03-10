@@ -1,13 +1,13 @@
 import EventList from "../../Components/Customer/Booking/EventList"
 import Footer from "../../Components/Customer/Footer"
-import Navbar from "../../Components/Customer/Navbar"
+import Navbar1 from "../../Components/Customer/Navbar1"
 
 
 
 function Events() {
   return (
     <div>
-      <Navbar/>
+      <Navbar1/>
       <EventList/>
       <Footer/>
     </div>

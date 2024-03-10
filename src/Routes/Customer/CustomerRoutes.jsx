@@ -19,6 +19,7 @@ import PaymentStatus from "../../Pages/Customer/PaymentStatus"
 function CustomerRoutes() {
   return (
     <div>
+      
         <Routes>
             <Route path="/signup" element={<Public><Signup/></Public>}/>
             <Route path="/otp" element={<Public><Otp/></Public>}/>

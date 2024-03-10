@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Appearance from "./Appearance";
+import Files from "./Files";
 
 const CustomerCustomization = () => {
   const [tab, setTab] = useState("tab1");
@@ -14,7 +16,7 @@ const CustomerCustomization = () => {
                     onClick={() => setTab("tab1")}
                     className={`inline-block py-2 font-medium border-b-2 px-6 w-full  ${
                       tab === "tab1"
-                        ? "bg-white text-blue-500 border-blue-500 border-b-2 font-semibold "
+                        ? "bg-white text-red-800 border-red-800 border-b-2 font-semibold "
                         : ""
                     }`}
                   >
@@ -26,7 +28,7 @@ const CustomerCustomization = () => {
                     onClick={() => setTab("tab2")}
                     className={`inline-block py-2 font-medium border-b-2 px-6 w-full  ${
                       tab === "tab2"
-                        ? "bg-white text-blue-500 border-blue-500 border-b-2 font-semibold"
+                        ? "bg-white text-red-800 border-red-800 border-b-2 font-semibold"
                         : ""
                     }`}
                   >
@@ -38,7 +40,7 @@ const CustomerCustomization = () => {
                     onClick={() => setTab("tab3")}
                     className={`inline-block py-2 font-medium border-b-2 px-6 w-full ${
                       tab === "tab3"
-                        ? "bg-white text-blue-500 border-blue-500 border-b-2 font-semibold"
+                        ? "bg-white text-red-800 border-red-800 border-b-2 font-semibold"
                         : ""
                     }`}
                   >
@@ -78,44 +80,12 @@ const CustomerCustomization = () => {
                 )}
                 {tab === "tab2" && (
                   <div className="text-gray-500">
-                    <main>
-                      <div className="py-4">
-                        <span className="inline-flex items-center text-black">
-                          <span
-                            className="font-mono text-sm"
-                            aria-hidden="true"
-                          >
-                            02
-                          </span>
-                          <span className="ml-3 h-3.5 w-px bg-black"></span>
-                          <span className="ml-3 text-base font-medium tracking-tight">
-                            Tab content
-                          </span>
-                        </span>
-                        <div className="h-32 border border-gray-200 border-dashed rounded-lg"></div>
-                      </div>
-                    </main>
+                    <Appearance/>
                   </div>
                 )}
                 {tab === "tab3" && (
                   <div className="text-gray-500">
-                    <main>
-                      <div className="py-4">
-                        <span className="inline-flex items-center text-black">
-                          <span
-                            className="font-mono text-sm"
-                            aria-hidden="true"
-                          >
-                            03
-                          </span>
-                          <span className="ml-3 h-3.5 w-px bg-black"></span>
-                          <span className="ml-3 text-base font-medium tracking-tight">
-                            Tab content
-                          </span>
-                        </span>
-                        <div className="h-32 border border-gray-200 border-dashed rounded-lg"></div>
-                      </div>
-                    </main>
+                   <Files/>
                   </div>
                 )}
               </div>

@@ -1,11 +1,11 @@
-import Navbar from "../../Components/Customer/Navbar";
+import Navbar1 from "../../Components/Customer/Navbar1";
 import Footer from "../../Components/Customer/Footer";
 import SeeMoreBooked from "../../Components/Customer/Profile/SeeMoreBooked";
 
 function ViewOrEditBooked() {
   return (
     <>
-      <Navbar />
+      <Navbar1 />
       <SeeMoreBooked />
       <Footer />
     </>

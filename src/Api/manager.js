@@ -124,3 +124,8 @@ export const approveEvent = async (eventId) => {
     const data = await managerAxiosInstance.post('/approveEvent',{eventId})
     return data
 } 
+
+export const uploadImageOfHomePage = async(url) => {
+    const data = await managerAxiosInstance.post('/imageTake',{url})
+    return data
+}

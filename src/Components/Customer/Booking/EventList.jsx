@@ -7,7 +7,7 @@ import Pagination from "../Common/Pagination";
 import SearchAndSort from "../Common/SearchAndSort";
 import useDebounce from "../../../CustomHooks/useDebounce";
 
-function Event() {
+function  Event() {
   const [events, setEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOptions, setSortOptions] = useState("");

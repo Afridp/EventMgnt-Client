@@ -1,4 +1,4 @@
-import Navbar from "../../Components/Customer/Navbar";
+import Navbar1 from "../../Components/Customer/Navbar1";
 import Footer from "../../Components/Customer/Footer";
 // import BookingForm from "../../Components/Customer/Booking/BookingForm";
 import Booking from "../../Components/Customer/Booking/Booking";
@@ -6,9 +6,9 @@ import Booking from "../../Components/Customer/Booking/Booking";
 function BookEvent() {
   return (
     <>
-      <Navbar />
+      <Navbar1 />
       {/* <BookingForm /> */}
-      <Booking/>
+      <Booking />
       <Footer />
     </>
   );

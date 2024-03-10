@@ -40,7 +40,7 @@ function AllEvents() {
           </button>
         </div>
         <div className="w-[150px] h-[50px] ">
-          <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline-offset-2 outline-1 outline-sky-600 bg-blue-800 text-white hover:outline-none duration-300 active:scale-[0.99]">
+          <button  className="w-[140px] h-[40px] shadow-2xl  bg-sky-600 outline-offset-2 outline-1 outline-sky-600 bg-blue-800 text-white hover:outline-none duration-300 active:scale-[0.99]">
             <Link to={"/manager/newBookings"} className="font-bold">
               Enquiry
             </Link>

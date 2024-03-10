@@ -20,7 +20,8 @@ import Events from "../../Pages/Manager/Events";
 
 function ManagerRoute() {
   return (
-    
+   
+
       <Routes>
             <Route path="/signup" element={<Public><SignUp/></Public> }/>
             <Route path="/otp" element={<Public><Otp/></Public>}/>
@@ -38,6 +39,7 @@ function ManagerRoute() {
           
         </Routes>
       
+   
   );
 }
 

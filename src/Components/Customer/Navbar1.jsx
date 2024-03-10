@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { findCustomer } from "../../Api/customer";
 
-function Navbar() {
+function Navbar1() {
   const { customer } = useSelector((state) => state.customerSlice);
-  const [navColor, setNavColor] = useState("");
+
   const [openNav, setOpenNav] = useState(false);
   const [customerData, setCustomerData] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -25,15 +25,6 @@ function Navbar() {
     fetchData();
   }, [customer]);
 
-  const changeColor = () => {
-    if (window.scrollY >= 200) {
-      setNavColor(true);
-    } else {
-      setNavColor(false);
-    }
-  };
-
-  window.addEventListener("scroll", changeColor);
   // useEffect(() => {
   //   window.addEventListener(
   //     "resize",
@@ -46,7 +37,7 @@ function Navbar() {
       <Typography
         as="li"
         variant="small"
-        color="white"
+        color="black"
         className="p-1 font-ligt"
       >
         <Link to="/" className="flex items-center">
@@ -56,7 +47,7 @@ function Navbar() {
       <Typography
         as="li"
         variant="small"
-        color="white"
+        color="black"
         className="p-1 font-ligt"
       >
         <Link to="/events" className="flex items-center">
@@ -71,11 +62,7 @@ function Navbar() {
       {loading ? (
         <div></div>
       ) : (
-        <header
-          className={`fixed ${
-            navColor ? "backdrop-blur-3xl bg-black " : ""
-          } top-0 w-full z-50`}
-        >
+        <header className={`fixed border-b bg-white  top-0 w-full z-50`}>
           <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="md:flex md:items-center md:gap-12">
@@ -227,4 +214,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navbar1;
