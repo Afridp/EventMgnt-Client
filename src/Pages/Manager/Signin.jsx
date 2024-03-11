@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { signinValidation } from "../../ValidationSchemas/managerValidation/signin";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+// import { useToast } from "@chakra-ui/react";
 
 function Signin() {
   const [loading, setLoading] = useState(false);
@@ -15,11 +16,13 @@ function Signin() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // const toast = useToast();
+
   useEffect(() => {
     const queryParam = new URLSearchParams(location.search);
     const msg = queryParam.get("msg");
     if (msg) {
-      toast.success(queryParam, { position: toast.POSITION.TOP_CENTER });
+      // toast.success(queryParam, { position: toast.POSITION.TOP_CENTER });
     }
   }, []);
 
@@ -46,8 +49,12 @@ function Signin() {
           manager: managerData,
         })
       );
-      toast.success(res?.data?.message, {
-        position: toast.POSITION.TOP_CENTER,
+      toast({
+        title: "Account created.",
+        description: "We've created your account for you.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
       });
       navigate("/manager/");
     } finally {

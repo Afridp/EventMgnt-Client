@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Appearance from "./Appearance";
 import Files from "./Files";
+import Contents from "./Contents";
 
 const CustomerCustomization = () => {
   const [tab, setTab] = useState("tab1");
@@ -52,30 +53,7 @@ const CustomerCustomization = () => {
               <div className="py-4 pt-4 text-left bg-white content">
                 {tab === "tab1" && (
                   <div className="text-gray-500">
-                    <main>
-                      <div className="py-4">
-                        <div className="h-32 border border-gray-200 border-dashed rounded-lg">
-                          <div>
-                            <label className="sr-only" htmlFor="name">
-                              Name
-                            </label>
-                            <input
-                              className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                              placeholder="Name"
-                              type="text"
-                              id="name"
-                              // value={values.name}
-                              // {...getFieldProps("name")}
-                            />
-                            {/* <div className="label">
-                    {errors.name && touched.name && (
-                      <small className="text-red-800">{errors.name}</small>
-                    )}
-                  </div> */}
-                          </div>
-                        </div>
-                      </div>
-                    </main>
+                    <Contents/>
                   </div>
                 )}
                 {tab === "tab2" && (

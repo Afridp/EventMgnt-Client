@@ -125,7 +125,17 @@ export const approveEvent = async (eventId) => {
     return data
 } 
 
-export const uploadImageOfHomePage = async(url) => {
-    const data = await managerAxiosInstance.post('/imageTake',{url})
+export const fileUploads = async(images) => {
+    const data = await managerAxiosInstance.post('/fileUpload',images)
+    return data
+}   
+
+export const appearencePost = async (values) => {
+    const data = await managerAxiosInstance.post('/appearancePost',values)
+    return data
+}
+
+export const contentPost = async (values) => {
+    const data = await managerAxiosInstance.post('/contentsPost',values)
     return data
 }

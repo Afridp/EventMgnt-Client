@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+// import { ChakraProvider } from '@chakra-ui/react'
 
 import "./App.css";
 
@@ -18,6 +19,7 @@ function App() {
   return (
     <Router>
       <ToastContainer />
+      {/* <ChakraProvider /> */}
       <Routes>
         <Route path="/manager/*" element={<ManagerRoutes />} />
         <Route path="/*" element={<CustomerRoutes />} />

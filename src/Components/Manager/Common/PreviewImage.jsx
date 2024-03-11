@@ -8,7 +8,6 @@ function PreviewImage({ file }) {
 
   useEffect(() => {
     if (file instanceof Blob) {
-      console.log("haai preview");
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
