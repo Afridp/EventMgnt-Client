@@ -41,7 +41,7 @@ function ChangePassword({ customerId }) {
         onClick={toggleModal}
       >
         <span className="absolute inset-0 border border-red-800 group-active:border-red-800"></span>
-        <span className="block border border-red-800 bg-red-800 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
+        <span className="block border border-red-800 bg-red-900 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
           Change Password
         </span>
       </button>

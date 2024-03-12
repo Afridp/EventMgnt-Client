@@ -12,6 +12,7 @@ import Public from "./Public"
 import ViewOrEditBooked from "../../Pages/Customer/ViewOrEditBooked"
 import Profile from "../../Pages/Customer/Profile"
 import PaymentStatus from "../../Pages/Customer/PaymentStatus"
+import Wallet from "../../Pages/Customer/Wallet"
 
 
 
@@ -31,6 +32,7 @@ function CustomerRoutes() {
             <Route path="/myEvents/seemore/:bookingId" element={<Protect><ViewOrEditBooked/></Protect>}/>
             <Route path="/profile" element={<Protect><Profile/></Protect>}/>
             <Route path="/payment"  element={<PaymentStatus/>}/>
+            <Route path="/wallet/:amt?/:customerId?/:status?" element={<Wallet/>}/>
         </Routes>
     </div>
   )

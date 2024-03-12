@@ -1,10 +1,10 @@
 
-import {  attachToken, customerAxiosInstance, handleError } from "./axiosConfig";
+import { attachToken, customerAxiosInstance, handleError } from "./axiosConfig";
 
 // request interceptor
 customerAxiosInstance.interceptors.request.use(async (req) => {
     let modifiedRequest = attachToken(req, "clientToken")
-    
+
     return modifiedRequest
 })
 
@@ -47,12 +47,12 @@ export const fetchEvents = async ({ search, sort }) => {
 }
 
 export const getEventForm = async (eventId) => {
-    const data = await customerAxiosInstance.get(`/getEventFormField?eventId=${eventId}`) 
+    const data = await customerAxiosInstance.get(`/getEventFormField?eventId=${eventId}`)
     return data
 }
 
-export const bookEvent = async (formValuesAndData, customerId, eventId) => {
-    const data = await customerAxiosInstance.post(`/bookEvent/${customerId}?eventId=${eventId}`, formValuesAndData)
+export const submitEvent = async (formValuesAndData, customerId, eventId) => {
+    const data = await customerAxiosInstance.post(`/submitEvent/${customerId}?eventId=${eventId}`, formValuesAndData)
     return data
 }
 
@@ -96,8 +96,17 @@ export const changePassword = async (values, customerId) => {
     return data
 }
 
-export const stripePaymentApi = async(formValues, personalValues, eventId, amt)=>{
-    const data = customerAxiosInstance.post('/paymentCheckout',{formValues,personalValues,eventId, amt})
+export const stripePaymentApi = async (formValues, personalValues, eventId, amt) => {
+    const data = customerAxiosInstance.post('/paymentCheckout', { formValues, personalValues, eventId, amt })
     return data
 }
-    
+
+export const walletTopupStripeApi = async (values) => {
+    const data = customerAxiosInstance.post('/topupWallet', values)
+    return data
+}
+
+export const getWalletDetails = async (customerId) => {
+    const data = customerAxiosInstance.get(`/getWalletDetails?customerId=${customerId}`)
+    return data
+}

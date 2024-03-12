@@ -145,7 +145,11 @@ function Navbar1() {
                             My Events
                           </Link>
                         </li>
-
+                        <li>
+                          <Link to="/wallet" className="font-semibold">
+                            Wallet
+                          </Link>
+                        </li>
                         <li>
                           <Link to="/profile" className="font-semibold">
                             Profile

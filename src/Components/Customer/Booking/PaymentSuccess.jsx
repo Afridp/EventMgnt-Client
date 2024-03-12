@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { bookEvent } from "../../../Api/customer";
+import { submitEvent } from "../../../Api/customer";
 import { toast } from "react-toastify";
 
 function PaymentSuccess() {
@@ -28,7 +28,7 @@ function PaymentSuccess() {
 
   const saveBooking = async () => {
     try {
-      const res = await bookEvent(
+      const res = await submitEvent(
         { formValues, personalValues, amount },
         customer._id,
         eventId
