@@ -217,7 +217,7 @@ function WalletBody() {
                                 <span>{new Date(date).toLocaleDateString('en-IN')}</span>
                               </td>
                               <td className="px-3 py-2">
-                                <span>{amount}</span>
+                                <span>₹ {amount}</span>
                               </td>
                               <td className={`px-3 py-2 ${transactionType === "Credit" ? "text-green-600" : "text-red-600" }`}>
                                 <span>{transactionType}</span>

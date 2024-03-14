@@ -10,6 +10,7 @@ function PaymentSuccess() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
+  const message = queryParams?.get('message')
   const amount = queryParams.get("amount");
   const eventId = queryParams.get("eventId");
   const personalValues = JSON.parse(
@@ -20,10 +21,10 @@ function PaymentSuccess() {
   );
 
   useEffect(() => {
-    if (customer._id) {
+    if (customer._id && !message) {
       saveBooking();
+      setLoading(true);
     }
-    setLoading(true);
   }, []);
 
   const saveBooking = async () => {
@@ -42,6 +43,7 @@ function PaymentSuccess() {
       }, 1000);
     }
   };
+  
   return (
     <>
       <div className="mt-20">
@@ -64,7 +66,7 @@ function PaymentSuccess() {
               {loading ? "Verifying" : "Payment Success.!"}
             </h3>
             <p className="text-gray-600 my-2">
-              Thank you for completing your secure online payment.
+              {message ?? "Thank you for completing your secure online payment."}
             </p>
             <p> Have a great day! </p>
             <div className="py-10 text-center">

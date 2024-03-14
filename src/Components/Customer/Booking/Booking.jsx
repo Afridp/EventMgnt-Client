@@ -3,18 +3,21 @@ import BookingForm from "./BookingForm";
 import PersonalInfoForm from "./PersonalInfoForm";
 import PaymentForm from "./PaymentForm";
 import { loadStripe } from "@stripe/stripe-js";
-import { useParams } from "react-router-dom";
-import { stripePaymentApi } from "../../../Api/customer";
+import {  useNavigate, useParams } from "react-router-dom";
+import { stripePaymentApi, submitEvent } from "../../../Api/customer";
+import { useSelector } from "react-redux";
+import {  toast } from "react-toastify";
 const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY;
 
 function Booking() {
+  const { customer } = useSelector((state) => state.customerSlice)
   const { eventId } = useParams();
-
+  const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(0);
   const [personalDetails, setPersonalDetails] = useState("");
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({});
-  const [personalVlaues, setPersonalValues] = useState({});
+  const [personalValues, setPersonalValues] = useState({});
 
   const handleNext = () => {
     if (personalDetails) {
@@ -34,15 +37,19 @@ function Booking() {
 
   const handleBook = async (e, amt, paymentType) => {
     try {
-    
       e.preventDefault();
       if (paymentType === "") {
         alert("select payment types");
         return;
       }
-      if (paymentType === "Pay Now") {
+      if (paymentType === "PayNow") {
         const stripe = await loadStripe(STRIPE_KEY);
-        const res = await stripePaymentApi(formValues, personalVlaues, eventId, amt);
+        const res = await stripePaymentApi(
+          formValues,
+          personalValues,
+          eventId,
+          amt
+        );
         const sessionId = res.data.sessionId;
         const result = stripe.redirectToCheckout({
           sessionId: sessionId,
@@ -51,8 +58,19 @@ function Booking() {
         if (result.error) {
           console.log((await result).error);
         }
-      } else {
-        // make order without payment
+      } else if (paymentType === "PayByWallet") {
+        const res = await submitEvent(
+          { formValues, personalValues,amount: amt, walletMode:true },
+          customer._id,
+          eventId
+        );
+        const queryParams = new URLSearchParams();
+        queryParams.append('message', 'Thank you for completing your wallet balance to payment.');
+        // queryParams.append('param2', 'value2');
+      
+        navigate(`/payment?${queryParams.toString()}`);
+         
+        toast.success(res.data.message)
       }
     } catch (error) {
       console.log(error.message);
