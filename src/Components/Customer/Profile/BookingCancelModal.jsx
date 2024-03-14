@@ -1,28 +1,16 @@
-import { useState } from "react";
+
 
 // eslint-disable-next-line react/prop-types
-function BookingCancelModal({ onConfirm, eventId }) {
-  const [isOpen, setIsOpen] = useState(false);
+function BookingCancelModal({ onConfirm, toggleModal }) {
+ 
 
-  const handleConfirmCancellation = () => {
-    onConfirm(eventId); // Call the provided function to handle booking cancellation
-    setIsOpen(false);
-  };
 
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
+
 
   return (
     <>
-      <button
-        className="mt-4  border border-red-700 bg-red-800 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-700 focus:outline-none focus:ring active:text-red-700"
-        onClick={toggleModal}
-      >
-        Cancel
-      </button>
+      
 
-      {isOpen && (
         <div
           className="fixed z-10 inset-0 overflow-y-auto"
           aria-labelledby="modal-title"
@@ -59,7 +47,7 @@ function BookingCancelModal({ onConfirm, eventId }) {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-800 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={handleConfirmCancellation}
+                  onClick={onConfirm}
                 >
                   Confirm Cancellation
                 </button>
@@ -74,7 +62,7 @@ function BookingCancelModal({ onConfirm, eventId }) {
             </div>
           </div>
         </div>
-      )}
+      
     </>
   );
 }

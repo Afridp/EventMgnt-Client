@@ -1,13 +1,16 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getWalletDetails, walletTopupStripeApi } from "../../../Api/customer";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getWalletDetails,
+  addBalance,
+  walletTopupStripeApi,
+} from "../../../Api/customer";
 import Lottie from "react-lottie";
 // import animationDataCross from "../../../Assets/Animations/Animation - cross.json";
 import animationData from "../../../Assets/Animations/Animation - 1710241831168.json";
-import { toast } from "react-toastify";
-import { set } from "lodash";
+import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY;
 
 const defaultOptions = {
@@ -21,20 +24,21 @@ const defaultOptions = {
 function WalletBody() {
   const { customer } = useSelector((state) => state.customerSlice);
   const { amt, customerId, status } = useParams();
+  const navigate = useNavigate();
 
   const [showTopUpFields, setShowTopUpFields] = useState(false);
   const [amount, setAmount] = useState("");
   const [indication, setIndication] = useState(false);
   const [balance, setBalance] = useState("");
   const [transactions, setTransactions] = useState([]);
-
-  // console.log(amt, customerId, status);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     if (status === "success") {
-      // setIndication(false);
+      addToWallet(amt, customerId);
       setIndication(true);
-      // toast.error(status);
+      clearParams();
       setTimeout(() => {
         setIndication(false);
       }, 4000);
@@ -43,15 +47,28 @@ function WalletBody() {
     fetchWalletDetails();
   }, [status, amt, customerId]);
 
+  const clearParams = () => {
+    navigate("/wallet");
+  };
+
+  const addToWallet = async (amt, customerId) => {
+    try {
+      await addBalance({ amt, customerId });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchWalletDetails = async () => {
     try {
       const res = await getWalletDetails(customer._id);
       setBalance(res?.data?.balance);
       setTransactions(res?.data?.transactions);
     } finally {
-      console.log("done");
+      setLoading(false);
     }
   };
+
   const handleTopup = () => {
     setShowTopUpFields(true);
   };
@@ -72,11 +89,12 @@ function WalletBody() {
         console.log((await result).error);
       }
     } catch (error) {
-      console.error("paaali");
+      console.error(error.message);
     }
   };
   return (
     <>
+      <LoaderManager loading={loading} />
       <div className="p-20">
         <div className="container mx-auto h-full bord p-10">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
@@ -94,22 +112,22 @@ function WalletBody() {
               ) : (
                 <>
                   <svg
-                    className="w-[48px] h-[48px] text-gray-800 dark:text-white"
-                    aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-10 h-10"
                   >
                     <path
-                      stroke="currentColor"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth="1.6"
-                      d="M17 8H5m12 0c.6 0 1 .4 1 1v2.6M17 8l-4-4M5 8a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1v-2.6M5 8l4-4 4 4m6 4h-4a2 2 0 1 0 0 4h4c.6 0 1-.4 1-1v-2c0-.6-.4-1-1-1Z"
+                      d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3"
                     />
                   </svg>
-                  <h1 className="font-mono font-bold">
-                    {`BALANCE : ₹${balance ?? 0} `}{" "}
+
+                  <h1 className="font-mono text-xl font-bold">
+                    BALANCE : ₹{`${balance ?? 0} `}
                   </h1>
                   <div className="space-x-3">
                     <button
@@ -146,7 +164,7 @@ function WalletBody() {
                 )}
               </div>
             </div>
-            <div className="max-h-96 shadow-3 rounded-lg border lg:col-span-2 p-4">
+            <div className="max-h-96 shadow-3 rounded-lg border lg:col-span-2 p-4 font-semibold overflow-auto">
               <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-100 dark:bg-gray-900">
                 <h2 className="mb-3 text-2xl font-semibold leading-tight">
                   Transaction
@@ -160,6 +178,9 @@ function WalletBody() {
                         </th>
                         <th title="Team name" className="p-3 text-left">
                           Transaction Id
+                        </th>
+                        <th title="Away games" className="p-3">
+                          Time
                         </th>
                         <th title="Away games" className="p-3">
                           Date
@@ -189,14 +210,16 @@ function WalletBody() {
                               <td className="px-3 py-2 text-left">
                                 <span>{transactionId}</span>
                               </td>
-
                               <td className="px-3 py-2">
-                                <span>{date}</span>
+                                <span>{new Date(date).toLocaleTimeString('en-IN')}</span>
+                              </td>
+                              <td className="px-3 py-2">
+                                <span>{new Date(date).toLocaleDateString('en-IN')}</span>
                               </td>
                               <td className="px-3 py-2">
                                 <span>{amount}</span>
                               </td>
-                              <td className="px-3 py-2">
+                              <td className={`px-3 py-2 ${transactionType === "Credit" ? "text-green-600" : "text-red-600" }`}>
                                 <span>{transactionType}</span>
                               </td>
                             </tr>

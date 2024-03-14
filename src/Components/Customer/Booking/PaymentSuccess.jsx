@@ -10,7 +10,7 @@ function PaymentSuccess() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  const amount = queryParams.get("amount")
+  const amount = queryParams.get("amount");
   const eventId = queryParams.get("eventId");
   const personalValues = JSON.parse(
     decodeURIComponent(queryParams.get("personalValues"))
@@ -33,7 +33,7 @@ function PaymentSuccess() {
         customer._id,
         eventId
       );
-      toast.success(res.data.message, {
+      toast.success(res?.data?.message, {
         position: toast.POSITION.TOP_CENTER,
       });
     } finally {

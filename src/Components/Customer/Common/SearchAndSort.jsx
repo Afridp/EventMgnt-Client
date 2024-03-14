@@ -89,6 +89,8 @@ const SearchAndSort = React.memo(
                   </option>
                   <option value="dateAscending">Date Ascending</option>
                   <option value="dateDescending">Date Descending</option>
+                  <option value="approved">Approved</option>
+                  <option value="pending">Pending</option>
                 </>
               )}
             </select>

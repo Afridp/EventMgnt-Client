@@ -1,42 +1,42 @@
 import { useEffect, useState } from "react";
-import { getNewBookings } from "../../../Api/manager";
+import { getNewSubmissions } from "../../../Api/manager";
 import DataNotFoundManager from "../../../Pages/ErrorPages/DataNotFoundManager";
 import { Link } from "react-router-dom";
 import SelectCaptian from "./SelectCaptian";
 import { approveEvent } from "../../../Api/manager";
 import { toast } from "react-toastify";
 
-function NewBookingsTable() {
-  const [newBookings, setNewBookings] = useState([]);
+function Enquiries() {
+  const [newSubmissions, setNewSubmissions] = useState([]);
   const [open, setOpen] = useState(false);
-  const [eventId, setEventId] = useState("");
+  const [submissionId, setSubmissionId] = useState("");
 
-  const fetchNewBookings = async () => {
+  const fetchNewSubmissions = async () => {
     try {
-      const res = await getNewBookings();
-      setNewBookings(res.data.newBookings);
+      const res = await getNewSubmissions();
+      setNewSubmissions(res.data.newSubmissions);
     } catch (error) {
       console.error(error.message);
     }
   };
   const handleApproval = async () => {
     try {
-      const res = await approveEvent(eventId);
-      const updatedBookings = newBookings.filter((event) => {
-        return event._id !== res.data.updatedEvent;
+      const res = await approveEvent(submissionId);
+      const updatedSubmissions = newSubmissions.filter((event) => {
+        return event._id !== res?.data?.updatedEvent;
       });
-      setNewBookings(updatedBookings);
+      setNewSubmissions(updatedSubmissions);
       toast.success(res.data.message);
     } finally {
       setOpen(false);
     }
   };
-  const toggleModal = (eventId) => {
-    setEventId(eventId);
+  const toggleModal = (id) => {
+    setSubmissionId(id);
     setOpen(true);
   };
   useEffect(() => {
-    fetchNewBookings();
+    fetchNewSubmissions();
   }, []);
   return (
     <>
@@ -44,7 +44,7 @@ function NewBookingsTable() {
         <SelectCaptian
           open={open}
           setOpen={setOpen}
-          eventId={eventId}
+          eventId={submissionId}
           handleApproval={handleApproval}
         />
         {/* <h2 className="m-8 text-2xl font-semibold">New Bookings</h2> */}
@@ -71,15 +71,15 @@ function NewBookingsTable() {
                 </tr>
               </thead>
               <tbody>
-                {newBookings.length > 0 ? (
-                  newBookings.map(
+                {newSubmissions?.length > 0 ? (
+                  newSubmissions.map(
                     ({
                       eventId,
                       personalData,
                       createdAt,
-                      paidAmount,
+                      amountPaid,
                       _id,
-                      isAccepted,
+                      
                     }) => (
                       <tr
                         key={_id}
@@ -102,7 +102,7 @@ function NewBookingsTable() {
                         <p className="dark:text-gray-400">Tuesday</p>
                       </td> */}
                         <td className="p-3 ">
-                          <p>{paidAmount}</p>
+                          <p>{amountPaid}</p>
                         </td>
                         <td className="p-3 ">
                           <p className="text-blue-700">
@@ -114,7 +114,7 @@ function NewBookingsTable() {
                         <td className="p-3 ">
                           <span className="font-semibold round bg-red-800 dark:bg-violet-400 text-white p-2 dark:text-gray-900 cursor-pointer hover:border ">
                             <a onClick={() => toggleModal(_id)}>
-                              {isAccepted ? "approved" : "approve"}{" "}
+                              {/* {isAccepted ? "approved" : "approve"} */} Approve
                             </a>
                           </span>
                         </td>
@@ -140,4 +140,4 @@ function NewBookingsTable() {
   );
 }
 
-export default NewBookingsTable;
+export default Enquiries;

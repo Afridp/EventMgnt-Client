@@ -53,7 +53,7 @@ function PaymentForm({ handlePrev, handleBook }) {
                       }`}
                       onClick={() => handleButtonClick("Pay Later")}
                     >
-                      Pay Later
+                      Pay By Wallet
                     </a>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ function PaymentForm({ handlePrev, handleBook }) {
                       }`}
                       onClick={() => handleButtonClick("Pay Now")}
                     >
-                      Pay Now
+                      Pay By Stripe
                     </a>
                   </div>
                 </div>

@@ -77,7 +77,7 @@ export const editBooked = async (values, eventId) => {
 }
 
 export const cancelEvent = async (eventId) => {
-    const data = await customerAxiosInstance.delete(`/deleteBooked/${eventId}`)
+    const data = await customerAxiosInstance.delete(`/cancelBooked/${eventId}`)
     return data
 }
 
@@ -108,5 +108,10 @@ export const walletTopupStripeApi = async (values) => {
 
 export const getWalletDetails = async (customerId) => {
     const data = customerAxiosInstance.get(`/getWalletDetails?customerId=${customerId}`)
+    return data
+}
+
+export const addBalance = async(values) => {
+    const data = customerAxiosInstance.post('/addBalance',values)
     return data
 }

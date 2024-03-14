@@ -95,8 +95,8 @@ export const blockAndUnblockEmployee = async (employeeId) => {
     return data
 }
 
-export const getNewBookings = async () => {
-    const data = await managerAxiosInstance.get(`/getNewBookings`)
+export const getNewSubmissions = async () => {
+    const data = await managerAxiosInstance.get(`/getNewSubmissions`)
     return data
 }
 
@@ -119,9 +119,9 @@ export const getCaptians = async() => {
 //     const data = await managerAxiosInstance.get('/setCaptianToEvent',{eventId,})
 // }
 
-export const approveEvent = async (eventId) => {
+export const approveEvent = async (submissionId) => {
 
-    const data = await managerAxiosInstance.post('/approveEvent',{eventId})
+    const data = await managerAxiosInstance.post('/approveEvent',{submissionId})
     return data
 } 
 
