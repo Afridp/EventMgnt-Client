@@ -249,7 +249,7 @@ function Booking() {
         />
       )}
       {currentStep === 2 && (
-        <PaymentForm handlePrev={handlePrev} handleBook={handleBook} />
+        <PaymentForm handlePrev={handlePrev} handleBook={handleBook} formValues={formValues} />
       )}
     </>
   );

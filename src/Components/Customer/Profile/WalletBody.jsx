@@ -136,7 +136,7 @@ function WalletBody() {
                     >
                       Top Up
                     </button>
-                    <button className="border px-4 py-1 bg-brown-50">
+                    <button disabled className="border px-4 py-1 bg-brown-50">
                       Withdraw
                     </button>
                   </div>

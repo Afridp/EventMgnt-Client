@@ -31,8 +31,8 @@ function CustomerRoutes() {
             <Route path="/myEvents" element={<Protect><MyEvents/></Protect>}/>
             <Route path="/myEvents/seemore/:bookingId" element={<Protect><ViewOrEditBooked/></Protect>}/>
             <Route path="/profile" element={<Protect><Profile/></Protect>}/>
-            <Route path="/payment"  element={<PaymentStatus/>}/>
-            <Route path="/wallet/:amt?/:customerId?/:status?" element={<Wallet/>}/>
+            <Route path="/payment"  element={<Protect><PaymentStatus/></Protect>}/>
+            <Route path="/wallet/:amt?/:customerId?/:status?" element={<Protect><Wallet/></Protect>}/>
         </Routes>
     </div>
   )

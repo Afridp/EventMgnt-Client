@@ -1,4 +1,4 @@
-import React from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -17,15 +17,15 @@ import { PersistGate } from "redux-persist/integration/react";
 // import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {/* <ThemeProvider> */}
         {/* <LocalizationProvider dateAdapter={AdapterMoment}> */}
-          <App />
-          {/* </LocalizationProvider> */}
+        <App />
+        {/* </LocalizationProvider> */}
         {/* </ThemeProvider> */}
       </PersistGate>
     </Provider>
-   </React.StrictMode>
-);
+  </StrictMode>
+);    

@@ -52,13 +52,13 @@ function AllEvents() {
         <LoaderManager loading={loading} />
       ) : (
         <>
-          <div className="container mx-auto my-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 fade-ef">
-            {bookedEvents?.length > 0 ? (
-              bookedEvents.map((event) => (
-                <div
-                  key={event._id}
-                  className="max-w-xs mx-9 sm:mx-0 shadow-md bg bg-transparent text border transform transition-transform hover:scale-105"
-                >
+          {bookedEvents?.length > 0 ? (
+            bookedEvents.map((event) => (
+              <div
+                key={event._id}
+                className="container mx-auto my-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 fade-ef"
+              >
+                <div className="max-w-xs mx-9 sm:mx-0 shadow-md bg bg-transparent text border transform transition-transform hover:scale-105">
                   <img
                     src={event.eventId.eventImage}
                     alt=""
@@ -112,15 +112,15 @@ function AllEvents() {
                     </a>
                   </Link>
                 </div>
-              ))
-            ) : (
-              <>
-                <div className="mt-64">
-                  <DataNotFoundManager />
-                </div>
-              </>
-            )}
-          </div>
+              </div>
+            ))
+          ) : (
+            <>
+              <div className="mt-64">
+                <DataNotFoundManager />
+              </div>
+            </>
+          )}
         </>
       )}
     </>

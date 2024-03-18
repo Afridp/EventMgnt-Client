@@ -6,6 +6,10 @@ import { useState } from "react";
 import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 import useGoogleMap from "../../../CustomHooks/useGoogleMap";
 import { Autocomplete } from "@react-google-maps/api";
+import { toast } from "react-toastify";
+import { DatePicker } from "antd";
+import moment from "moment";
+const { RangePicker } = DatePicker;
 
 // eslint-disable-next-line react/prop-types
 function BookingForm({
@@ -33,8 +37,13 @@ function BookingForm({
   const fetchEventForm = async () => {
     try {
       const res = await getEventForm(eventId);
-      setFormData(res?.data?.fields);
-      setPersonalDetails(res?.data?.personalInfo);
+      if (res?.data?.fields) {
+        setFormData(res?.data?.fields);
+
+        setPersonalDetails(res?.data?.personalInfo);
+      } else {
+        toast.error("nomdata");
+      }
     } finally {
       setLoading(false);
     }
@@ -116,6 +125,18 @@ function BookingForm({
     }
   };
 
+  const handleDateChange = (dates, dateStrings, name) => {
+    let startDate = new Date(dateStrings[0])
+    let endDate = new Date(dateStrings[1])
+    setFormValues({
+      ...formValues,
+      [name]: {
+        startDate,
+        endDate
+      },
+    });
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -174,6 +195,7 @@ function BookingForm({
   const handleBlur = (e) => {
     const { name, type, checked } = e.target;
     setTouchedFields({ ...touchedFields, [name]: true });
+
     const fieldName = type === "checkbox" ? name.split("-")[0] : name;
     const field = formData?.find((field) => field.label === fieldName);
 
@@ -210,12 +232,12 @@ function BookingForm({
     <>
       <section className="min-h-screen bg-cover">
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-lg bg-white p-8 shadow-2xl border my-20 lg:col-span-3 lg:p-12 fade-ef">
-            {/* {formData && <DynamicForm formData={formData} />} */}
-            {loading ? (
-              <LoaderManager loading={loading} />
-            ) : (
-              <>
+          {/* {formData && <DynamicForm formData={formData} />} */}
+          {loading ? (
+            <LoaderManager loading={loading} />
+          ) : (
+            <>
+              <div className="rounded-lg bg-white p-8 shadow-2xl border my-20 lg:col-span-3 lg:p-12 fade-ef">
                 <form action="" className="space-y-4" onSubmit={handleSubmit}>
                   <span className="flex items-center">
                     <span className="pr-6 font-bold font-mono text-orange-900">
@@ -399,6 +421,20 @@ function BookingForm({
                         </div>
                       )}
 
+                      {field.type === "Date" && (
+                        <RangePicker
+                          size="large"
+                          disabledDate={(current) =>
+                            current && current < moment().startOf("day")
+                          }
+                          onChange={(dates, dateStrings) =>
+                            handleDateChange(dates, dateStrings, field.label)
+                          }
+                          onBlur={handleBlur}
+                          name={field.label}
+                        />
+                      )}
+
                       {field.type === "Radio" && (
                         <div className="flex flex-row items-center gap-5 mt-2">
                           {Object.entries(field.booleans).map(
@@ -462,9 +498,9 @@ function BookingForm({
                     </button>
                   </div>
                 </form>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </section>
     </>

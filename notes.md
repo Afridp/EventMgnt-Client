@@ -24,12 +24,14 @@
  * need to change the ui and ux of customer profile page 
  * change date format changing when inserting to db,change or convet the format where we are trying to show
  * change customer profile page to simplified and compact using fnns and componts
- * change local storage to cookies storage\
+ * change local storage to cookies storage
  * try to use 
  * implement skelton to appropriate image loading place
  * use PurgeCSS tool to remove duplicate or unused css
  * change google maps to sajad map which is user can choose by cursor'
  * bring stripe subscription plan 
+
+
 
 
  > doubts to ask x

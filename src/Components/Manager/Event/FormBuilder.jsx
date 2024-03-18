@@ -273,12 +273,12 @@ function FormBuilder({
                                 <option value="Number">Number</option>
                                 <option value="Email">Email</option>
                                 <option value="Date">Date</option>
-                                <option value="Time">Time</option>
+                                {/* <option value="Time">Time</option> */}
                                 <option value="Textarea">Textarea</option>
                                 <option value="Checkbox">Checkbox</option>
                                 <option value="Select">Select</option>
                                 <option value="Radio">Radio</option>
-                                <option value="File">File</option>
+                                {/* <option value="File">File</option> */}
                                 <option value="Map">Map</option>
                                 {/* <option value="dropdown">Dropdown</option> */}
                               </select>

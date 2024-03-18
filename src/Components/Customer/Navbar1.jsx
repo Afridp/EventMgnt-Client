@@ -110,14 +110,14 @@ function Navbar1() {
                   {!customerData ? (
                     <div className="flex gap-4">
                       <a
-                        className="border px-5 py-2.5 text-sm font-medium text-white shadow"
+                        className="border border-black px-5 py-2.5 text-sm font-medium text-black shadow"
                         href="/signin"
                       >
                         Login
                       </a>
                       <div className="hidden sm:flex">
                         <a
-                          className="bg-gray-100 px-5 py-2.5 text-sm font-medium text-black"
+                          className="bg-black px-5 py-2.5 text-sm font-medium text-white"
                           href="/signup"
                         >
                           Register

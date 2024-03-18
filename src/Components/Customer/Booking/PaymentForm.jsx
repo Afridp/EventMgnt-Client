@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getWalletDetails } from "../../../Api/customer";
 import { useSelector } from "react-redux";
 
-function PaymentForm({ handlePrev, handleBook }) {
+function PaymentForm({ handlePrev, handleBook, formValues }) {
   const { customer } = useSelector((state) => state.customerSlice);
   const [selectedOption, setSelectedOption] = useState("");
   const [amount, setAmount] = useState("");
@@ -11,9 +11,12 @@ function PaymentForm({ handlePrev, handleBook }) {
   // const [isAmountInputDisabled, setIsAmountInputDisabled] = useState(false);
   const [showBalance, setShowBalance] = useState(false);
   const [balance, setBalance] = useState(0);
+  const [estimatedAmount, setEstimatedAmount] = useState("");
+  const [duration, setDuration] = useState("");
 
   useEffect(() => {
     fetchWalletBalance();
+    calculateEstimation(formValues);
   }, []);
 
   const fetchWalletBalance = async () => {
@@ -23,6 +26,25 @@ function PaymentForm({ handlePrev, handleBook }) {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const calculateEstimation = (formValues) => {
+    // Parse the dates
+    const startDate = new Date(formValues.Date.startDate);
+    const endDate = new Date(formValues.Date.endDate);
+
+    // Calculate the duration in milliseconds
+    const durationMs = endDate.getTime() - startDate.getTime();
+
+    // Convert duration to days (assuming each day has 24*60*60*1000 milliseconds)
+    const durationDays = durationMs / (24 * 60 * 60 * 1000);
+
+    // Example: Estimate based on a rate per day
+    const ratePerDay = 15000; // Example rate per day
+    const estimatedAmount = durationDays * ratePerDay;
+    setDuration(durationDays);
+    setEstimatedAmount(estimatedAmount);
+    // You can return the estimated amount or use it for further processing
   };
 
   const handleButtonClick = (option) => {
@@ -35,7 +57,7 @@ function PaymentForm({ handlePrev, handleBook }) {
   };
 
   const handleAmountBlur = () => {
-    if (amount === "" || isNaN(amount) || Number(amount) <= 0) {
+    if (amount === "" || isNaN(amount) || Number(amount) < 0) {
       setAmountError("Please enter a valid amount.");
     }
   };
@@ -52,7 +74,10 @@ function PaymentForm({ handlePrev, handleBook }) {
                 </span>
                 <span className="h-px flex-1 bg-black"></span>
               </span>
-
+              <div className="flex flex-col gap-1 text-black font-semibold">
+                <h1>Duration : {duration} Days</h1>
+                <h1>Estimated Amount : ₹{estimatedAmount}</h1>
+              </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="relative">
                   <a
@@ -92,7 +117,7 @@ function PaymentForm({ handlePrev, handleBook }) {
               <div>
                 <div className="label">
                   <span className="label-text text-base font-semibold">
-                    Enter Amount You Wish to Pay.
+                    Enter Amount You Wish to Pay As Advance.
                   </span>
                 </div>
                 <input
