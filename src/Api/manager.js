@@ -13,8 +13,9 @@ managerAxiosInstance.interceptors.response.use(
 )
 
 // API's
-export const managerSignup = async (signupData) => {
-    const data = await managerAxiosInstance.post('/signup', signupData)
+export const managerSignup = async (signupData,scheme,amount) => {
+    
+    const data = await managerAxiosInstance.post('/createTanent', {signupData,scheme,amount})
     return data
 }
 
@@ -137,5 +138,10 @@ export const appearencePost = async (values) => {
 
 export const contentPost = async (values) => {
     const data = await managerAxiosInstance.post('/contentsPost',values)
+    return data
+}
+
+export const stripePaymentApiForSub = async(values,scheme,amount) => {
+    const data = await managerAxiosInstance.post('/createTanent',{values,scheme,amount})
     return data
 }

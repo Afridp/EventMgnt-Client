@@ -4,17 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import { otpValidation } from "../../ValidationSchemas/managerValidation/otp";
 import { otpVerification, resendOtp } from "../../Api/manager";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Otp = () => {
+  const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY;
   const [countDown, setCountDown] = useState(30);
   const [showResendButton, setShowResendButton] = useState(false);
-  const [loading,setLoading] = useState(false)
-  const [loading1,setLoading1] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { managerEmail, managerId, otpId } = location.state;
+  const { managerEmail, managerId, otpId, scheme, amount } = location.state;
 
   const decrementTimer = () => {
     if (countDown > 0) {
@@ -34,28 +36,44 @@ const Otp = () => {
 
   const onSubmit = async (values) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const enteredOtp = Object.values(values).join("");
 
-      const res = await otpVerification({ enteredOtp, otpId, managerId });
-
-        toast.success(res.data.message,{position: toast.POSITION.TOP_CENTER});
-        navigate("/manager/signin", { state: "Email verified" });
-      
+      const res = await otpVerification({
+        enteredOtp,
+        otpId,
+        managerId,
+        scheme,
+        amount,
+      });
+      if (res.data.status === false) {
+        toast.warning(res.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
+        const stripe = await loadStripe(STRIPE_KEY);
+        const sessionId = res.data.sessionId;
+        const result = stripe.redirectToCheckout({
+          sessionId: sessionId,
+        });
+        if (result.error) {
+          console.log((await result).error);
+        }
+      }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   const resendOTP = async () => {
     try {
-      setLoading1(true)
+      setLoading1(true);
       const res = await resendOtp(managerId);
-        toast(res.data.message);
-        setCountDown(30);
-        setShowResendButton(false);
-    } finally{
-      setLoading1(false)
+      toast(res.data.message);
+      setCountDown(30);
+      setShowResendButton(false);
+    } finally {
+      setLoading1(false);
     }
   };
 
@@ -205,7 +223,7 @@ const Otp = () => {
                         type="submit"
                         disabled={loading}
                       >
-                        {loading ? 'Verifying..' : 'Verify'}
+                        {loading ? "Verifying.." : "Verify And Pay"}
                       </button>
                     </div>
 

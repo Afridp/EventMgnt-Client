@@ -1,20 +1,26 @@
 import { Typography } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { managerSignup } from "../../Api/manager";
 import { signupValidation } from "../../ValidationSchemas/managerValidation/signup";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
+
 function SignUp() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const scheme = searchParams.get('scheme');
+  const amount = searchParams.get('amount');
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
 
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      let res = await managerSignup(values);
+
+      let res = await managerSignup(values,scheme,amount);
 
       const { otpId, managerId } = res.data;
       toast.success(res?.data?.message, {
@@ -22,6 +28,8 @@ function SignUp() {
       });
       navigate("/manager/otp", {
         state: {
+          scheme:scheme,
+          amount : amount,
           otpId: otpId,
           managerId: managerId,
           managerEmail: values.cemail,
@@ -59,7 +67,7 @@ function SignUp() {
           color="black"
           className="text-xl font-extrabold mb-8 text-center"
         >
-          Sign Up
+          Submit Your Personal and Compay Details
         </Typography>
 
         <label className="form-control w-full max-w-xs">
@@ -180,7 +188,7 @@ function SignUp() {
             type="submit"
             className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
           >
-            {loading ? "Signing up..." : "Signup"}
+            {loading ? "Signing..." : "signup"}
           </button>
         </div>
         <Typography color="gray" className="mt-4 text-center font-normal">

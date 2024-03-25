@@ -51,9 +51,9 @@ function Booking() {
           amt
         );
         const sessionId = res.data.sessionId;
-        const result = stripe.redirectToCheckout({
-          sessionId: sessionId,
-        });
+            const result = stripe.redirectToCheckout({
+              sessionId: sessionId,
+            });
 
         if (result.error) {
           console.log((await result).error);

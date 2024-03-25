@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [open, setOpen] = useState(false);
@@ -57,12 +58,12 @@ function Dashboard() {
               >
                 Services
               </a>
-              <a
+              {/* <a
                 className="py-2 text-xs font-semibold text-gray-900 uppercase hover:text-gray-400 focus:outline-none focus:shadow-none focus:text-gray-900/90"
                 href="#benefits"
               >
                 Benefits
-              </a>
+              </a> */}
               <a
                 className="py-2 text-xs font-semibold text-gray-900 uppercase hover:text-gray-400 focus:outline-none focus:shadow-none focus:text-gray-900/90"
                 href="#pricing"
@@ -172,41 +173,50 @@ function Dashboard() {
             <div className="flex flex-col justify-between h-full gap-8 p-8 bg-gray-100 rounded-4xl">
               <div>
                 <h3 className="text-base font-medium tracking-tight text-gray-900">
-                  Limitless - $2999/month
+                  Try out - ₹299/month
                 </h3>
                 <p className="mt-4 text-sm text-gray-500">
                   Infinite requests and revisions, with the flexibility to
                   cancel at any time. Ideal for startups and agencies.
                 </p>
               </div>
-              <a
+              <Link
                 className="flex items-center justify-center w-auto h-10 px-4 py-2 text-sm font-semibold text-gray-900 transition-all bg-white rounded-full shrink-0 hover:bg-gray-800 hover:text-white"
-                href="/contact"
+                to={{
+                  pathname: "/manager/signup",
+                  state: {
+                    scheme: "month",
+                    amount: 299,
+                  },
+                }}
               >
                 Get started
-              </a>
+              </Link>
             </div>
             <div className="flex flex-col justify-between h-full gap-8 p-8 bg-black rounded-4xl">
               <div>
                 <h3 className="text-base font-medium tracking-tight text-white">
-                  Set Rate - $299/page
+                  Limitless - ₹2999/year
                 </h3>
                 <p className="mt-4 text-sm text-white">
                   Transparent fixed pricing from the start. Perfect for
                   designers or those well-versed in Jamstack.
                 </p>
               </div>
-              <a
+              <Link
+               to={{
+                pathname: "/manager/signup",
+                search: "?scheme=year&amount=2999",
+              }}
                 className="flex items-center justify-center w-auto h-10 px-4 py-2 text-sm font-semibold text-gray-900 transition-all bg-white rounded-full shrink-0 hover:bg-gray-800 hover:text-white"
-                href="/start"
               >
                 Get started
-              </a>
+              </Link>
             </div>
             <div className="flex flex-col justify-between h-full gap-8 p-8 bg-gray-100 rounded-4xl">
               <div>
                 <h3 className="text-base font-medium tracking-tight text-gray-900">
-                  Tailored Quotation
+                  Already Bought ?
                 </h3>
                 <p className="mt-4 text-sm text-gray-500">
                   Expect your estimate within 1 business day. Ideal for
@@ -218,7 +228,7 @@ function Dashboard() {
                 className="flex items-center justify-center w-auto h-10 px-4 py-2 text-sm font-semibold text-gray-900 transition-all bg-white rounded-full shrink-0 hover:bg-gray-800 hover:text-white"
                 href="/contact"
               >
-                Get in touch
+                Login
               </a>
             </div>
           </div>
