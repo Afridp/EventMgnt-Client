@@ -28,6 +28,11 @@ export const resendOtp = async (managerId) => {
     return data
 }
 
+export const  completeSubscription = async (subDetails) => {
+    const data = await managerAxiosInstance.post('/completeSubscription',subDetails)
+    return data
+}
+
 export const managerSignin = async (signinData) => {
     const data = await managerAxiosInstance.post('/signin', signinData)
     return data
