@@ -48,7 +48,7 @@ function Dashboard() {
                 className="inline-flex items-center gap-3 text-xl font-bold tracking-tight text-gray-900 uppercase"
                 href="/"
               >
-                Agency
+                Event Brigadge
               </a>
               <button
                 className="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
@@ -111,10 +111,9 @@ function Dashboard() {
               </a>
               <a
                 className="flex items-center justify-center w-auto h-8 px-4 py-2 text-xs font-semibold text-white uppercase transition-all bg-black rounded-full shrink-0 hover:bg-accent-500"
-                href="#_"
                 role="button"
               >
-                Download Agency
+                Login Here
               </a>
             </nav>
           </div>
