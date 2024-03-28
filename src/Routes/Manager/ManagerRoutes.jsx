@@ -16,9 +16,15 @@ import NewBookings from "../../Pages/Manager/NewBookings";
 import Account from "../../Pages/Manager/Account";
 import Customer from "../../Pages/Manager/Customer";
 import Events from "../../Pages/Manager/Events";
+import EnterDomain from "../../Pages/Manager/EnterDomain";
+import { useSelector } from "react-redux";
+import { generateBaseURL } from "../../Config";
 
 
 function ManagerRoute() {
+
+  const { domain } = useSelector((state) => state.managerSlice)
+  const baseURL = domain ? generateBaseURL(domain) : '/';
   return (
    
 
@@ -26,8 +32,9 @@ function ManagerRoute() {
             <Route path="/signup" element={<Public><SignUp/></Public> }/>
             <Route path="/otp" element={<Public><Otp/></Public>}/>
             <Route path="/signin" element={<Public><Siginin/></Public>}/>
-            <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
-            <Route path="/" element={<Protect><Home/></Protect> }/>
+            <Route path="/enterDomain" element={<EnterDomain />}/>
+
+            <Route path={`${baseURL}/`} element={<Protect><Home/></Protect> }/>
             <Route path="/events" element={<Protect><IsSubscribed><Events/></IsSubscribed></Protect>}/>
             <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
             <Route path="/myEvents" element={<Protect><IsSubscribed><MyEvents/></IsSubscribed></Protect>}/>
@@ -36,6 +43,7 @@ function ManagerRoute() {
             <Route path="/customerMgt" element={<Protect><Customer/></Protect>}/>
             <Route path="/account" element={<Protect><Account/></Protect>}/>
             <Route path="/newEventViewMore/:eventId" element={<Protect><EventSeemore/></Protect>}/>
+            <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
           
         </Routes>
       

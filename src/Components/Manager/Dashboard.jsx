@@ -32,12 +32,12 @@ function Dashboard() {
 
   return (
     <>
-      {manager.isTrailed && !manager.subscribed && (
+      {/* {manager.isTrailed && !manager.subscribed && (
         <TrialModal showTrail={false} managerId={manager._id} />
       )}
       {!manager.isTrailed && (
         <TrialModal showTrail={true} managerId={manager._id} />
-      )}
+      )} */}
       {loading ? (
         <LoaderManager loading={loading} />
       ) : (

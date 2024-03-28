@@ -1,14 +1,9 @@
-import { useLocation } from "react-router-dom";
+
 
 function PaymentSuccess() {
-
-
   // eslint-disable-next-line no-unused-vars
-  
 
-  return (
-    
-  );
+  return <div></div>;
 }
 
 export default PaymentSuccess;

@@ -4,7 +4,8 @@ const managerSlice = createSlice({
     name: 'manager',
     initialState: {
         token: "",
-        manager: null
+        manager: null,
+        domainName: ""
 
     },
     reducers: {
@@ -12,6 +13,9 @@ const managerSlice = createSlice({
             state.token = action.payload.token;
             state.manager = action.payload.manager;
 
+        },
+        setDomainName: (state, action) => {
+            state.domainName = action.payload.domainName
         },
         logoutManager: (state) => {
             state.token = ''
@@ -22,6 +26,6 @@ const managerSlice = createSlice({
 
 })
 
-export const { setManagerDetails, logoutManager } = managerSlice.actions
+export const { setManagerDetails,setDomainName, logoutManager } = managerSlice.actions
 
 export default managerSlice.reducer

@@ -38,6 +38,11 @@ export const managerSignin = async (signinData) => {
     return data
 }
 
+export const createSubdomain = async (values) => {
+    const data = await managerAxiosInstance.post('/createSubdomain',values)
+    return data
+}
+
 export const getEvents = async ({managerId}) => {
 
     const data = await managerAxiosInstance.get(`/getEvents?managerId=${managerId}`)

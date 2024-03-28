@@ -43,12 +43,12 @@ function Signin() {
       const { token, managerData } = res.data;
       localStorage.setItem("managerToken", token);
       // localStorage.setItem("managerId", managerData._id)
-      dispatch(
-        setManagerDetails({
-          token: token,
-          manager: managerData,
-        })
-      );
+        dispatch(
+          setManagerDetails({
+            token: token,
+            manager: managerData,
+          })
+        );
       toast({
         title: "Account created.",
         description: "We've created your account for you.",
@@ -56,7 +56,7 @@ function Signin() {
         duration: 9000,
         isClosable: true,
       });
-      navigate("/manager/");
+      navigate("/manager/enterDomain");
     } finally {
       setLoading(false);
     }

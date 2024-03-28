@@ -12,12 +12,17 @@ import ManagerRoutes from "./Routes/Manager/ManagerRoutes";
 import CustomerRoutes from "./Routes/Customer/CustomerRoutes";
 import EmployeeeRoutes from "./Routes/Employee/EmployeeeRoutes";
 import Dashboard from "./Pages/Manager/Dashboard";
+import { useSelector } from "react-redux";
+import { generateBaseURL } from "./Config";
 
 
 
 function App() {
+  const {domain} = useSelector((state) => state.managerSlice);
+
+  const baseURL = domain ? generateBaseURL(domain) : '/';
   return (
-    <Router>
+    <Router basename={baseURL}>
       <ToastContainer />
       {/* <ChakraProvider /> */}
       <Routes>
