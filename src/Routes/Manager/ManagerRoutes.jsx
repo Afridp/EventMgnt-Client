@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-import SignUp from "../../Pages/Manager/Signup";
-import Siginin from "../../Pages/Manager/Signin";
+// import SignUp from "../../Pages/Manager/Signup";
+// import Siginin from "../../Pages/Manager/Signin";
 import Home from "../../Pages/Manager/Home";
 // import Events from "../../Pages/Manager/Events";
 // import AddEvent from "../../Pages/ManagerPages/AddEvent";
 import MyEvents from "../../Pages/Manager/MyEvents";
-import Otp from "../../Pages/Manager/Otp";
+// import Otp from "../../Pages/Manager/Otp";
 import Public from "./Public";
 import Protect from "./Protect";
 import EventSeemore from "../../Pages/Manager/EventSeemore";
@@ -16,38 +16,27 @@ import NewBookings from "../../Pages/Manager/NewBookings";
 import Account from "../../Pages/Manager/Account";
 import Customer from "../../Pages/Manager/Customer";
 import Events from "../../Pages/Manager/Events";
-import EnterDomain from "../../Pages/Manager/EnterDomain";
-import { useSelector } from "react-redux";
-import { generateBaseURL } from "../../Config";
+import Signin from "../../Pages/Manager/Signin";
+
 
 
 function ManagerRoute() {
 
-  const { domain } = useSelector((state) => state.managerSlice)
-  const baseURL = domain ? generateBaseURL(domain) : '/';
-  return (
-   
 
-      <Routes>
-            <Route path="/signup" element={<Public><SignUp/></Public> }/>
-            <Route path="/otp" element={<Public><Otp/></Public>}/>
-            <Route path="/signin" element={<Public><Siginin/></Public>}/>
-            <Route path="/enterDomain" element={<EnterDomain />}/>
-
-            <Route path={`${baseURL}/`} element={<Protect><Home/></Protect> }/>
-            <Route path="/events" element={<Protect><IsSubscribed><Events/></IsSubscribed></Protect>}/>
-            <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
-            <Route path="/myEvents" element={<Protect><IsSubscribed><MyEvents/></IsSubscribed></Protect>}/>
-            <Route path="/newBookings" element={<Protect><IsSubscribed><NewBookings/></IsSubscribed></Protect>}/>
-            <Route path="/employeeMgt" element={<Protect><IsSubscribed><Employees/></IsSubscribed></Protect>}/>
-            <Route path="/customerMgt" element={<Protect><Customer/></Protect>}/>
-            <Route path="/account" element={<Protect><Account/></Protect>}/>
-            <Route path="/newEventViewMore/:eventId" element={<Protect><EventSeemore/></Protect>}/>
-            <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
-          
-        </Routes>
-      
-   
+  return (  
+      <Routes >
+        <Route path="/signin" element={<Public><Signin /></Public>} />
+        <Route path='/' element={<Protect><Home/></Protect>}/>
+        <Route path="/events" element={<Protect><IsSubscribed><Events/></IsSubscribed></Protect>}/>
+        <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
+        <Route path="/myEvents" element={<Protect><IsSubscribed><MyEvents/></IsSubscribed></Protect>}/>
+        <Route path="/newBookings" element={<Protect><IsSubscribed><NewBookings/></IsSubscribed></Protect>}/>
+        <Route path="/employeeMgt" element={<Protect><IsSubscribed><Employees/></IsSubscribed></Protect>}/>
+        <Route path="/customerMgt" element={<Protect><Customer/></Protect>}/>
+        <Route path="/account" element={<Protect><Account/></Protect>}/>
+        <Route path="/newEventViewMore/:eventId" element={<Protect><EventSeemore/></Protect>}/>
+        <Route path="/pro" element={<Protect><SubscriptionPlans/></Protect>}/>
+      </Routes>
   );
 }
 

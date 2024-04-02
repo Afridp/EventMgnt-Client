@@ -13,9 +13,9 @@ managerAxiosInstance.interceptors.response.use(
 )
 
 // API's
-export const managerSignup = async (signupData,scheme,amount) => {
-    
-    const data = await managerAxiosInstance.post('/createTanent', {signupData,scheme,amount})
+export const managerSignup = async (signupData, scheme, amount) => {
+
+    const data = await managerAxiosInstance.post('/createTanent', { signupData, scheme, amount })
     return data
 }
 
@@ -28,22 +28,23 @@ export const resendOtp = async (managerId) => {
     return data
 }
 
-export const  completeSubscription = async (subDetails) => {
-    const data = await managerAxiosInstance.post('/completeSubscription',subDetails)
+export const completeSubscription = async (subDetails) => {
+    const data = await managerAxiosInstance.post('/completeSubscription', subDetails)
     return data
 }
 
 export const managerSignin = async (signinData) => {
+
     const data = await managerAxiosInstance.post('/signin', signinData)
     return data
 }
 
 export const createSubdomain = async (values) => {
-    const data = await managerAxiosInstance.post('/createSubdomain',values)
+    const data = await managerAxiosInstance.post('/createSubdomain', values)
     return data
 }
 
-export const getEvents = async ({managerId}) => {
+export const getEvents = async ({ managerId }) => {
 
     const data = await managerAxiosInstance.get(`/getEvents?managerId=${managerId}`)
     return data
@@ -116,12 +117,12 @@ export const getEventForm = async (eventId) => {
     return data
 }
 
-export const submitForm = async(values) => {
-    const data = await managerAxiosInstance.post('/submitForm',values)
+export const submitForm = async (values) => {
+    const data = await managerAxiosInstance.post('/submitForm', values)
     return data
 }
 
-export const getCaptians = async() => {
+export const getCaptians = async () => {
     const data = await managerAxiosInstance.get('/getEmployees')
     return data
 }
@@ -132,26 +133,26 @@ export const getCaptians = async() => {
 
 export const approveEvent = async (submissionId) => {
 
-    const data = await managerAxiosInstance.post('/approveEvent',{submissionId})
+    const data = await managerAxiosInstance.post('/approveEvent', { submissionId })
     return data
-} 
+}
 
-export const fileUploads = async(images) => {
-    const data = await managerAxiosInstance.post('/fileUpload',images)
+export const fileUploads = async (images) => {
+    const data = await managerAxiosInstance.post('/fileUpload', images)
     return data
-}   
+}
 
 export const appearencePost = async (values) => {
-    const data = await managerAxiosInstance.post('/appearancePost',values)
+    const data = await managerAxiosInstance.post('/appearancePost', values)
     return data
 }
 
 export const contentPost = async (values) => {
-    const data = await managerAxiosInstance.post('/contentsPost',values)
+    const data = await managerAxiosInstance.post('/contentsPost', values)
     return data
 }
 
-export const stripePaymentApiForSub = async(values,scheme,amount) => {
-    const data = await managerAxiosInstance.post('/createTanent',{values,scheme,amount})
+export const stripePaymentApiForSub = async (values, scheme, amount) => {
+    const data = await managerAxiosInstance.post('/createTanent', { values, scheme, amount })
     return data
 }

@@ -16,12 +16,10 @@ function Protect(props) {
     } else {
       localStorage.removeItem("managerToken");
       dispatch(logoutManager());
-      return (
-        <Navigate to="/manager/signin" />
-      );
+      return <Navigate to="/" />;
     }
   } else {
-    return <Navigate to="/manager/signin" />;
+    return <Navigate to="/signin" />;
   }
 }
 

@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { signinValidation } from "../../ValidationSchemas/managerValidation/signin";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+
 // import { useToast } from "@chakra-ui/react";
 
 function Signin() {
@@ -15,6 +16,7 @@ function Signin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
 
   // const toast = useToast();
 
@@ -37,26 +39,20 @@ function Signin() {
 
   async function onSubmit() {
     try {
+    
       setLoading(true);
       const res = await managerSignin(values);
 
       const { token, managerData } = res.data;
       localStorage.setItem("managerToken", token);
-      // localStorage.setItem("managerId", managerData._id)
-        dispatch(
-          setManagerDetails({
-            token: token,
-            manager: managerData,
-          })
-        );
-      toast({
-        title: "Account created.",
-        description: "We've created your account for you.",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-      navigate("/manager/enterDomain");
+      dispatch(
+        setManagerDetails({
+          token: token,
+          manager: managerData,
+        })
+      );
+      toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
+      navigate('/');
     } finally {
       setLoading(false);
     }

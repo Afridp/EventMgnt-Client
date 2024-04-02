@@ -1,13 +1,12 @@
 import axios from "axios";
+// import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const baseURL = import.meta.env.VITE_BASE_URL;
-
+const baseURL = `http://${import.meta.env.VITE_BASE_URL}`;
 
 const customerUrl = baseURL
-const managerUrl = ` ${baseURL}/manager`
-const employeeUrl = `${baseURL}/employee`
-
+const managerUrl = "http://manager.localhost:5000"
+const employeeUrl = `${baseURL}/`
 
 // Axios instance creator
 const createAxiosInstance = (baseURL) => {
@@ -48,6 +47,7 @@ export const handleError = (error) => {
         toast.error(errorMessage)
     }
 };
+
 
 
 

@@ -44,10 +44,7 @@ function Dashboard() {
         <div className="relative justify-center w-full mx-auto bg-white">
           <div className="relative flex flex-col w-full max-w-6xl px-8 py-4 mx-auto bg-white md:px-12 md:items-center md:justify-between md:flex-row lg:px-32">
             <div className="flex flex-row items-center justify-between text-gray-900">
-              <a
-                className="inline-flex items-center gap-3 text-xl font-bold tracking-tight text-gray-900 uppercase"
-                href="/"
-              >
+              <a className="inline-flex items-center gap-3 text-xl font-bold tracking-tight text-gray-900 uppercase">
                 Event Brigadge
               </a>
               <button
@@ -110,6 +107,9 @@ function Dashboard() {
                 FAQ
               </a>
               <a
+                href="http://manager.localhost:3000/signin"
+                target="_blank"
+                rel="noreferrer"
                 className="flex items-center justify-center w-auto h-8 px-4 py-2 text-xs font-semibold text-white uppercase transition-all bg-black rounded-full shrink-0 hover:bg-accent-500"
                 role="button"
               >
@@ -146,12 +146,14 @@ function Dashboard() {
               </p>
               <p> {`${message}, Have a great day!`}</p>
               <div className="py-10 text-center">
-                <Link
-                  to="/manager/signin"
+                <a
+                  href="http://manager.localhost:3000/signin"
+                  target="_blank"
+                  rel="noreferrer"
                   className="px-12 bg-black hover:bg-red-900 text-white font-semibold py-3"
                 >
                   Login To Continue
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -253,7 +255,7 @@ function Dashboard() {
                   <Link
                     className="flex items-center justify-center w-auto h-10 px-4 py-2 text-sm font-semibold text-gray-900 transition-all bg-white rounded-full shrink-0 hover:bg-gray-800 hover:text-white"
                     to={{
-                      pathname: "/manager/signup",
+                      pathname: "/signup",
                       search: "?scheme=month&amount=299",
                     }}
                   >
@@ -272,7 +274,7 @@ function Dashboard() {
                   </div>
                   <Link
                     to={{
-                      pathname: "/manager/signup",
+                      pathname: "/signup",
                       search: "?scheme=year&amount=2999",
                     }}
                     className="flex items-center justify-center w-auto h-10 px-4 py-2 text-sm font-semibold text-gray-900 transition-all bg-white rounded-full shrink-0 hover:bg-gray-800 hover:text-white"

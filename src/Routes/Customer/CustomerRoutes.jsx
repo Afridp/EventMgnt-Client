@@ -15,17 +15,15 @@ import PaymentStatus from "../../Pages/Customer/PaymentStatus"
 import Wallet from "../../Pages/Customer/Wallet"
 
 
-
-
 function CustomerRoutes() {
   return (
     <div>
-      
         <Routes>
             <Route path="/signup" element={<Public><Signup/></Public>}/>
             <Route path="/otp" element={<Public><Otp/></Public>}/>
             <Route path="/signin" element={<Public><Signin/></Public>}/>
-            <Route path="/" element={<Home/>}/>
+            
+            <Route path='/' element={<Home/>}/>
             <Route path="/events" element={<Events/>}/>
             <Route path="/events/book/:eventId" element={<Protect><BookEvent/></Protect>}/>
             <Route path="/myEvents" element={<Protect><MyEvents/></Protect>}/>

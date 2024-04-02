@@ -26,7 +26,7 @@ function SignUp() {
       toast.success(res?.data?.message, {
         position: toast.POSITION.TOP_CENTER,
       });
-      navigate("/manager/otp", {
+      navigate("/otp", {
         state: {
           scheme:scheme,
           amount : amount,

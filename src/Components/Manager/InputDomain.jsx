@@ -33,7 +33,7 @@ console.log(baseURL);
           domainName: res.data.domain,
         })
       );
-      navigate(`${baseURL}/manager/`);
+      navigate(`/manager/`);
       toast.success(res.data.message);
     } finally {
       setTimeout(() => {

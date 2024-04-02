@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
@@ -14,7 +14,7 @@ const Otp = () => {
   const [loading1, setLoading1] = useState(false);
 
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { managerEmail, managerId, otpId, scheme, amount } = location.state;
 

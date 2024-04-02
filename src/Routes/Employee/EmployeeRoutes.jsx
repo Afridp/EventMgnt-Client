@@ -4,7 +4,7 @@ import Home from "../../Pages/Employee/Home";
 import Protect from "./Protect";
 import Public from "./Public";
 
-function EmployeeeRoutes() {
+function EmployeeRoutes() {
   return (
     <>
       <div className="h-screen bg-gray-100">
@@ -17,4 +17,4 @@ function EmployeeeRoutes() {
   );
 }
 
-export default EmployeeeRoutes;
+export default EmployeeRoutes;
