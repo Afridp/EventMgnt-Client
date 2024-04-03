@@ -1,12 +1,12 @@
 
-import { managerAxiosInstance, handleError, attachToken } from "./axiosConfig";
+import { managerAxiosInstance, tenantsAxiosInstance, handleError, attachToken } from "./axiosConfig";
 
 // request interceptor
 managerAxiosInstance.interceptors.request.use(async (req) => {
     let modifiedRequest = await attachToken(req, "managerToken")
     return modifiedRequest
 })
-// response interceptor
+// response interceptor 
 managerAxiosInstance.interceptors.response.use(
     (res) => res,
     (err) => handleError(err)
@@ -14,24 +14,26 @@ managerAxiosInstance.interceptors.response.use(
 
 // API's
 export const managerSignup = async (signupData, scheme, amount) => {
-
-    const data = await managerAxiosInstance.post('/createTanent', { signupData, scheme, amount })
+     console.log("jaaafa");
+    const data = await tenantsAxiosInstance.post('/createTanent', { signupData, scheme, amount })
     return data
 }
 
 export const otpVerification = async (verificationData) => {
-    const data = await managerAxiosInstance.post('/otpVerification', verificationData)
+    const data = await tenantsAxiosInstance.post('/otpVerification', verificationData)
     return data
 }
 export const resendOtp = async (managerId) => {
-    const data = await managerAxiosInstance.post('/resendOtp', managerId)
+    const data = await tenantsAxiosInstance.post('/resendOtp', managerId)
     return data
 }
 
 export const completeSubscription = async (subDetails) => {
-    const data = await managerAxiosInstance.post('/completeSubscription', subDetails)
+    const data = await tenantsAxiosInstance.post('/completeSubscription', subDetails)
     return data
 }
+
+// jsdbfkjsadjfklajsdlfk
 
 export const managerSignin = async (signinData) => {
 

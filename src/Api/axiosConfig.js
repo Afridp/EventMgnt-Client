@@ -2,14 +2,17 @@ import axios from "axios";
 // import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const baseURL = `http://${import.meta.env.VITE_BASE_URL}`;
+const baseURL = import.meta.env.VITE_BASE_URL;
 
-const customerUrl = baseURL
-const managerUrl = "http://manager.localhost:5000"
-const employeeUrl = `${baseURL}/`
+const tenantsUrl = `http://${baseURL}`
+const managerUrl = `http://manager.${baseURL}`
+const customerUrl = `http://customer.${baseURL}`
+const employeeUrl = `http://employee.${baseURL}`
+
 
 // Axios instance creator
 const createAxiosInstance = (baseURL) => {
+    console.log(baseURL);
     // creating a customized instance of axios using .create 
     const instance = axios.create({
         // setting base url, so every req made using managerapi,the url will be prefixed this base url
@@ -54,3 +57,4 @@ export const handleError = (error) => {
 export const managerAxiosInstance = createAxiosInstance(managerUrl)
 export const customerAxiosInstance = createAxiosInstance(customerUrl)
 export const employeeAxiosInstance = createAxiosInstance(employeeUrl)
+export const tenantsAxiosInstance = createAxiosInstance(tenantsUrl)

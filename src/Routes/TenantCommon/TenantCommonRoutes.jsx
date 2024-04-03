@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import Otp from "../../Pages/Manager/Otp";
-import SignUp from "../../Pages/Manager/Signup";
-import Dashboard from "../../Pages/Manager/Dashboard";
-import EnterDomain from "../../Pages/Manager/EnterDomain";
+import Otp from "../../Pages/Tenents/Otp";
+import SignUp from "../../Pages/Tenents/Signup";
+import Dashboard from "../../Pages/Tenents/Dashboard";
+import EnterDomain from "../../Pages/Tenents/EnterDomain";
 
 
 

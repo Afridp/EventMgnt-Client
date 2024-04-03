@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getTodaysEvents, getUpcomingEvents } from "../../Api/manager";
-import TrialModal from "./TrialModal";
-import { useSelector } from "react-redux";
+
+// import { useSelector } from "react-redux";
 import LoaderManager from "../../Pages/ErrorPages/LoaderManager";
 import DataNotFoundManager from "../../Pages/ErrorPages/DataNotFoundManager";
 
 function Dashboard() {
-  const { manager } = useSelector((state) => state.managerSlice);
+  // const { manager } = useSelector((state) => state.managerSlice);
 
   const [todaysEvents, setTodaysEvent] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
