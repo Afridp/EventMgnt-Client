@@ -6,11 +6,9 @@ import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 
 import MyEventsTab from "./MyEventsTab";
 import AddEventTab from "./AddEventTab";
-import { useSelector } from "react-redux";
 
 function MyEventListAndAddEvent() {
-  const { manager } = useSelector((state) => state.managerSlice);
-  
+ 
   const [tab, setTab] = useState("tab1");
   const [events, setEvents] = useState([]);
   // const [isEditingEvent, setIsEditingEvent] = useState(false);
@@ -24,7 +22,7 @@ function MyEventListAndAddEvent() {
 
   const fetchEvents = async () => {
     try {
-      const res = await getEvents({ managerUUID: manager.uuid, managerId : manager._id });
+      const res = await getEvents();
       setEvents(res?.data?.event);
     } finally {
       setTimeout(() => {

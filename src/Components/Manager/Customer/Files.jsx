@@ -5,16 +5,26 @@ import { fileUploads } from "../../../Api/manager";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 
 function Files() {
   const { manager } = useSelector((state) => state.managerSlice);
   const [homePageImage, setHomePageImage] = useState("");
   const [logo, setLogo] = useState("");
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [customerLink, setCustomerLink] = useState("");
+  const [buttonText, setButtonText] = useState("Copy to Clipboard");
   const { convertFileToDataURL } = useFileToDataURLConverter();
   const fileInputRef = useRef(null);
   const fileInputRefLogo = useRef(null);
 
+  const handleOpen = () => setOpen(!open);
   const handleUpload = async (e, type) => {
     const { files } = e.target;
 
@@ -23,6 +33,20 @@ function Files() {
     } else if (type === "logo") {
       setLogo(files[0]);
     }
+  };
+
+  const handleCopyToClipboard = () => {
+    // Copy text to clipboard logic
+
+    navigator.clipboard
+      .writeText(customerLink)
+      .then(() => {
+        // On successful copy, update button text
+        setButtonText("Copied!");
+      })
+      .catch((error) => {
+        console.error("Error copying text: ", error);
+      });
   };
 
   const handleSubmit = async (e) => {
@@ -37,6 +61,8 @@ function Files() {
         managerId: manager._id,
       });
       toast.success(res.data.message);
+      setCustomerLink(res?.data?.customerLink);
+      handleOpen();
     } finally {
       // Handle error
       setLoading(false);
@@ -45,6 +71,39 @@ function Files() {
 
   return (
     <>
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        className="p-3"
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        {/* <DialogHeader>Its a simple dialog.</DialogHeader> */}
+        <DialogBody>
+          Your companies personalised custom customer link is given below.Note that this link can shared for your customer only
+        </DialogBody>
+        <DialogBody className="pt-0">
+          <a
+            href={customerLink}
+            target="_blank"
+            rel="noreferrer"
+            className="link link-primary"
+          >
+            {customerLink}
+          </a>
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="gradient"
+            color="black"
+            onClick={handleCopyToClipboard}
+          >
+            <span>{buttonText}</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
       <main>
         <LoaderManager loading={loading} />
         <div className="py-4">
@@ -117,6 +176,12 @@ function Files() {
                         </svg> */}
                       </div>
                     </Space>
+                    <p>
+                      <small>
+                        * If u wish not to change, the default image will be
+                        shown.
+                      </small>
+                    </p>
                   </div>
                 </div>
                 <div>
@@ -168,6 +233,7 @@ function Files() {
                             />
                           </svg>
                         )}
+
                         {/* <svg
                           className="w-6 h-6 text-gray-800 dark:text-white"
                           aria-hidden="true"
@@ -185,6 +251,12 @@ function Files() {
                         </svg> */}
                       </div>
                     </Space>
+                    <p>
+                      <small>
+                        * If u wish not to change, the default logo will be
+                        shown.
+                      </small>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -196,6 +268,7 @@ function Files() {
                 >
                   Submit
                 </button>
+             
               </div>
             </div>
           </div>

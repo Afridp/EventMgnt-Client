@@ -1,9 +1,11 @@
 
-import { managerAxiosInstance, tenantsAxiosInstance, handleError, attachToken } from "./axiosConfig";
+import { managerAxiosInstance, tenantsAxiosInstance, attachClientId, handleError, attachToken } from "./axiosConfig";
 
 // request interceptor
 managerAxiosInstance.interceptors.request.use(async (req) => {
-    let modifiedRequest = await attachToken(req, "managerToken")
+    let modifiedRequest
+    modifiedRequest = await attachToken(req, "managerToken")
+    modifiedRequest = await attachClientId(modifiedRequest, "currentManager")
     return modifiedRequest
 })
 // response interceptor 
@@ -14,7 +16,7 @@ managerAxiosInstance.interceptors.response.use(
 
 // API's
 export const managerSignup = async (signupData, scheme, amount) => {
-     console.log("jaaafa");
+
     const data = await tenantsAxiosInstance.post('/createTanent', { signupData, scheme, amount })
     return data
 }
@@ -46,9 +48,9 @@ export const createSubdomain = async (values) => {
     return data
 }
 
-export const getEvents = async ({ managerId }) => {
+export const getEvents = async () => {
 
-    const data = await managerAxiosInstance.get(`/getEvents?managerId=${managerId}`)
+    const data = await managerAxiosInstance.get(`/getEvents`)
     return data
 }
 

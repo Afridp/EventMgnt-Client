@@ -6,9 +6,9 @@ import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 
 function Contents() {
   const { manager } = useSelector((state) => state.managerSlice);
-  const [jumbotronHeading, setJumbotronHeading] = useState("");
-  const [jumbotronParagraph, setJumbotronParagraph] = useState("");
-  const [aboutUs, setAboutUs] = useState("");
+  const [jumbotronHeading, setJumbotronHeading] = useState("We invest in the world’s potential");
+  const [jumbotronParagraph, setJumbotronParagraph] = useState("Lorem ipsum dolor sit amet consectetur adipisicing elit. Est accusamus expedita quaerat, a ipsa necessitatibus fugit atque ullam dicta nobis beatae saepe odit quam fuga, debitis maxime quasi ab amet?");
+  const [aboutUs, setAboutUs] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam finibus eros nec neque placerat eleifend. Nullam scelerisque tincidunt turpis, nec cursus augue faucibus a. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti ex placeat soluta aut sunt magni harum ipsam ducimus fugiat at, architecto, voluptatum ipsum eveniet velit minima alias non dolorum laborum.");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {

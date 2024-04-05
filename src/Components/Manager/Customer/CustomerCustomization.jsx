@@ -15,7 +15,7 @@ const CustomerCustomization = () => {
                 <li className="w-full -mb-px">
                   <a
                     onClick={() => setTab("tab1")}
-                    className={`inline-block py-2 font-medium border-b-2 px-6 w-full  ${
+                    className={`inline-block py-2 font-medium border-b-2 px-6 w-full cursor-pointer ${
                       tab === "tab1"
                         ? "bg-white text-red-800 border-red-800 border-b-2 font-semibold "
                         : ""
@@ -27,7 +27,7 @@ const CustomerCustomization = () => {
                 <li className="w-full -mb-px">
                   <a
                     onClick={() => setTab("tab2")}
-                    className={`inline-block py-2 font-medium border-b-2 px-6 w-full  ${
+                    className={`inline-block py-2 font-medium border-b-2 px-6 w-full cursor-pointer  ${
                       tab === "tab2"
                         ? "bg-white text-red-800 border-red-800 border-b-2 font-semibold"
                         : ""
@@ -39,7 +39,7 @@ const CustomerCustomization = () => {
                 <li className="w-full -mb-px">
                   <a
                     onClick={() => setTab("tab3")}
-                    className={`inline-block py-2 font-medium border-b-2 px-6 w-full ${
+                    className={`inline-block py-2 font-medium border-b-2 px-6 w-full cursor-pointer ${
                       tab === "tab3"
                         ? "bg-white text-red-800 border-red-800 border-b-2 font-semibold"
                         : ""

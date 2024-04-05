@@ -4,14 +4,15 @@ import Jobs from "../../Components/Customer/Home/Jobs";
 import Jumbortron from "../../Components/Customer/Home/Jumbortron";
 import Navbar from "../../Components/Customer/Navbar";
 
-function Home() {
+// eslint-disable-next-line react/prop-types
+function Home({mid}) {
   return (
     <>
-      <Navbar />
+      <Navbar mid={mid}/>
       <Jumbortron />
       <Aboutus />
       <Jobs />
-      <Footer />
+      <Footer mid={mid} />
       {/* need to chnge the move problem */}
     </>
   );

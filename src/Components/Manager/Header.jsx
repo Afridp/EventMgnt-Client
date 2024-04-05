@@ -46,38 +46,38 @@ function Header() {
             </ul>
           </div>
 
-          <Link to='/manager/' className="text-xl text-white">Event Brigadge</Link>
+          <Link to='/' className="text-xl text-white">Event Brigadge</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link to='/manager/' className="text-white">Home</Link> 
+              <Link to='/' className="text-white">Home</Link> 
             </li>
             <li>
               <details>
                 <summary className="text-white">Manage</summary>
                 <ul className="p-1 font-bold">
                   <li>
-                    <Link to="/manager/events">Events</Link>
+                    <Link to="/events">Events</Link>
                   </li>
                   <li>
-                    <Link to={"/manager/employeeMgt"}>Employees</Link>
+                    <Link to={"/employeeMgt"}>Employees</Link>
                   </li>
                   <li>
-                    <Link to={"/manager/customerMgt"}>Customers</Link>
+                    <Link to={"/customerMgt"}>Customers</Link>
                   </li>
                  
                 </ul>
               </details>
             </li>
             <li>
-              <Link to={'/manager/account'} className="text-white">Account</Link>
+              <Link to={'/account'} className="text-white">Account</Link>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
           {/* <button className="btn btn-outline btn-secondary">Subscribe</button> */}
-          <Link to={"/manager/pro"} className="brightness-150 dark:brightness-100 group hover:shadow-lg transition ease-in-out hover:scale-105 p-1  bg-gradient-to-br  hover:from-yellow-700 hover:via-yellow-800 hover:to-yellow-600">
+          <Link to={"/pro"} className="brightness-150 dark:brightness-100 group hover:shadow-lg transition ease-in-out hover:scale-105 p-1  bg-gradient-to-br  hover:from-yellow-700 hover:via-yellow-800 hover:to-yellow-600">
             <div className="px-6 py-2 backdrop-blur-xl bg-black/80 font-bold w-full h-full">
               <div className="group-hover:scale-100 flex group-hover:text-yellow-500 text-yellow-600 gap-1">
                 <svg

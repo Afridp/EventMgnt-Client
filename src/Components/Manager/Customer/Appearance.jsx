@@ -7,7 +7,7 @@ import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 
 function Appearance() {
   const { manager } = useSelector((state) => state.managerSlice);
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("#820300");
   const [loading, setLoading] = useState(false);
   const bgColor = useMemo(
     () => (typeof color === "string" ? color : color.toHexString()),
@@ -53,8 +53,8 @@ function Appearance() {
                   className="border-b h-8 md:h-10 text-xs flex justify-center gap-2 pt-2 md:pt-3"
                   style={btnStyle}
                 >
-                  <p>Home</p>
-                  <p>Events</p>
+                  <p className="text-black">Home</p>
+                  <p className="text-black">Events</p>
                 </nav>
                 <div
                   className="border mt-16 md:mt-24 ml-6 md:ml-10 h-4 w-10 md:h-6 md:w-14"

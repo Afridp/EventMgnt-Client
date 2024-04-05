@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
+// const manager = localStorage.getItem('currentManager')
 
 const tenantsUrl = `http://${baseURL}`
 const managerUrl = `http://manager.${baseURL}`
@@ -12,7 +13,7 @@ const employeeUrl = `http://employee.${baseURL}`
 
 // Axios instance creator
 const createAxiosInstance = (baseURL) => {
-    console.log(baseURL);
+    // console.log(baseURL);
     // creating a customized instance of axios using .create 
     const instance = axios.create({
         // setting base url, so every req made using managerapi,the url will be prefixed this base url
@@ -31,6 +32,15 @@ export const attachToken = (req, tokenName) => {
     }
     return req
 }
+
+export const attachClientId = (req, role) => {
+    let id = localStorage.getItem(role)
+    if(id){
+        req.headers[`roleId`] = id
+    }
+    return req
+}
+
 
 // Error handler
 export const handleError = (error) => {

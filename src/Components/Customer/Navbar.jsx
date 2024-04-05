@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { findCustomer } from "../../Api/customer";
 
-function Navbar() {
+// eslint-disable-next-line react/prop-types
+function Navbar({mid}) {
+
+
   const { customer } = useSelector((state) => state.customerSlice);
   const [navColor, setNavColor] = useState("");
   const [openNav, setOpenNav] = useState(false);
@@ -59,7 +62,7 @@ function Navbar() {
         color="white"
         className="p-1 font-ligt"
       >
-        <Link to="/events" className="flex items-center">
+        <Link to={`/${mid}/events`} className="flex items-center">
           Events
         </Link>
       </Typography>

@@ -16,21 +16,26 @@ import Wallet from "../../Pages/Customer/Wallet"
 
 
 function CustomerRoutes() {
+
+   
+  const pathname = window.location.pathname
+  const subdomain = pathname.split('/')[1];
+    
   return (
     <div>
         <Routes>
-            <Route path="/signup" element={<Public><Signup/></Public>}/>
-            <Route path="/otp" element={<Public><Otp/></Public>}/>
-            <Route path="/signin" element={<Public><Signin/></Public>}/>
-            
-            <Route path='/' element={<Home/>}/>
-            <Route path="/events" element={<Events/>}/>
-            <Route path="/events/book/:eventId" element={<Protect><BookEvent/></Protect>}/>
-            <Route path="/myEvents" element={<Protect><MyEvents/></Protect>}/>
-            <Route path="/myEvents/seemore/:bookingId" element={<Protect><ViewOrEditBooked/></Protect>}/>
-            <Route path="/profile" element={<Protect><Profile/></Protect>}/>
-            <Route path="/payment"  element={<Protect><PaymentStatus/></Protect>}/>
-            <Route path="/wallet/:amt?/:customerId?/:status?" element={<Protect><Wallet/></Protect>}/>
+            <Route path="/:mid/signup" element={<Public><Signup mid={subdomain}/></Public>}/>
+            <Route path="/:mid/otp" element={<Public><Otp mid={subdomain}/></Public>}/>
+            <Route path="/:mid/signin" element={<Public><Signin mid={subdomain}/></Public>}/>
+          
+            <Route path='/:mid/' element={<Home mid={subdomain}/>}/>
+            <Route path='/:mid/events' element={<Events mid={subdomain}/>}/>
+            <Route path="/:mid/events/book/:eventId" element={<Protect><BookEvent mid={subdomain}/></Protect>}/>
+            <Route path="/:mid/myEvents" element={<Protect><MyEvents mid={subdomain}/></Protect>}/>
+            <Route path="/:mid/myEvents/seemore/:bookingId" element={<Protect><ViewOrEditBooked mid={subdomain}/></Protect>}/>
+            <Route path="/:mid/profile" element={<Protect><Profile mid={subdomain}/></Protect>}/>
+            <Route path="/:mid/payment"  element={<Protect><PaymentStatus mid={subdomain}/></Protect>}/>
+            <Route path="/:mid/wallet/:amt?/:customerId?/:status?" element={<Protect><Wallet mid={subdomain}/></Protect>}/>
         </Routes>
     </div>
   )
