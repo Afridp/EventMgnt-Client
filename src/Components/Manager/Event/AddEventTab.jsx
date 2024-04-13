@@ -31,12 +31,12 @@ function AddEventTab({ setEvents, setLoading, editingEvent }) {
           ...restValues,
           image: dataURL,
           managerUUID: manager.uuid,
-          managerId: manager._id
+          managerId: manager._id,
         };
         const res = await addingNewEvent(updatedValues);
-        if (res) {
-          setEvents((prevEvents) => [...prevEvents, res?.data?.event]);
-        }
+
+        setEvents((prevEvents) => [...prevEvents, res?.data?.event]);
+
         resetForm();
         toast.success(res.data.message, {
           position: toast.POSITION.TOP_CENTER,

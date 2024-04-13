@@ -2,10 +2,11 @@ import Navbar1 from "../../Components/Customer/Navbar1";
 import Footer from "../../Components/Customer/Footer";
 import SeeMoreBooked from "../../Components/Customer/Profile/SeeMoreBooked";
 
-function ViewOrEditBooked() {
+// eslint-disable-next-line react/prop-types
+function ViewOrEditBooked({mid}) {
   return (
     <>
-      <Navbar1 />
+      <Navbar1 mid={mid}/>
       <SeeMoreBooked />
       <Footer />
     </>

@@ -1,11 +1,11 @@
 
-import { managerAxiosInstance, tenantsAxiosInstance, attachClientId, handleError, attachToken } from "./axiosConfig";
+import { managerAxiosInstance, tenantsAxiosInstance, attachManager, handleError, attachToken } from "./axiosConfig";
 
 // request interceptor
 managerAxiosInstance.interceptors.request.use(async (req) => {
     let modifiedRequest
     modifiedRequest = await attachToken(req, "managerToken")
-    modifiedRequest = await attachClientId(modifiedRequest, "currentManager")
+    modifiedRequest = await attachManager(modifiedRequest, "currentManager")
     return modifiedRequest
 })
 // response interceptor 
@@ -38,7 +38,7 @@ export const completeSubscription = async (subDetails) => {
 // jsdbfkjsadjfklajsdlfk
 
 export const managerSignin = async (signinData) => {
-
+    console.log("haaai");
     const data = await managerAxiosInstance.post('/signin', signinData)
     return data
 }

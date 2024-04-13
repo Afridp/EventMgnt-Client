@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
@@ -5,7 +6,8 @@ import { useFormik } from "formik";
 import { otpValidation } from "../../ValidationSchemas/customerValidation/otp";
 import { otpVerification, resendOtp } from "../../Api/customer";
 
-const Otp = () => {
+// eslint-disable-next-line react/prop-types
+const Otp = ({mid}) => {
   const [countDown, setCountDown] = useState(30);
   const [showResendButton, setShowResendButton] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -38,7 +40,7 @@ const Otp = () => {
 
       const res = await otpVerification({ enteredOtp, otpId, customerId });
       toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
-      navigate("/signin", { state: "Email verified, You can login now" });
+      navigate(`/${mid}/signin`, { state: "Email verified, You can login now" });
     } finally {
       setLoading(false);
     }

@@ -4,7 +4,8 @@ const customerSlice = createSlice({
     name : 'customer',
     initialState : {
         token : "",
-        customer : null
+        customer : null,
+        
 
     },
     reducers : {

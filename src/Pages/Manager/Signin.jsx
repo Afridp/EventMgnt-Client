@@ -45,7 +45,7 @@ function Signin() {
 
       const { token, managerData } = res.data;
       localStorage.setItem("managerToken", token);
-      localStorage.setItem("currentManager", managerData._id)
+      localStorage.setItem("currentManager", managerData.uuid)
       dispatch(
         setManagerDetails({
           token: token,

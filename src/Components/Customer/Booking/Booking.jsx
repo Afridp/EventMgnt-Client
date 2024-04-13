@@ -9,7 +9,9 @@ import { useSelector } from "react-redux";
 import {  toast } from "react-toastify";
 const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY;
 
+// eslint-disable-next-line react/prop-types
 function Booking() {
+  const mid = localStorage.getItem('mid')
   const { customer } = useSelector((state) => state.customerSlice)
   const { eventId } = useParams();
   const navigate = useNavigate()
@@ -68,7 +70,7 @@ function Booking() {
         queryParams.append('message', 'Thank you for completing your wallet balance to payment.');
         // queryParams.append('param2', 'value2');
       
-        navigate(`/payment?${queryParams.toString()}`);
+        navigate(`/${mid}/payment?${queryParams.toString()}`);
          
         toast.success(res.data.message)
       }

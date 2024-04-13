@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { customerSignup } from "../../Api/customer";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,20 +6,22 @@ import { useFormik } from "formik";
 import { signupValidation } from "../../ValidationSchemas/customerValidation/signup";
 import { toast } from "react-toastify";
 
+// eslint-disable-next-line no-unused-vars, react/prop-types
 function Signup() {
+  const mid = localStorage.getItem('mid')
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      let res = await customerSignup(values);
+      let res = await customerSignup(values,mid);
 
       const { otpId, customerId } = res.data;
       toast.success(res?.data?.message, {
         position: toast.POSITION.TOP_CENTER,
       });
-      navigate("/otp", {
+      navigate(`/${mid}/otp`, {
         state: {
           otpId: otpId,
           customerId: customerId,
@@ -215,7 +218,7 @@ function Signup() {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
                 <Link
-                  to="/signin"
+                  to={`/${mid}/signin`}
                   className="font-semibold text-blue-600 hover:underline dark:text-primary-500"
                 >
                   {" "}

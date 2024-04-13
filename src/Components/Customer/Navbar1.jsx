@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { findCustomer } from "../../Api/customer";
 
+// eslint-disable-next-line react/prop-types
 function Navbar1() {
   const { customer } = useSelector((state) => state.customerSlice);
-
+  const mid = localStorage.getItem('mid')
   const [openNav, setOpenNav] = useState(false);
   const [customerData, setCustomerData] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,7 +41,7 @@ function Navbar1() {
         color="black"
         className="p-1 font-ligt"
       >
-        <Link to="/" className="flex items-center">
+        <Link to={`/${mid}/`} className="flex items-center">
           Home
         </Link>
       </Typography>
@@ -50,7 +51,7 @@ function Navbar1() {
         color="black"
         className="p-1 font-ligt"
       >
-        <Link to="/events" className="flex items-center">
+        <Link to={`/${mid}/events`} className="flex items-center">
           Events
         </Link>
       </Typography>
@@ -66,7 +67,7 @@ function Navbar1() {
           <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="md:flex md:items-center md:gap-12">
-                <Link to="/" className="block text-red-900">
+                <Link to={`/${mid}/ `} className="block text-red-900">
                   <span className="sr-only">Home</span>
                   <svg
                     className="h-8"
@@ -109,19 +110,19 @@ function Navbar1() {
                 >
                   {!customerData ? (
                     <div className="flex gap-4">
-                      <a
+                      <Link
                         className="border border-black px-5 py-2.5 text-sm font-medium text-black shadow"
-                        href="/signin"
+                        to={`/${mid}/signin`}
                       >
                         Login
-                      </a>
+                      </Link>
                       <div className="hidden sm:flex">
-                        <a
+                        <Link
                           className="bg-black px-5 py-2.5 text-sm font-medium text-white"
-                          href="/signup"
+                          to={`/${mid}/signup`}
                         >
                           Register
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   ) : (
@@ -141,17 +142,17 @@ function Navbar1() {
                         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                       >
                         <li>
-                          <Link to="/myEvents" className="font-semibold">
+                          <Link to={`/${mid}/myEvents`} className="font-semibold">
                             My Events
                           </Link>
                         </li>
                         <li>
-                          <Link to="/wallet" className="font-semibold">
+                          <Link to={`/${mid}/wallet`} className="font-semibold">
                             Wallet
                           </Link>
                         </li>
                         <li>
-                          <Link to="/profile" className="font-semibold">
+                          <Link to={`/${mid}/profile`} className="font-semibold">
                             Profile
                           </Link>
                         </li>
@@ -206,7 +207,7 @@ function Navbar1() {
             <div className="grid">
               <Link
                 className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black"
-                to="/"
+                to={`/${mid}/`}
               >
                 Register
               </Link>

@@ -9,10 +9,10 @@ function Home({mid}) {
   return (
     <>
       <Navbar mid={mid}/>
-      <Jumbortron />
+      <Jumbortron mid={mid}/>
       <Aboutus />
       <Jobs />
-      <Footer mid={mid} />
+      <Footer mid={mid}/>
       {/* need to chnge the move problem */}
     </>
   );

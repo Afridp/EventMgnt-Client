@@ -15,9 +15,9 @@ customerAxiosInstance.interceptors.response.use(
 )
 
 // APi's
-export const customerSignup = async (signupData) => {
+export const customerSignup = async (signupData, mid) => {
 
-    const data = await customerAxiosInstance.post('/signup', signupData)
+    const data = await customerAxiosInstance.post(`/${mid}/signup`, signupData)
     return data
 
 }

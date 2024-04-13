@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { signinValidation } from "../../ValidationSchemas/customerValidation/signin";
@@ -8,9 +9,10 @@ import { useDispatch } from "react-redux";
 import { setCustomerDetails } from "../../Redux/slice/customerSlice";
 
 
+// eslint-disable-next-line no-unused-vars
 const Signin = () => {
+  const mid = localStorage.getItem('mid')
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -132,7 +134,7 @@ const Signin = () => {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Dont have an account yet?{" "}
                 <Link
-                  to="/signup"
+                  to={`/${mid}/signup`}
                   className="font-semibold text-purple-700 hover:underline dark:text-primary-500"
                 >
                   {" "}

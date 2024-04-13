@@ -15,18 +15,21 @@ import PaymentStatus from "../../Pages/Customer/PaymentStatus"
 import Wallet from "../../Pages/Customer/Wallet"
 
 
+
 function CustomerRoutes() {
 
-   
+
   const pathname = window.location.pathname
   const subdomain = pathname.split('/')[1];
+
+  localStorage.setItem("mid", subdomain)
     
   return (
     <div>
         <Routes>
-            <Route path="/:mid/signup" element={<Public><Signup mid={subdomain}/></Public>}/>
-            <Route path="/:mid/otp" element={<Public><Otp mid={subdomain}/></Public>}/>
-            <Route path="/:mid/signin" element={<Public><Signin mid={subdomain}/></Public>}/>
+            <Route path="/:mid/signup" element={<Public mid={subdomain}><Signup mid={subdomain}/></Public>}/>
+            <Route path="/:mid/otp" element={<Public mid={subdomain}><Otp mid={subdomain}/></Public>}/>
+            <Route path="/:mid/signin" element={<Public mid={subdomain}><Signin mid={subdomain}/></Public>}/>
           
             <Route path='/:mid/' element={<Home mid={subdomain}/>}/>
             <Route path='/:mid/events' element={<Events mid={subdomain}/>}/>
@@ -41,5 +44,5 @@ function CustomerRoutes() {
   )
 }
 
-export default  CustomerRoutes
+export default CustomerRoutes
 

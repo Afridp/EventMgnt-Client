@@ -4,7 +4,8 @@ function Public(props) {
   const token = localStorage.getItem('customerToken')
     if(token){
        
-        return <Navigate to='/'/>
+        // eslint-disable-next-line react/prop-types
+        return <Navigate to={`/${props.mid}/`}/>
       
     }else{
         // eslint-disable-next-line react/prop-types

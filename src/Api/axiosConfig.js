@@ -33,10 +33,10 @@ export const attachToken = (req, tokenName) => {
     return req
 }
 
-export const attachClientId = (req, role) => {
+export const attachManager = (req, role) => {
     let id = localStorage.getItem(role)
     if(id){
-        req.headers[`roleId`] = id
+        req.headers[`role`] = id
     }
     return req
 }
@@ -53,6 +53,7 @@ export const handleError = (error) => {
 
         } else if (error.response.status === 500 || error.response.status === 401) {
             toast.error(error.response.data.message)
+            console.log(error.response.data.message);
         } else {
             toast.error(errorMessage)
         }

@@ -5,9 +5,8 @@ import { useSelector } from "react-redux";
 import { findCustomer } from "../../Api/customer";
 
 // eslint-disable-next-line react/prop-types
-function Navbar({mid}) {
-
-
+function Navbar() {
+  const mid = localStorage.getItem('mid')
   const { customer } = useSelector((state) => state.customerSlice);
   const [navColor, setNavColor] = useState("");
   const [openNav, setOpenNav] = useState(false);
@@ -52,7 +51,7 @@ function Navbar({mid}) {
         color="white"
         className="p-1 font-ligt"
       >
-        <Link to="/" className="flex items-center">
+        <Link to={`/${mid}/`} className="flex items-center">
           Home
         </Link>
       </Typography>
@@ -82,7 +81,7 @@ function Navbar({mid}) {
           <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="md:flex md:items-center md:gap-12">
-                <Link to="/" className="block text-red-900">
+                <Link to={`/${mid}/`} className="block text-red-900">
                   <span className="sr-only">Home</span>
                   <svg
                     className="h-8"
@@ -125,19 +124,19 @@ function Navbar({mid}) {
                 >
                   {!customerData ? (
                     <div className="flex gap-4">
-                      <a
+                      <Link
                         className="border px-5 py-2.5 text-sm font-medium text-white shadow"
-                        href="/signin"
+                        to={`/${mid}/signin`}
                       >
                         Login
-                      </a>
+                      </Link>
                       <div className="hidden sm:flex">
-                        <a
+                        <Link
                           className="bg-gray-100 px-5 py-2.5 text-sm font-medium text-black"
-                          href="/signup"
+                          to={`/${mid}/signup`}
                         >
                           Register
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   ) : (
@@ -222,7 +221,7 @@ function Navbar({mid}) {
             <div className="grid">
               <Link
                 className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black"
-                to="/"
+                to={`/${mid}/signup`}
               >
                 Register
               </Link>

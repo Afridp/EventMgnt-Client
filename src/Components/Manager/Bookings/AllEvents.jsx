@@ -34,14 +34,14 @@ function AllEvents() {
       <div className="container mx-auto my-7 flex justify-center sm:justify-end ">
         <div className="w-[150px] h-[50px] ">
           <button className="w-[140px] h-[40px] shadow-2xl bg-sky-600 outline outline-offset-2 outline-1 outline-sky-600 bg-black hover:outline-none text-white duration-300 active:scale-[0.99]">
-            <Link to="/manager/myEvents" className="font-bold" href="#">
+            <Link to="/myEvents" className="font-bold" href="#">
               My Events
             </Link>
           </button>
         </div>
         <div className="w-[150px] h-[50px] ">
           <button className="w-[140px] h-[40px] shadow-2xl  bg-sky-600 outline-offset-2 outline-1 outline-sky-600 bg-blue-800 text-white hover:outline-none duration-300 active:scale-[0.99]">
-            <Link to={"/manager/newBookings"} className="font-bold">
+            <Link to={"/newBookings"} className="font-bold">
               Enquiry
             </Link>
           </button>
