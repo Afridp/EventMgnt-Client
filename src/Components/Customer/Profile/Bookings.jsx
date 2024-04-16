@@ -90,7 +90,7 @@ function Bookings() {
           eventId={cancelEventId}
           toggleModal={toggleModal}
         />
-      )}
+      )} 
       <div className="my-20 container mx-auto">
         <SearchAndSort
           searchQuery={searchQuery}

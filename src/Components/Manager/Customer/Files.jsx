@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Space } from "antd";
 import { useRef, useState } from "react";
 import useFileToDataURLConverter from "../../../CustomHooks/useFileToDataURLConverter";
@@ -82,7 +83,7 @@ function Files() {
       >
         {/* <DialogHeader>Its a simple dialog.</DialogHeader> */}
         <DialogBody>
-          Your companies personalised custom customer link is given below.Note that this link can shared for your customer only
+          Your company's personalised custom customer link is given below.Note that this link can shared for your customer only
         </DialogBody>
         <DialogBody className="pt-0">
           <a

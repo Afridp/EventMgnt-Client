@@ -14,8 +14,7 @@ function SeeMoreBooked() {
       setEventData(res?.data?.formData);
       setPersonalData(res?.data?.personalData);
       setIsLoading(false);
-    } catch (error) {
-      console.error(error.message);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -107,7 +106,7 @@ function SeeMoreBooked() {
                 )
               )}
 
-              {personalData  && (
+              {personalData && (
                 <>
                   <span className="flex items-center">
                     <span className="h-px flex-1  bg-black"></span>

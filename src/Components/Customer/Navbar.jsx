@@ -8,6 +8,7 @@ import { findCustomer } from "../../Api/customer";
 function Navbar() {
   const mid = localStorage.getItem('mid')
   const { customer } = useSelector((state) => state.customerSlice);
+  console.log(customer);
   const [navColor, setNavColor] = useState("");
   const [openNav, setOpenNav] = useState(false);
   const [customerData, setCustomerData] = useState(false);
@@ -17,7 +18,7 @@ function Navbar() {
       try {
         setLoading(true);
         if (customer) {
-          const res = await findCustomer(customer?._id);
+          const res = await findCustomer(customer._id);
           res?.data?.customer ? setCustomerData(true) : setCustomerData(false);
         }
       } finally {
@@ -156,17 +157,17 @@ function Navbar() {
                         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                       >
                         <li>
-                          <Link to="/myEvents" className="font-semibold">
+                          <Link to={`/${mid}/myEvents`} className="font-semibold">
                             My Events
                           </Link>
                         </li>
                         <li>
-                          <Link to="/wallet" className="font-semibold">
+                          <Link to={`/${mid}/wallet`} className="font-semibold">
                             Wallet
                           </Link>
                         </li>
                         <li>
-                          <Link to="/profile" className="font-semibold">
+                          <Link to={`/${mid}/profile`} className="font-semibold">
                             Profile
                           </Link>
                         </li>

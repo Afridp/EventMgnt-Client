@@ -32,7 +32,7 @@ const Signin = () => {
       );
       toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
   
-      navigate("/");
+      navigate(`/${mid}/`);
     } finally {
       setLoading(false);
     }

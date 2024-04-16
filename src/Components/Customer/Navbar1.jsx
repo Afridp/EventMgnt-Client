@@ -7,7 +7,7 @@ import { findCustomer } from "../../Api/customer";
 // eslint-disable-next-line react/prop-types
 function Navbar1() {
   const { customer } = useSelector((state) => state.customerSlice);
-  const mid = localStorage.getItem('mid')
+  const mid = localStorage.getItem("mid");
   const [openNav, setOpenNav] = useState(false);
   const [customerData, setCustomerData] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -142,7 +142,10 @@ function Navbar1() {
                         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                       >
                         <li>
-                          <Link to={`/${mid}/myEvents`} className="font-semibold">
+                          <Link
+                            to={`/${mid}/myEvents`}
+                            className="font-semibold"
+                          >
                             My Events
                           </Link>
                         </li>
@@ -152,7 +155,10 @@ function Navbar1() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={`/${mid}/profile`} className="font-semibold">
+                          <Link
+                            to={`/${mid}/profile`}
+                            className="font-semibold"
+                          >
                             Profile
                           </Link>
                         </li>

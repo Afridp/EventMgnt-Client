@@ -132,7 +132,7 @@ export const getCaptians = async () => {
 }
 
 // export const setCaptian = async() => {
-//     const data = await managerAxiosInstance.get('/setCaptianToEvent',{eventId,})
+//     const data = await managerAxiosInstance.get('/setCaptianToEvent',{eventId})
 // }
 
 export const approveEvent = async (submissionId) => {

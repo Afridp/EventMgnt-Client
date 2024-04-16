@@ -15,7 +15,7 @@ function Signup() {
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      let res = await customerSignup(values,mid);
+      let res = await customerSignup(values);
 
       const { otpId, customerId } = res.data;
       toast.success(res?.data?.message, {

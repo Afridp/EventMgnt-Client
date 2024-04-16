@@ -5,18 +5,20 @@ import { Link } from "react-router-dom";
 import SelectCaptian from "./SelectCaptian";
 import { approveEvent } from "../../../Api/manager";
 import { toast } from "react-toastify";
+import LoaderManager from "../../../Pages/ErrorPages/LoaderManager";
 
 function Enquiries() {
   const [newSubmissions, setNewSubmissions] = useState([]);
   const [open, setOpen] = useState(false);
   const [submissionId, setSubmissionId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fetchNewSubmissions = async () => {
     try {
       const res = await getNewSubmissions();
-      setNewSubmissions(res.data.newSubmissions);
-    } catch (error) {
-      console.error(error.message);
+      setNewSubmissions(res?.data?.newSubmissions);
+    } finally {
+      setLoading(false);
     }
   };
   const handleApproval = async () => {
@@ -36,10 +38,12 @@ function Enquiries() {
     setOpen(true);
   };
   useEffect(() => {
+    setLoading(true);
     fetchNewSubmissions();
   }, []);
   return (
     <>
+      <LoaderManager loading={loading} />
       <div className="border-black p- mt-10 mx-">
         <SelectCaptian
           open={open}
@@ -73,14 +77,7 @@ function Enquiries() {
               <tbody>
                 {newSubmissions?.length > 0 ? (
                   newSubmissions.map(
-                    ({
-                      eventId,
-                      personalData,
-                      createdAt,
-                      amountPaid,
-                      _id,
-                      
-                    }) => (
+                    ({ eventId, personalData, createdAt, amountPaid, _id }) => (
                       <tr
                         key={_id}
                         className="border-b text-xs border-opacity-20 dark:border-gray-700 dark:bg-gray-900 font-semibold"
@@ -114,7 +111,8 @@ function Enquiries() {
                         <td className="p-3 ">
                           <span className="font-semibold round bg-red-800 dark:bg-violet-400 text-white p-2 dark:text-gray-900 cursor-pointer hover:border ">
                             <a onClick={() => toggleModal(_id)}>
-                              {/* {isAccepted ? "approved" : "approve"} */} Approve
+                              {/* {isAccepted ? "approved" : "approve"} */}{" "}
+                              Approve
                             </a>
                           </span>
                         </td>

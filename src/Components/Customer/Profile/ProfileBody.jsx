@@ -13,8 +13,6 @@ import { useFormik } from "formik";
 import DateFormatter from "../Common/DateFormatter";
 import ChangePassword from "./ChangePassword";
 
-// import ChangePasswordModal from "./ChangePasswordModal";
-
 function ProfileBody() {
   const { customer } = useSelector((state) => state.customerSlice);
   const { convertFileToDataURL } = useFileToDataURLConverter();
@@ -98,8 +96,6 @@ function ProfileBody() {
     dispatch(logoutCustomer());
     navigate("/");
   };
-
-  
 
   return (
     <div className="relative bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] p-5">

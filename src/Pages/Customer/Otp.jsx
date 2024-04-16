@@ -7,7 +7,8 @@ import { otpValidation } from "../../ValidationSchemas/customerValidation/otp";
 import { otpVerification, resendOtp } from "../../Api/customer";
 
 // eslint-disable-next-line react/prop-types
-const Otp = ({mid}) => {
+const Otp = () => {
+  const mid = localStorage.getItem('mid')
   const [countDown, setCountDown] = useState(30);
   const [showResendButton, setShowResendButton] = useState(false);
   const [loading, setLoading] = useState(false);

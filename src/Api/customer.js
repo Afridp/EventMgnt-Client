@@ -13,9 +13,10 @@ customerAxiosInstance.interceptors.response.use(
     (res) => res,
     (error) => handleError(error)
 )
+const mid = localStorage.getItem('mid')
 
 // APi's
-export const customerSignup = async (signupData, mid) => {
+export const customerSignup = async (signupData) => {
 
     const data = await customerAxiosInstance.post(`/${mid}/signup`, signupData)
     return data
@@ -24,7 +25,7 @@ export const customerSignup = async (signupData, mid) => {
 
 export const otpVerification = async (verificationData) => {
 
-    const data = await customerAxiosInstance.post('/otpVerification', verificationData)
+    const data = await customerAxiosInstance.post(`/${mid}/otpVerification`, verificationData)
     return data
 }
 
@@ -36,38 +37,38 @@ export const resendOtp = async (customerId) => {
 
 export const customerSignin = async (signinData) => {
 
-    const data = await customerAxiosInstance.post('/signin', signinData)
+    const data = await customerAxiosInstance.post(`/${mid}/signin`, signinData)
     return data
 }
 
 export const fetchEvents = async ({ search, sort }) => {
 
-    const data = await customerAxiosInstance.get(`/getEvents?search=${search}&sort=${sort}`,)
+    const data = await customerAxiosInstance.get(`/${mid}/getEvents?search=${search}&sort=${sort}`,)
     return data
 }
 
 export const getEventForm = async (eventId) => {
-    const data = await customerAxiosInstance.get(`/getEventFormField?eventId=${eventId}`)
+    const data = await customerAxiosInstance.get(`/${mid}/getEventFormField?eventId=${eventId}`)
     return data
 }
 
 export const submitEvent = async (formValuesAndData, customerId, eventId) => {
-    const data = await customerAxiosInstance.post(`/submitEvent/${customerId}?eventId=${eventId}`, formValuesAndData)
+    const data = await customerAxiosInstance.post(`/${mid}/submitEvent/${customerId}?eventId=${eventId}`, formValuesAndData)
     return data
 }
 
 export const findCustomer = async (customerId) => {
-    const data = await customerAxiosInstance.get(`/findCustomer/${customerId}`)
+    const data = await customerAxiosInstance.get(`/${mid}/findCustomer/${customerId}`)
     return data
 }
 
 export const fetchBookings = async ({ customerId, search, sort }) => {
-    const data = await customerAxiosInstance.get(`/getBookings/${customerId}?search=${search}&sort=${sort}`)
+    const data = await customerAxiosInstance.get(`/${mid}/getBookings/${customerId}?search=${search}&sort=${sort}`)
     return data
 }
 
 export const getEditingEvent = async (bookingId) => {
-    const data = await customerAxiosInstance.get(`/getEditingEvent/${bookingId}`)
+    const data = await customerAxiosInstance.get(`/${mid}/getEditingEvent/${bookingId}`)
     return data
 }
 
@@ -77,22 +78,22 @@ export const editBooked = async (values, eventId) => {
 }
 
 export const cancelEvent = async (eventId) => {
-    const data = await customerAxiosInstance.delete(`/cancelBooked/${eventId}`)
+    const data = await customerAxiosInstance.delete(`/${mid}/cancelBooked/${eventId}`)
     return data
 }
 
 export const updateProfilePic = async ({ profile, customerId }) => {
-    const data = await customerAxiosInstance.post(`/updateProfilePic?customerId=${customerId}`, { profile })
+    const data = await customerAxiosInstance.post(`/${mid}/updateProfilePic?customerId=${customerId}`, { profile })
     return data
 }
 
 export const updateProfile = async (values, customerId) => {
-    const data = await customerAxiosInstance.post(`/updateProfile?customerId=${customerId}`, values)
+    const data = await customerAxiosInstance.post(`/${mid}/updateProfile?customerId=${customerId}`, values)
     return data
 }
 
 export const changePassword = async (values, customerId) => {
-    const data = await customerAxiosInstance.post(`/changePassword?customerId=${customerId}`, values)
+    const data = await customerAxiosInstance.post(`/${mid}/changePassword?customerId=${customerId}`, values)
     return data
 }
 
@@ -107,11 +108,11 @@ export const walletTopupStripeApi = async (values) => {
 }
 
 export const getWalletDetails = async (customerId) => {
-    const data = customerAxiosInstance.get(`/getWalletDetails?customerId=${customerId}`)
+    const data = customerAxiosInstance.get(`/${mid}/getWalletDetails?customerId=${customerId}`)
     return data
 }
 
-export const addBalance = async(values) => {
-    const data = customerAxiosInstance.post('/addBalance',values)
+export const addBalance = async (values) => {
+    const data = customerAxiosInstance.post(`/${mid}/addBalance`, values)
     return data
 }
