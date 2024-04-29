@@ -1,0 +1,41 @@
+name: Deploy React Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.4
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME}} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build Docker Image
+        run: |
+          docker build \
+            -t afridp/eventbrigadge-client \
+            --build-arg VITE_APP_NODE_ENV="production"  \
+            --build-arg VITE_APP_SERVER_BASE_URL="${{ secrets.VITE_APP_SERVER_BASE_URL }}" \
+            --build-arg CLOUD_NAME="${{ secrets.CLOUD_NAME }}" \
+            --build-arg DEV_SMTP_EMAIL="${{ secrets.DEV_SMTP_EMAIL }}" \
+            --build-arg DEV_SMTP_PASSCODE="${{ secrets.DEV_SMTP_PASSCODE }}" \
+            --build-arg MONGO_URI="${{ secrets.MONGO_URI }}" \
+            --build-arg STRIPE_SECRET_KEY="${{ secrets.STRIPE_SECRET_KEY }}" \
+            --build-arg TOKEN_KEY="${{ secrets.TOKEN_KEY }}" \
+            .
+      - name: Publish Image to docker hub
+        run: docker push afridp/eventbrigadge-client:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull afridp/eventbrigadge-client:latest
+      - name: Delete old running container
+        run: docker rm -f eventclient-app-container
+      - name: run Docker Container
+        run: docker run -d -p 3000:80 --name eventclient-app-container afridp/eventbrigadge-client:latest

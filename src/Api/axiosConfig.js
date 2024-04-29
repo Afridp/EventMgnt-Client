@@ -2,7 +2,7 @@ import axios from "axios";
 // import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const baseURL = import.meta.env.VITE_BASE_URL;
+const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL: import.meta.env.VITE_APP_SERVER_BASE_URL;
 // const manager = localStorage.getItem('currentManager')
 
 const tenantsUrl = `http://${baseURL}`
@@ -35,7 +35,7 @@ export const attachToken = (req, tokenName) => {
 
 export const attachManager = (req, role) => {
     let id = localStorage.getItem(role)
-    if(id){
+    if (id) {
         req.headers[`role`] = id
     }
     return req

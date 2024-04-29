@@ -63,7 +63,7 @@ export function EmployeeMgt() {
     setLoadig(true);
     fetchAllEmployees();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchQuery]);
+  }, [debouncedSearchQuery,open]);
 
   let currentEmployees;
   const indexOfLastEmployee = currentPage * employeesPerPage;

@@ -163,14 +163,14 @@ function Dashboard() {
           <section className="h-screen">
             <div className="relative h-full max-w-6xl px-8 py-12 mx-auto md:px-12 lg:pt-2 lg:px-32">
               <div className="lg:p-20 lg:text-center mt-20">
-                <p className="text-4xl font-semibold tracking-tighter text-gray-900 lg:text-6xl">
-                  Front-end development at your
-                  <span>fingertips whenever you need it and want it.</span>
+                <p className="text-4xl  tracking-tighter font-thin text-gray-900 lg:text-6xl">
+                  Struggling with paperworks on hosting events?
+                  <span>Host with us whenever you need it and want it.</span>
                 </p>
                 <div className="flex flex-col gap-2 mt-12 md:flex-row lg:justify-center">
                   <a
                     href="#pricing"
-                    className="flex items-center justify-center w-auto h-10 px-4 py-2 text-sm font-semibold text-black transition-all rounded-full shrink-0 bg-orange-500 hover:bg-accent-400"
+                    className="flex items-center justify-center w-auto h-10 px-4 py-2 text-sm font-semibold text-white transition-all rounded-full shrink-0 bg-red-800 hover:bg-accent-400"
                   >
                     See our pricing
                   </a>
@@ -190,41 +190,31 @@ function Dashboard() {
                 <h2 className="text-lg font-semibold leading-8 text-center text-gray-900">
                   Happy companies around the world.
                 </h2>
-                <div className="grid items-center max-w-lg grid-cols-4 mx-auto mt-10 gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+                <div className="grid items-center max-w-lg grid-cols-4 mx-auto mt-10 gap-x-4 gap-y-4 sm:max-w-xl sm:grid-cols-6 sm:gap-x-6 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                   <img
-                    className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
-                    src="./images/logos/8.svg"
+                    className="object-contain w-full col-span-2 max-h-20 lg:col-span-1"
+                    src="https://res.cloudinary.com/diwidawoi/image/upload/v1713329579/fhty5bhqm4nybydwxfgf.jpg"
                     alt="#_"
-                    width="158"
-                    height="48"
                   />
                   <img
-                    className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
-                    src="./images/logos/2.svg"
+                    className="object-contain w-full col-span-2 max-h-20 lg:col-span-1"
+                    src="https://res.cloudinary.com/diwidawoi/image/upload/v1713329579/k0zucindjhawqutrcf2a.jpg"
                     alt="#_"
-                    width="158"
-                    height="48"
                   />
                   <img
-                    className="object-contain w-full col-span-2 max-h-12 lg:col-span-1"
-                    src="./images/logos/3.svg"
+                    className="object-contain w-full col-span-2 max-h-20 lg:col-span-1"
+                    src="https://res.cloudinary.com/diwidawoi/image/upload/v1713329579/qpxhj2jhhhcbktia9txd.jpg"
                     alt="3"
-                    width="158"
-                    height="48"
                   />
                   <img
-                    className="object-contain w-full col-span-2 max-h-12 sm:col-start-2 lg:col-span-1"
-                    src="./images/logos/4.svg"
+                    className="object-contain w-full col-span-2 max-h-20 sm:col-start-2 lg:col-span-1"
+                    src="https://res.cloudinary.com/diwidawoi/image/upload/v1713329579/g5nzyd9p9i8ukwrqfosb.jpg"
                     alt="#_"
-                    width="158"
-                    height="48"
                   />
                   <img
-                    className="object-contain w-full col-span-2 col-start-2 max-h-12 sm:col-start-auto lg:col-span-1"
-                    src="./images/logos/5.svg"
+                    className="object-contain w-full col-span-2 col-start-2 max-h-20 sm:col-start-auto lg:col-span-1"
+                    src="https://res.cloudinary.com/diwidawoi/image/upload/v1713329579/wzxo2vzxiorzossyveao.jpg"
                     alt="#_"
-                    width="158"
-                    height="48"
                   />
                 </div>
               </div>
@@ -282,7 +272,7 @@ function Dashboard() {
                     Get started
                   </Link>
                 </div>
-                <div className="flex flex-col justify-between h-full gap-8 p-8 bg-gray-100 rounded-4xl">
+                <div className="flex flex-col justify-between h-full gap-8 p-8 bg-red-100 rounded-4xl">
                   <div>
                     <h3 className="text-base font-medium tracking-tight text-gray-900">
                       Already Bought ?
@@ -317,7 +307,7 @@ function Dashboard() {
                 <div className="flex flex-col gap-6 text-base text-gray-400 lg:col-span-2">
                   <details>
                     <summary className="text-base font-medium tracking-tight text-gray-900">
-                      What does Jamstack entail?
+                      What are we?
                     </summary>
                     <p className="pt-4 text-sm text-gray-500">
                       JAMstack is an innovative approach to web development that
@@ -328,7 +318,7 @@ function Dashboard() {
                   </details>
                   <details>
                     <summary className="text-base font-medium tracking-tight text-gray-900">
-                      What coding languages ?
+                      What we provide ?
                     </summary>
                     <p className="pt-4 text-sm text-gray-500">
                       We utilize a range of modern technologies and languages to
@@ -340,7 +330,7 @@ function Dashboard() {
                   </details>
                   <details>
                     <summary className="text-base font-medium tracking-tight text-gray-900">
-                      How fast will I get my coded website?
+                      How it works?
                     </summary>
                     <p className="pt-4 text-sm text-gray-500">
                       The speed of delivery depends on the complexity of your
@@ -352,7 +342,7 @@ function Dashboard() {
                   </details>
                   <details>
                     <summary className="text-base font-medium tracking-tight text-gray-900">
-                      How can I check the progress of my website?
+                      Why us?
                     </summary>
                     <p className="pt-4 text-sm text-gray-500">
                       We'll set up a convenient communication channel, such as
@@ -364,8 +354,7 @@ function Dashboard() {
                   </details>
                   <details>
                     <summary className="text-base font-medium tracking-tight text-gray-900">
-                      If I have a blog, do you count each post as a separate
-                      page?
+                      What is our target?
                     </summary>
                     <p className="pt-4 text-sm text-gray-500">
                       The way we structure and charge for your blog pages can
@@ -446,7 +435,7 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col pt-12 md:flex-row md:items-center md:justify-between">
+            {/* <div className="flex flex-col pt-12 md:flex-row md:items-center md:justify-between">
               <p className="text-left">
                 <span className="mx-auto mt-2 text-sm text-gray-500 lg:mx-0">
                   © Windstatic. By:
@@ -459,7 +448,7 @@ function Dashboard() {
                   Demo Images: Respective owners.
                 </span>
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </footer>

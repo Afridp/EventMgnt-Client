@@ -13,7 +13,7 @@ const style = {
   width: 1500,
   bgcolor: "background.paper",
   p: 7,
-  boxShadow : 24,
+  boxShadow: 24,
 };
 
 export default function AddEmployees({ open, setOpen }) {
@@ -41,7 +41,6 @@ export default function AddEmployees({ open, setOpen }) {
       });
 
       setEmail("");
-      
     } finally {
       setTimeout(() => {
         setLoading(false);
@@ -51,22 +50,22 @@ export default function AddEmployees({ open, setOpen }) {
 
   return (
     <>
-      {loading ? (
-        <LoaderManager loading={loading} />
-      ) : (
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          slots={{ backdrop: Backdrop }}
-          slotProps={{
-            backdrop: {
-              timeout: 500,
-            },
-          }}
-        >
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        {loading ? (
+          <LoaderManager loading={loading} />
+        ) : (
           <Fade in={open}>
             <Box sx={style}>
               <Typography id="transition-modal-description">
@@ -102,10 +101,12 @@ export default function AddEmployees({ open, setOpen }) {
                     </label>
                   </div>
 
-                  <Typography
+                  <small
                     color="gray"
                     className="inline-block mt-10 pb-7 text-center font-normal"
-                  ></Typography>
+                  >
+                    {" "}
+                  </small>
                   <div className="flex items-center justify-center mt-1 pb-7">
                     <button
                       className="inline-block bg-black px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
@@ -120,13 +121,11 @@ export default function AddEmployees({ open, setOpen }) {
               </Typography>
             </Box>
           </Fade>
-        </Modal>
-      )}
+        )}
+      </Modal>
     </>
   );
 }
-
-
 
 AddEmployees.propTypes = {
   open: PropTypes.bool.isRequired,

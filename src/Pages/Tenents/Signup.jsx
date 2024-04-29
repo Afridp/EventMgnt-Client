@@ -67,7 +67,7 @@ function SignUp() {
           color="black"
           className="text-xl font-extrabold mb-8 text-center"
         >
-          Submit Your Personal and Compay Details
+          Submit Your Compay Details
         </Typography>
 
         <label className="form-control w-full max-w-xs">
