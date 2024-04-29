@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
+// import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 
 import { getApp } from "./Utils/Helpers";
 
