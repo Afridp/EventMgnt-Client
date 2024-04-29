@@ -19,12 +19,6 @@ jobs:
             -t afridp/eventbrigadge-client \
             --build-arg VITE_APP_NODE_ENV="production"  \
             --build-arg VITE_APP_SERVER_BASE_URL="${{ secrets.VITE_APP_SERVER_BASE_URL }}" \
-            --build-arg CLOUD_NAME="${{ secrets.CLOUD_NAME }}" \
-            --build-arg DEV_SMTP_EMAIL="${{ secrets.DEV_SMTP_EMAIL }}" \
-            --build-arg DEV_SMTP_PASSCODE="${{ secrets.DEV_SMTP_PASSCODE }}" \
-            --build-arg MONGO_URI="${{ secrets.MONGO_URI }}" \
-            --build-arg STRIPE_SECRET_KEY="${{ secrets.STRIPE_SECRET_KEY }}" \
-            --build-arg TOKEN_KEY="${{ secrets.TOKEN_KEY }}" \
             .
       - name: Publish Image to docker hub
         run: docker push afridp/eventbrigadge-client:latest
