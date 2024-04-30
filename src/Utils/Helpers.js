@@ -30,7 +30,7 @@ const getSubdomain = (location) => {
 
     // let sliceTill = -2
 
-    // const isLocalHost = locationParts.slice(-1)[0] === 'localhost' 
+    // const isLocalHost = locationParts.slice(-1)[0] === 'localhost' // or domain name 
     
     // if (isLocalHost) sliceTill = -1
     // return locationParts.slice(0, sliceTill).join("")
