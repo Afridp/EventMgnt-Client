@@ -10,6 +10,7 @@ import { getApp } from "./Utils/Helpers";
 
 export const App = () => {
   const CurrentApp = getApp();
+  console.log(CurrentApp);
   return (
     <Router>
       <ToastContainer />
