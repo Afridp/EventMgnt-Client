@@ -1,5 +1,4 @@
 import { Typography, Chip, Avatar } from "@material-tailwind/react";
-
 import NewEmployees from "./AddEmployees";
 import { useEffect, useState } from "react";
 import { blockAndUnblockEmployee, getAllEmployees } from "../../../Api/manager";

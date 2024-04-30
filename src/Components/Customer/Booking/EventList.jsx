@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchEvents } from "../../../Api/customer";
 import DataNotFound from "../../../Pages/ErrorPages/DataNotFound";
-
 import Pagination from "../Common/Pagination";
 import SearchAndSort from "../Common/SearchAndSort";
 import useDebounce from "../../../CustomHooks/useDebounce";
