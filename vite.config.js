@@ -13,15 +13,15 @@ export default defineConfig({
       // other dependencies...
     ],
   },
-  build: {
-    rollupOptions: {
-      external: [
-        '@emotion/react',
-        '@emotion/react/jsx-runtime',
-        /^@emotion\/react\/*./, // Add a regex to handle submodules
-      ],
-    },
-  }
+  // build: {
+  //   rollupOptions: {
+  //     external: [
+  //       '@emotion/react',
+  //       '@emotion/react/jsx-runtime',
+  //       /^@emotion\/react\/*./, // Add a regex to handle submodules
+  //     ],
+  //   },
+  // }
 });
 
 
