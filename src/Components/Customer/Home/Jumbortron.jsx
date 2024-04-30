@@ -1,4 +1,4 @@
-import { Fade } from "react-awesome-reveal";
+// import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 
 function Jumbortron() {
@@ -7,7 +7,7 @@ function Jumbortron() {
     <>
       <section className="bg-cover bg-[url('https://res.cloudinary.com/diwidawoi/image/upload/v1705678401/Jumbrotron%20image.jpg')] hero bg-gray-700 overflow-hidden bg-blend-multiply h-screen bg-center">
         <div className="px-4 mx-auto max-w-screen-xl text-left py-24 lg:py-56">
-          <Fade delay={100}>
+          {/* <Fade delay={100}>
             <h1 className="mb-4 text-2xl tracking-tight leading-none text-white md:text-5xl lg:text-5xl font-thin">
               We invest in the world’s potential
             </h1>
@@ -17,7 +17,7 @@ function Jumbortron() {
               ullam dicta nobis beatae saepe odit quam fuga, debitis maxime
               quasi ab amet?
             </p>
-          </Fade>
+          </Fade> */}
           <div className="flex flex-col space-y-4  sm:flex-row sm:justif-left sm:space-y-0">
             <Fade delay={800}>
               <Link
