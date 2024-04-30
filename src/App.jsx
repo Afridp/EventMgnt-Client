@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 
 import { getApp } from "./Utils/Helpers";
+import TenantCommonRoutes from "./Routes/TenantCommon/TenantCommonRoutes";
 
 export const App = () => {
   const CurrentApp = getApp();
@@ -14,7 +15,8 @@ export const App = () => {
   return (
     <Router>
       <ToastContainer />
-      <CurrentApp />
+      {/* <CurrentApp /> */}
+      <TenantCommonRoutes/>
     </Router>
   );
 };
