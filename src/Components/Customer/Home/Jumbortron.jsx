@@ -19,7 +19,7 @@ function Jumbortron() {
             </p>
           </Fade> */}
           <div className="flex flex-col space-y-4  sm:flex-row sm:justif-left sm:space-y-0">
-            <Fade delay={800}>
+            {/* <Fade delay={800}>
               <Link
                 to={`/${mid}/events`}
                 className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-ce text-white  bg-red-900 hover:bg-red-800 focus:ring-2 focus:ring-red-900 dark:focus:ring-blue-900"
@@ -47,7 +47,7 @@ function Jumbortron() {
               >
                 Learn more
               </Link>
-            </Fade>
+            </Fade> */}
           </div>
         </div>
       </section>
