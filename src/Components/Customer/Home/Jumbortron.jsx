@@ -1,8 +1,8 @@
 // import { Fade } from "react-awesome-reveal";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 function Jumbortron() {
-  const mid = localStorage.getItem("mid");
+  // const mid = localStorage.getItem("mid");
   return (
     <>
       <section className="bg-cover bg-[url('https://res.cloudinary.com/diwidawoi/image/upload/v1705678401/Jumbrotron%20image.jpg')] hero bg-gray-700 overflow-hidden bg-blend-multiply h-screen bg-center">
