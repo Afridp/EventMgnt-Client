@@ -17,9 +17,9 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['@emotion/react/jsx-runtime'],
+      external: ['@emotion/react', '@emotion/react/jsx-runtime'],
     },
-  },
+  }
 })
 
 
