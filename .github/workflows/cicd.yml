@@ -32,4 +32,4 @@ jobs:
       - name: Delete old running container
         run: docker rm -f eventclient-app-container
       - name: run Docker Container
-        run: docker run -d -p 3000:80 --name eventclient-app-container afridp/eventbrigadge-client:latest
+        run: docker run -d -p 3000:80 --name eventclient-app-container afridp/eventbrigadge-client:latest      
