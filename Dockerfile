@@ -17,6 +17,9 @@ FROM nginx:1.26.0-alpine
 # Copy built files from the build stage to the nginx directory
 COPY --from=build /app/dist /usr/share/nginx/html
 
+# Copy nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
 # Expose port 80
 EXPOSE 80
 EXPOSE 443
