@@ -23,7 +23,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY cloudflare-cert.pem /etc/nginx/ssl/cloudflare-cert.pem
 COPY cloudflare-key.pem /etc/nginx/ssl/cloudflare-key.pem
 
-
 # Expose port 80
 EXPOSE 80
 EXPOSE 443
