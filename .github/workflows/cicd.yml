@@ -11,27 +11,46 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.4
-      - name: Login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME}} -p ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      
       - name: Build Docker Image
         run: |
           docker build \
             -t afridp/eventbrigadge-client \
             --build-arg VITE_APP_NODE_ENV="production"  \
             --build-arg VITE_APP_SERVER_BASE_URL="${{ secrets.VITE_APP_SERVER_BASE_URL }}" \
-            --build-arg CLOUDFLARE_KEY="${{ secrets.CLOUDFLARE_KEY}}" \
-            --build-arg CLOUDFLARE_CERT="${{ secrets.CLOUDFLARE_CERT}}" \
             .
-      - name: Publish Image to docker hub
+
+      - name: Publish Image to Docker Hub
         run: docker push afridp/eventbrigadge-client:latest
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: Pull image from docker hub
+      - name: Pull image from Docker Hub
         run: docker pull afridp/eventbrigadge-client:latest
+
+      - name: Ensure SSL certificates directory exists
+        run: mkdir -p ~/ssl-certs
+
+      - name: Deploy SSL certificate
+        run: echo "${{ secrets.CLOUDFLARE_CERT }}" > ~/ssl-certs/cloudflare-cert.pem
+
+      - name: Deploy SSL key
+        run: echo "${{ secrets.CLOUDFLARE_KEY }}" > ~/ssl-certs/cloudflare-key.pem
+
       - name: Delete old running container
-        run: docker rm -f eventclient-app-container
-      - name: run Docker Container
-        run: docker run -d -p 80:80 -p 443:443 --name eventclient-app-container afridp/eventbrigadge-client:latest 
+        run: docker rm -f eventclient-app-container || true
+
+      - name: Run Docker Container
+        run: |
+          docker run -d \
+            -p 80:80 \
+            -p 443:443 \
+            --name eventclient-app-container \
+            -v ~/ssl-certs/cloudflare-cert.pem:/etc/nginx/ssl/cloudflare-cert.pem \
+            -v ~/ssl-certs/cloudflare-key.pem:/etc/nginx/ssl/cloudflare-key.pem \
+            afridp/eventbrigadge-client:latest

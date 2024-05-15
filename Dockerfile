@@ -1,5 +1,3 @@
-ARG CLOUDFLARE_KEY
-ARG CLOUDFLARE_CERT
 
 # Build stage
 FROM node:alpine3.19 as build
@@ -23,8 +21,8 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Copy nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY CLOUDFLARE_CERT /etc/nginx/ssl/cloudflare-cert.pem
-COPY CLOUDFLARE_KEY /etc/nginx/ssl/cloudflare-key.pem
+# COPY cloudflare-cert.pem /etc/nginx/ssl/cloudflare-cert.pem
+# COPY cloudflare-key.pem /etc/nginx/ssl/cloudflare-key.pem
 
 # Expose port 80
 EXPOSE 80
