@@ -5,6 +5,12 @@ FROM node:alpine3.19 as build
 # Set environment variable to prevent npm from asking for permission
 ENV CI=true
 
+# Set environment variables during build
+ARG VITE_APP_NODE_ENV
+ARG VITE_APP_SERVER_BASE_URL
+ARG VITE_APP_STRIPE_KEY
+ARG VITE_APP_GOOGLE_MAP_API
+
 # Install dependencies and build the app
 WORKDIR /app
 COPY package.json .
@@ -23,6 +29,12 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 # COPY cloudflare-cert.pem /etc/nginx/ssl/cloudflare-cert.pem
 # COPY cloudflare-key.pem /etc/nginx/ssl/cloudflare-key.pem
+
+# Set environment variables for the application
+ENV VITE_APP_NODE_ENV=$VITE_APP_NODE_ENV
+ENV VITE_APP_SERVER_BASE_URL=$VITE_APP_SERVER_BASE_URL
+ENV VITE_APP_STRIPE_KEY=$VITE_APP_STRIPE_KEY
+ENV VITE_APP_GOOGLE_MAP_API=$VITE_APP_GOOGLE_MAP_API
 
 # Expose port 80
 EXPOSE 80
