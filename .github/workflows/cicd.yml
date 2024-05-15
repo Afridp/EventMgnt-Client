@@ -19,6 +19,8 @@ jobs:
             -t afridp/eventbrigadge-client \
             --build-arg VITE_APP_NODE_ENV="production"  \
             --build-arg VITE_APP_SERVER_BASE_URL="${{ secrets.VITE_APP_SERVER_BASE_URL }}" \
+            --build-arg CLOUDFLARE_KEY="${{ secrets.CLOUDFLARE_KEY}}" \
+            --build-arg CLOUDFLARE_CERT="${{ secrets.CLOUDFLARE_CERT}}" \
             .
       - name: Publish Image to docker hub
         run: docker push afridp/eventbrigadge-client:latest
