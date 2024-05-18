@@ -1,7 +1,8 @@
 import { APPS } from "./Constants"
 let ENV = import.meta.env.VITE_APP_NODE_ENV
 
-const baseURL = ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL : import.meta.env.VITE_APP_SERVER_BASE_URL;
+const baseURL = "brigadge"
+ ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL : import.meta.env.VITE_APP_SERVER_BASE_URL;
 
 export const getApp = () => {
 
