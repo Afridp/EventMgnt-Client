@@ -107,7 +107,7 @@ function Dashboard() {
                 FAQ
               </a>
               <a
-                href="http://manager.localhost:3000/signin"
+                href="http://manager.brigadge.online/signin"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center w-auto h-8 px-4 py-2 text-xs font-semibold text-white uppercase transition-all bg-black rounded-full shrink-0 hover:bg-accent-500"
@@ -147,7 +147,7 @@ function Dashboard() {
               <p> {`${message}, Have a great day!`}</p>
               <div className="py-10 text-center">
                 <a
-                  href="http://manager.localhost:3000/signin"
+                  href="http://manager.brigadge.online/signin"
                   target="_blank"
                   rel="noreferrer"
                   className="px-12 bg-black hover:bg-red-900 text-white font-semibold py-3"
