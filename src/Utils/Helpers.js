@@ -5,7 +5,7 @@ const baseURL = ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL 
 
 export const getApp = () => {
 
-    const subdomain = getSubdomain("brigadge.hostname")
+    const subdomain = getSubdomain(window.location.hostname)
 
 
     const mainApp = APPS.find((app) => app.main)
