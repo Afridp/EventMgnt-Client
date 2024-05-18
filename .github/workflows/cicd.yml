@@ -17,7 +17,7 @@ jobs:
       
       - name: Build Docker Image
         run: |
-          docker build \
+          docker build --progress=plain \
             -t afridp/eventbrigadge-client \
             --build-arg VITE_APP_NODE_ENV="production"  \
             --build-arg VITE_APP_SERVER_BASE_URL="${{ secrets.VITE_APP_SERVER_BASE_URL }}" \
