@@ -133,7 +133,7 @@ function Signin() {
         </div>
         <Typography color="gray" className="mt-4 text-center font-normal">
           New Member?{" "}
-          <Link to="/manager/signup" className="text-blue-600">
+          <Link to="/signup" className="text-blue-600">
             Signup
           </Link>
         </Typography>

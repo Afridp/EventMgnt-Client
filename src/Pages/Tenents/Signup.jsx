@@ -193,7 +193,7 @@ function SignUp() {
         </div>
         <Typography color="gray" className="mt-4 text-center font-normal">
           Already have an account?{" "}
-          <Link to="/manager/signin" className="text-blue-600">
+          <Link to="/signin" className="text-blue-600">
             Signin
           </Link>
         </Typography>
