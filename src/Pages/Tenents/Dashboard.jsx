@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { completeSubscription } from "../../Api/manager";
+const ENV = import.meta.env.VITE_APP_NODE_ENV;
 
 function Dashboard() {
   const [open, setOpen] = useState(false);
@@ -107,7 +108,7 @@ function Dashboard() {
                 FAQ
               </a>
               <a
-                href="http://manager.brigadge.online/signin"
+                href={ENV === "production" ?"http://manager.brigadge.online/signin" : "http://manager.localhost:5000/signin"}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center w-auto h-8 px-4 py-2 text-xs font-semibold text-white uppercase transition-all bg-black rounded-full shrink-0 hover:bg-accent-500"
@@ -147,7 +148,7 @@ function Dashboard() {
               <p> {`${message}, Have a great day!`}</p>
               <div className="py-10 text-center">
                 <a
-                  href="http://manager.brigadge.online/signin"
+                  href={ENV === "production" ?"http://manager.brigadge.online/signin" : "http://manager.localhost:5000/signin"}
                   target="_blank"
                   rel="noreferrer"
                   className="px-12 bg-black hover:bg-red-900 text-white font-semibold py-3"

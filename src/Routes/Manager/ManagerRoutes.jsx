@@ -17,6 +17,7 @@ import Account from "../../Pages/Manager/Account";
 import Customer from "../../Pages/Manager/Customer";
 import Events from "../../Pages/Manager/Events";
 import Signin from "../../Pages/Manager/Signin";
+import SignUp from "../../Pages/Tenents/Signup";
 
 
 
@@ -26,6 +27,7 @@ function ManagerRoute() {
   return (  
       <Routes >
         <Route path="/signin" element={<Public><Signin /></Public>} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path='/' element={<Protect><Home/></Protect>}/>
         <Route path="/events" element={<Protect><IsSubscribed><Events/></IsSubscribed></Protect>}/>
         <Route path="/events/seemore/:eventId" element={<Protect><IsSubscribed><EventSeemore/></IsSubscribed></Protect>}/>
