@@ -49,7 +49,6 @@ FROM node:alpine3.19 as build
 ENV CI=true
 
 # Set environment variables during build
-ARG VITE_APP_NODE_ENV
 ARG VITE_APP_SERVER_BASE_URL
 ARG VITE_APP_STRIPE_KEY
 ARG VITE_APP_GOOGLE_MAP_API
@@ -71,13 +70,12 @@ COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Set environment variables for the application (repeat ARG and ENV for final stage)
-ARG VITE_APP_NODE_ENV
 ARG VITE_APP_SERVER_BASE_URL
 ARG VITE_APP_STRIPE_KEY
 ARG VITE_APP_GOOGLE_MAP_API
 
 # Set environment variables in the final image
-ENV VITE_APP_NODE_ENV=$VITE_APP_NODE_ENV
+ENV VITE_APP_NODE_ENV=production
 ENV VITE_APP_SERVER_BASE_URL=$VITE_APP_SERVER_BASE_URL
 ENV VITE_APP_STRIPE_KEY=$VITE_APP_STRIPE_KEY
 ENV VITE_APP_GOOGLE_MAP_API=$VITE_APP_GOOGLE_MAP_API
