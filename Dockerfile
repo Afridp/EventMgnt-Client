@@ -42,16 +42,19 @@
 
 # # Start Nginx
 # CMD ["nginx", "-g", "daemon off;"]
-# Build stage
-FROM node:alpine3.19 as build
 
-# Set environment variable to prevent npm from asking for permission
-ENV CI=true
 
 # Set environment variables during build
 ARG VITE_APP_SERVER_BASE_URL
 ARG VITE_APP_STRIPE_KEY
 ARG VITE_APP_GOOGLE_MAP_API
+
+
+# Build stage
+FROM node:alpine3.19 as build
+
+# Set environment variable to prevent npm from asking for permission
+ENV CI=true
 
 # Install dependencies and build the app
 WORKDIR /app

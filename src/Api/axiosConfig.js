@@ -13,7 +13,7 @@ const employeeUrl = `https://employee.${baseURL}`
 
 // Axios instance creator
 const createAxiosInstance = (baseURL) => {
-    // console.log(baseURL);
+    // console.log(baseURL);    
     // creating a customized instance of axios using .create 
     const instance = axios.create({
         // setting base url, so every req made using managerapi,the url will be prefixed this base url
