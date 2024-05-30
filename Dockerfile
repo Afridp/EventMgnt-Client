@@ -85,7 +85,7 @@ ENV VITE_APP_GOOGLE_MAP_API=$VITE_APP_GOOGLE_MAP_API
 
 # Expose port 80
 EXPOSE 80
-EXPOSE 443
+# EXPOSE 443
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
