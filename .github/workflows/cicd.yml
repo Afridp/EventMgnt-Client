@@ -46,6 +46,10 @@ jobs:
       - name: Delete old running container
         run: docker rm -f eventclient-app-container || true
 
+      - name: Ensure old container is removed
+        run: |
+          docker ps -aq -f name=eventclient-app-container | xargs -r docker rm -f
+
       - name: Run Docker Container
         run: |
           docker run -d \

@@ -5,10 +5,10 @@ import { toast } from "react-toastify";
 const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL: import.meta.env.VITE_APP_SERVER_BASE_URL;
 // const manager = localStorage.getItem('currentManager')
 
-const tenantsUrl = `https://${baseURL}`
-const managerUrl = `https://managerbackend.${baseURL}`
-const customerUrl = `https://customerbackend.${baseURL}`
-const employeeUrl = `https://employeebackend.${baseURL}`
+const tenantsUrl = import.meta.env.VITE_APP_NODE_ENV == "development" ? `http://${baseURL}` : `http://backend.${baseURL}`
+const managerUrl = `http://managerbackend.${baseURL}`
+const customerUrl = `http://customerbackend.${baseURL}`
+const employeeUrl = `http://employeebackend.${baseURL}`
 
 
 // Axios instance creator
