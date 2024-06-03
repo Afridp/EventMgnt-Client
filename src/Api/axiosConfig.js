@@ -6,9 +6,9 @@ const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.met
 // const manager = localStorage.getItem('currentManager')
 
 const tenantsUrl = `https://${baseURL}`
-const managerUrl = `https://manager${baseURL}`
-const customerUrl = `https://customer${baseURL}`
-const employeeUrl = `https://employee${baseURL}`
+const managerUrl = `https://managerbackend.${baseURL}`
+const customerUrl = `https://customerbackend.${baseURL}`
+const employeeUrl = `https://employeebackend.${baseURL}`
 
 
 // Axios instance creator
