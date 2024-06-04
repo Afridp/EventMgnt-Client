@@ -7,4 +7,4 @@ export const generateBaseURL = (subdomain) => {
     //   : `http://www.${subdomain}.yourhosteddomain.com`;
     return baseURL;
   };
-  
+       

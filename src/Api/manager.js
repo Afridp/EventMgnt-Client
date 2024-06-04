@@ -9,7 +9,7 @@ managerAxiosInstance.interceptors.request.use(async (req) => {
     return modifiedRequest
 })
 // response interceptor 
-managerAxiosInstance.interceptors.response.use(
+managerAxiosInstance.interceptors.reponse.use(
     (res) => res,
     (err) => handleError(err)
 )
