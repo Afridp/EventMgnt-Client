@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL : import.meta.env.VITE_APP_SERVER_BASE_URL;
 // const manager = localStorage.getItem('currentManager')
+console.log(baseURL,"thsi is bvasek");
 let tenantsUrl = ''
 let managerUrl = ''
 let customerUrl = ''
