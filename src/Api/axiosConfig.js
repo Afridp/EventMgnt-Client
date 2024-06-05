@@ -17,7 +17,7 @@ if (import.meta.env.VITE_APP_NODE_ENV === "development") {
     customerUrl = `http://customerbackend.${baseURL}`
     employeeUrl = `http://employeebackend.${baseURL}`
 } else {
-    tenantsUrl = `https://backend.brigadege.online`
+    tenantsUrl = `https://backend.brigadge.online`
     managerUrl = `https://managerbackend.${baseURL}`
     customerUrl = `https://customerbackend.${baseURL}`
     employeeUrl = `https://employeebackend.${baseURL}`
