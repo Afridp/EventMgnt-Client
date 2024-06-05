@@ -1,8 +1,11 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 // import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL : import.meta.env.VITE_APP_SERVER_BASE_URL;
+const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL : process.env.VITE_APP_SERVER_BASE_URL
+
+
 // const manager = localStorage.getItem('currentManager')
 console.log(baseURL,"thsi is bvasek");
 let tenantsUrl = ''
@@ -17,7 +20,7 @@ if (import.meta.env.VITE_APP_NODE_ENV === "development") {
     customerUrl = `http://customerbackend.${baseURL}`
     employeeUrl = `http://employeebackend.${baseURL}`
 } else {
-    tenantsUrl = `https://backend.brigadge.online`
+    tenantsUrl = `https://backend.${baseURL}`
     managerUrl = `https://managerbackend.${baseURL}`
     customerUrl = `https://customerbackend.${baseURL}`
     employeeUrl = `https://employeebackend.${baseURL}`
