@@ -3,7 +3,7 @@ import axios from "axios";
 // import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL : process.env.VITE_APP_SERVER_BASE_URL
+const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL : import.meta.env.VITE_APP_SERVER_BASE_URL
 
 
 // const manager = localStorage.getItem('currentManager')
@@ -20,14 +20,14 @@ if (import.meta.env.VITE_APP_NODE_ENV === "development") {
     customerUrl = `http://customerbackend.${baseURL}`
     employeeUrl = `http://employeebackend.${baseURL}`
 } else {
-    tenantsUrl = `https://backend.${baseURL}`
-    managerUrl = `https://managerbackend.${baseURL}`
-    customerUrl = `https://customerbackend.${baseURL}`
-    employeeUrl = `https://employeebackend.${baseURL}`
+    tenantsUrl = `https://backend.brigadge.online`
+    managerUrl = `https://managerbackend.brigadge.online`
+    customerUrl = `https://customerbackend.brigadge.online`
+    employeeUrl = `https://employeebackend.brigadge.online`
 }
 
 
-// Axios instance creator
+// Axios instance creator   
 const createAxiosInstance = (baseURL) => {
     // console.log(baseURL);    
     // creating a customized instance of axios using .create 
