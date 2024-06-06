@@ -7,7 +7,7 @@ import { otpVerification, resendOtp } from "../../Api/manager";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Otp = () => {
-  const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY;
+  const STRIPE_KEY = "pk_test_51Oqcb1SAei2YnBB8VUxZckC34zSCkUxU7KzOdDTLWbnmN9VXPr6OvMqQo2sc2osVVvL6xwcWlZXvxkELFVM4rX5P00hqpWxYVs";
   const [countDown, setCountDown] = useState(30);
   const [showResendButton, setShowResendButton] = useState(false);
   const [loading, setLoading] = useState(false);
