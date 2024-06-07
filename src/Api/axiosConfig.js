@@ -7,7 +7,7 @@ const baseURL = import.meta.env.VITE_APP_NODE_ENV === "development" ? import.met
 
 
 // const manager = localStorage.getItem('currentManager')
-console.log(baseURL,"thsi is bvasek");
+console.log(import.meta.env.VITE_APP_SERVER_BASE_URL,"thsi is bvasek");
 let tenantsUrl = ''
 let managerUrl = ''
 let customerUrl = ''

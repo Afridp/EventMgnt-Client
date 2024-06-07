@@ -43,17 +43,17 @@
 # # Start Nginx
 # CMD ["nginx", "-g", "daemon off;"]
 
+# Build stage
+FROM node:alpine3.19 as build
 
 # Set environment variables during build
 ARG VITE_APP_SERVER_BASE_URL
 ARG VITE_APP_STRIPE_KEY
 ARG VITE_APP_GOOGLE_MAP_API
 
-# Build stage
-FROM node:alpine3.19 as build
 
 # Set environment variable to prevent npm from asking for permission
-ENV CI=true
+# ENV CI=true
 
 # Pass the environment variables to the build stage
 ENV VITE_APP_SERVER_BASE_URL=$VITE_APP_SERVER_BASE_URL
