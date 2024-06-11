@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { completeSubscription } from "../../Api/manager";
-const ENV = import.meta.env.VITE_APP_NODE_ENV;
 
 function Dashboard() {
+  const ENV = import.meta.env.VITE_APP_NODE_ENV;
+  console.log(ENV,"this is env i have");
   const [open, setOpen] = useState(false);
   const [paidSuccess, setPaidSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -148,7 +149,7 @@ function Dashboard() {
               <p> {`${message}, Have a great day!`}</p>
               <div className="py-10 text-center">
                 <a
-                  href={ENV === "production" ?"https://manager.brigadge.online/signin" : "http://manager.localhost:3000/signin"}
+                  href={"https://manager.brigadge.online/signin"}
                   target="_blank"
                   rel="noreferrer"
                   className="px-12 bg-black hover:bg-red-900 text-white font-semibold py-3"
