@@ -148,7 +148,7 @@ function Dashboard() {
               <p> {`${message}, Have a great day!`}</p>
               <div className="py-10 text-center">
                 <a
-                  href={ENV === "production" ?"http://manager.brigadge.online/signin" : "http://manager.localhost:5000/signin"}
+                  href={ENV === "production" ?"https://manager.brigadge.online/signin" : "http://manager.localhost:3000/signin"}
                   target="_blank"
                   rel="noreferrer"
                   className="px-12 bg-black hover:bg-red-900 text-white font-semibold py-3"
