@@ -20,10 +20,11 @@ console.log(baseURL,"thsi is base url");
     customerUrl = `http://customer.${baseURL}:4000`
     employeeUrl = `http://employee.${baseURL}:4000`
 } else {
+    console.log(baseURL,"this is baseURL");
     tenantsUrl = `https://backend.${baseURL}.online`
-    managerUrl = `https://manager.${baseURL}.online`
-    customerUrl = `https://customer.${baseURL}.online`
-    employeeUrl = `https://employee.${baseURL}.online`
+    managerUrl = `https://managerbackend.${baseURL}.online`
+    customerUrl = `https://customerbackend.${baseURL}.online`
+    employeeUrl = `https://employee.backend${baseURL}.online`
 }
 
 
