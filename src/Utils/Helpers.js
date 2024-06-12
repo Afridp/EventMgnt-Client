@@ -6,7 +6,7 @@ const baseURL = ENV === "development" ? import.meta.env.VITE_APP_LOCAL_BASE_URL 
 export const getApp = () => {
     // console.log(window.location.hostname);
     const subdomain = getSubdomain(window.location.hostname)
-// console.log(subdomain);
+console.log(subdomain);
 
     const mainApp = APPS.find((app) => app.main)
     if (!mainApp) throw new Error("Must have a main app")
