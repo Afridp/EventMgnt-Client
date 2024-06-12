@@ -14,16 +14,16 @@ let customerUrl = ''
 let employeeUrl = ''
 
 if (import.meta.env.VITE_APP_NODE_ENV === "development") {
-
-    tenantsUrl = `http://${baseURL}`
-    managerUrl = `http://managerbackend.${baseURL}`
-    customerUrl = `http://customerbackend.${baseURL}`
-    employeeUrl = `http://employeebackend.${baseURL}`
+console.log(baseURL,"thsi is base url");
+    tenantsUrl = `http://${baseURL}:4000`
+    managerUrl = `http://manager.${baseURL}:4000`
+    customerUrl = `http://customer.${baseURL}:4000`
+    employeeUrl = `http://employee.${baseURL}:4000`
 } else {
     tenantsUrl = `https://backend.${baseURL}.online`
-    managerUrl = `https://managerbackend.${baseURL}.online`
-    customerUrl = `https://customerbackend.${baseURL}.online`
-    employeeUrl = `https://employeebackend.${baseURL}.online`
+    managerUrl = `https://manager.${baseURL}.online`
+    customerUrl = `https://customer.${baseURL}.online`
+    employeeUrl = `https://employee.${baseURL}.online`
 }
 
 
