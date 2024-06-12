@@ -13,7 +13,7 @@ export const APPS = [
     {
         subdomain: "manager",
         app: ManagerRoute,
-        main: true
+        main: false
     },
     {
         subdomain: "customer",
