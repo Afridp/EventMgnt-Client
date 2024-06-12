@@ -20,10 +20,10 @@ if (import.meta.env.VITE_APP_NODE_ENV === "development") {
     customerUrl = `http://customerbackend.${baseURL}`
     employeeUrl = `http://employeebackend.${baseURL}`
 } else {
-    tenantsUrl = `https://backend.${baseURL}`
-    managerUrl = `https://managerbackend.${baseURL}`
-    customerUrl = `https://customerbackend.${baseURL}`
-    employeeUrl = `https://employeebackend.${baseURL}`
+    tenantsUrl = `https://backend.${baseURL}.online`
+    managerUrl = `https://managerbackend.${baseURL}.online`
+    customerUrl = `https://customerbackend.${baseURL}.online`
+    employeeUrl = `https://employeebackend.${baseURL}.online`
 }
 
 
