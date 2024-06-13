@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { completeSubscription } from "../../Api/manager";
+const ENV = import.meta.env.VITE_APP_NODE_ENV;
 
 function Dashboard() {
-  const ENV = import.meta.env.VITE_APP_NODE_ENV;
-  console.log(ENV,"this is env i have");
+console.log(ENV,"this is my env");
   const [open, setOpen] = useState(false);
   const [paidSuccess, setPaidSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -109,7 +109,7 @@ function Dashboard() {
                 FAQ
               </a>
               <a
-                href={ENV === "production" ?"http://manager.brigadge.online/signin" : "http://manager.localhost:5000/signin"}
+                href={ENV === "production" ? "http://manager.brigadge.online/signin" : "http://manager.localhost:3000/signin"}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center w-auto h-8 px-4 py-2 text-xs font-semibold text-white uppercase transition-all bg-black rounded-full shrink-0 hover:bg-accent-500"

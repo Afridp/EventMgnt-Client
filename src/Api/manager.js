@@ -38,9 +38,7 @@ export const completeSubscription = async (subDetails) => {
 // jsdbfkjsadjfklajsdlfk
 
 export const managerSignin = async (signinData) => {
-    console.log("haaai");
     const data = await managerAxiosInstance.post('/signin', signinData)
-    console.log(data);
     return data
 }
 

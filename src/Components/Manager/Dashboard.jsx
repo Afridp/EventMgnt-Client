@@ -63,7 +63,7 @@ function Dashboard() {
                 ))
               ) : (
                 <div className="flex items-center justify-center">
-                  <div className="py-20 ">
+                  <div className="py-20">
                     <DataNotFoundManager />
                   </div>
                 </div>

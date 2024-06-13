@@ -46,7 +46,7 @@ function Header() {
             </ul>
           </div>
 
-          <Link to='/' className="text-xl text-white">Event Brigadge</Link>
+          <Link to='/' className="text-2xl font-bold ml-6 text-white">Event Brigadge</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
