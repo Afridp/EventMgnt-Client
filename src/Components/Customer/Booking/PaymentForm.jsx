@@ -30,20 +30,25 @@ function PaymentForm({ handlePrev, handleBook, formValues }) {
 
   const calculateEstimation = (formValues) => {
     // Parse the dates
-    const startDate = new Date(formValues.Date.startDate);
-    const endDate = new Date(formValues.Date.endDate);
+    let startDate =''
+    let endDate=''
+    if(formValues.Date){
+       startDate = new Date(formValues.Date.startDate);
+       endDate = new Date(formValues.Date.endDate);
 
-    // Calculate the duration in milliseconds
-    const durationMs = endDate.getTime() - startDate.getTime();
-
-    // Convert duration to days (assuming each day has 24*60*60*1000 milliseconds)
-    const durationDays = durationMs / (24 * 60 * 60 * 1000);
-
-    // Example: Estimate based on a rate per day
-    const ratePerDay = 15000; // Example rate per day
-    const estimatedAmount = durationDays * ratePerDay;
-    setDuration(durationDays);
-    setEstimatedAmount(estimatedAmount);
+       
+       // Calculate the duration in milliseconds
+       const durationMs = endDate.getTime() - startDate.getTime();
+       
+       // Convert duration to days (assuming each day has 24*60*60*1000 milliseconds)
+       const durationDays = durationMs / (24 * 60 * 60 * 1000);
+       
+       // Example: Estimate based on a rate per day
+       const ratePerDay = 15000; // Example rate per day
+       const estimatedAmount = durationDays * ratePerDay;
+       setDuration(durationDays);
+       setEstimatedAmount(estimatedAmount);
+      }
     // You can return the estimated amount or use it for further processing
   };
 

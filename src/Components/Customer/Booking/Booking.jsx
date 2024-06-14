@@ -3,18 +3,18 @@ import BookingForm from "./BookingForm";
 import PersonalInfoForm from "./PersonalInfoForm";
 import PaymentForm from "./PaymentForm";
 import { loadStripe } from "@stripe/stripe-js";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { stripePaymentApi, submitEvent } from "../../../Api/customer";
 import { useSelector } from "react-redux";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY;
 
 // eslint-disable-next-line react/prop-types
 function Booking() {
-  const mid = localStorage.getItem('mid')
-  const { customer } = useSelector((state) => state.customerSlice)
+  const mid = localStorage.getItem("mid");
+  const { customer } = useSelector((state) => state.customerSlice);
   const { eventId } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [personalDetails, setPersonalDetails] = useState("");
   const [loading, setLoading] = useState(false);
@@ -45,6 +45,7 @@ function Booking() {
         return;
       }
       if (paymentType === "PayNow") {
+        console.log("haaai");
         const stripe = await loadStripe(STRIPE_KEY);
         const res = await stripePaymentApi(
           formValues,
@@ -53,26 +54,29 @@ function Booking() {
           amt
         );
         const sessionId = res.data.sessionId;
-            const result = stripe.redirectToCheckout({
-              sessionId: sessionId,
-            });
+        const result = stripe.redirectToCheckout({
+          sessionId: sessionId,
+        });
 
         if (result.error) {
           console.log((await result).error);
         }
       } else if (paymentType === "PayByWallet") {
         const res = await submitEvent(
-          { formValues, personalValues,amount: amt, walletMode:true },
+          { formValues, personalValues, amount: amt, walletMode: true },
           customer._id,
           eventId
         );
         const queryParams = new URLSearchParams();
-        queryParams.append('message', 'Thank you for completing your wallet balance to payment.');
+        queryParams.append(
+          "message",
+          "Thank you for completing your wallet balance to payment."
+        );
         // queryParams.append('param2', 'value2');
-      
+
         navigate(`/${mid}/payment?${queryParams.toString()}`);
-         
-        toast.success(res.data.message)
+
+        toast.success(res.data.message);
       }
     } catch (error) {
       console.log(error.message);
@@ -251,7 +255,11 @@ function Booking() {
         />
       )}
       {currentStep === 2 && (
-        <PaymentForm handlePrev={handlePrev} handleBook={handleBook} formValues={formValues} />
+        <PaymentForm
+          handlePrev={handlePrev}
+          handleBook={handleBook}
+          formValues={formValues}
+        />
       )}
     </>
   );

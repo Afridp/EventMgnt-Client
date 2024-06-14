@@ -27,6 +27,7 @@ function Bookings() {
   useEffect(() => {
     getBookings();
   }, [debouncedSearchQuery, sortOptions]);
+  
   const getBookings = async () => {
     try {
       setLoading(true);

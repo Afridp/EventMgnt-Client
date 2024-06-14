@@ -8,7 +8,7 @@ import { findCustomer } from "../../Api/customer";
 function Navbar() {
   const mid = localStorage.getItem('mid')
   const { customer } = useSelector((state) => state.customerSlice);
-  console.log(customer);
+  
   const [navColor, setNavColor] = useState("");
   const [openNav, setOpenNav] = useState(false);
   const [customerData, setCustomerData] = useState(false);

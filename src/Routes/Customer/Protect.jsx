@@ -6,6 +6,7 @@ import { logoutCustomer } from "../../Redux/slice/customerSlice";
 function Protect(props) {
   const dispatch = useDispatch();
   const token = localStorage.getItem("customerToken");
+  const mid = localStorage.getItem("mid");
 
   if (token) {
     const decodedToken = jwtDecode(token);
@@ -16,10 +17,10 @@ function Protect(props) {
     } else {
       localStorage.removeItem("customerToken");
       dispatch(logoutCustomer());
-      return <Navigate to="/signin" />;
+      return <Navigate to={`/${mid}/signin`} />;
     }
   } else {
-    return <Navigate to="/signin" />;
+    return <Navigate to={`/${mid}/signin`} />;
   }
 }
 

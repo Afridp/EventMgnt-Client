@@ -13,6 +13,7 @@ function Event() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState("");
   const [eventsPerPage] = useState(5);
+  const mid = localStorage.getItem("mid");
 
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
@@ -92,11 +93,11 @@ function Event() {
                     <div className="lg:mt-0 lg:flex-shrink-0">
                       <div className="mt-6 inline-flex rounded-md shadow">
                         <Link
-                          to={`/events/book/${event._id}`}
+                          to={`/${mid}/events/book/${event._id}`}
                           className="relative px-8 py-2  bg-white isolation-auto z-10 border-2
                                   before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-right-full before:hover:right-0 before:rounded-full  before:bg-red-800 hover:text-white before:-z-10  before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-700"
                         >
-                          Book
+                          Boo
                         </Link>
                       </div>
                     </div>

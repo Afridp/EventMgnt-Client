@@ -21,6 +21,7 @@ function Enquiries() {
       setLoading(false);
     }
   };
+
   const handleApproval = async () => {
     try {
       const res = await approveEvent(submissionId);
@@ -86,7 +87,7 @@ function Enquiries() {
                           <p>{eventId.eventName}</p>
                         </td>
                         <td className="p-3">
-                          <p>{personalData.name}</p>
+                          <p>{personalData?.name ?? "null"}</p>
                         </td>
                         <td className="p-3">
                           <p>
@@ -99,7 +100,7 @@ function Enquiries() {
                         <p className="dark:text-gray-400">Tuesday</p>
                       </td> */}
                         <td className="p-3 ">
-                          <p>{amountPaid}</p>
+                          <p>{amountPaid??"null"}</p>
                         </td>
                         <td className="p-3 ">
                           <p className="text-blue-700">

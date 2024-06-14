@@ -98,12 +98,12 @@ export const changePassword = async (values, customerId) => {
 }
 
 export const stripePaymentApi = async (formValues, personalValues, eventId, amt) => {
-    const data = customerAxiosInstance.post('/paymentCheckout', { formValues, personalValues, eventId, amt })
+    const data = customerAxiosInstance.post(`/${mid}/paymentCheckout`, { formValues, personalValues, eventId, amt })
     return data
 }
 
 export const walletTopupStripeApi = async (values) => {
-    const data = customerAxiosInstance.post('/topupWallet', values)
+    const data = customerAxiosInstance.post(`/${mid}/topupWallet`, values)
     return data
 }
 

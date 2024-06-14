@@ -23,6 +23,7 @@ const defaultOptions = {
 };
 function WalletBody() {
   const { customer } = useSelector((state) => state.customerSlice);
+  const mid = localStorage.getItem("mid");
   const { amt, customerId, status } = useParams();
   const navigate = useNavigate();
 
@@ -48,14 +49,14 @@ function WalletBody() {
   }, [status, amt, customerId]);
 
   const clearParams = () => {
-    navigate("/wallet");
+    navigate(`/${mid}/wallet`);
   };
 
   const addToWallet = async (amt, customerId) => {
     try {
       await addBalance({ amt, customerId });
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -79,6 +80,7 @@ function WalletBody() {
       const res = await walletTopupStripeApi({
         customerId: customer._id,
         amount,
+        mid
       });
       const sessionId = res.data.sessionId;
       const result = stripe.redirectToCheckout({
