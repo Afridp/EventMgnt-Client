@@ -1,3 +1,67 @@
+# name: Deploy React Application
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+
+      
+#       - name: Login to Docker Hub
+#         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      
+#       - name: Build Docker Image
+#         run: |
+#           docker build --progress=plain \
+#             -t afridp/eventbrigadge-client \
+#             --build-arg VITE_APP_SERVER_BASE_URL="${{ secrets.VITE_APP_SERVER_BASE_URL }}" \
+#             --build-arg VITE_APP_STRIPE_KEY=${{ secrets.VITE_APP_STRIPE_KEY }} \
+#             --build-arg VITE_APP_GOOGLE_MAP_API=${{ secrets.VITE_APP_GOOGLE_MAP_API }} \
+#             .
+
+#       - name: Publish Image to Docker Hub
+#         run: docker push afridp/eventbrigadge-client:latest
+
+#   deploy:
+#     needs: build
+#     runs-on: self-hosted
+#     steps:
+#       - name: Pull image from Docker Hub
+#         run: docker pull afridp/eventbrigadge-client:latest
+
+#       - name: Ensure SSL certificates directory exists
+#         run: mkdir -p ~/ssl-certs
+
+#       - name: Deploy SSL certificate
+#         run: echo "${{ secrets.CLOUDFLARE_CERT }}" > ~/ssl-certs/cloudflare-cert.pem
+
+#       - name: Deploy SSL key
+#         run: echo "${{ secrets.CLOUDFLARE_KEY }}" > ~/ssl-certs/cloudflare-key.pem
+
+#       - name: Delete old running container
+#         run: docker rm -f eventclient-app-container || true
+
+#       - name: Ensure old container is removed
+#         run: |
+#           docker ps -aq -f name=eventclient-app-container | xargs -r docker rm -f
+
+#       - name: Run Docker Container
+#         run: |
+#           docker run -d \
+#             -p 80:80 \
+#             -p 443:443 \
+#             --name eventclient-app-container \
+#             -v ~/ssl-certs/cloudflare-cert.pem:/etc/nginx/ssl/cloudflare-cert.pem \
+#             -v ~/ssl-certs/cloudflare-key.pem:/etc/nginx/ssl/cloudflare-key.pem \
+#             afridp/eventbrigadge-client:latest
+
+
 name: Deploy React Application
 
 on:
@@ -10,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.4 
+        uses: actions/checkout@v3 
       
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -18,14 +82,17 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build --progress=plain \
-            -t afridp/eventbrigadge-client \
+            -t afridp/eventbrigadge-client:${{ github.sha }} \
+            -t afridp/eventbrigadge-client:latest \
             --build-arg VITE_APP_SERVER_BASE_URL="${{ secrets.VITE_APP_SERVER_BASE_URL }}" \
-            --build-arg VITE_APP_STRIPE_KEY=${{ secrets.VITE_APP_STRIPE_KEY }} \
-            --build-arg VITE_APP_GOOGLE_MAP_API=${{ secrets.VITE_APP_GOOGLE_MAP_API }} \
+            --build-arg VITE_APP_STRIPE_KEY="${{ secrets.VITE_APP_STRIPE_KEY }}" \
+            --build-arg VITE_APP_GOOGLE_MAP_API="${{ secrets.VITE_APP_GOOGLE_MAP_API }}" \
             .
 
       - name: Publish Image to Docker Hub
-        run: docker push afridp/eventbrigadge-client:latest
+        run: |
+          docker push afridp/eventbrigadge-client:${{ github.sha }}
+          docker push afridp/eventbrigadge-client:latest
 
   deploy:
     needs: build
@@ -41,14 +108,12 @@ jobs:
         run: echo "${{ secrets.CLOUDFLARE_CERT }}" > ~/ssl-certs/cloudflare-cert.pem
 
       - name: Deploy SSL key
-        run: echo "${{ secrets.CLOUDFLARE_KEY }}" > ~/ssl-certs/cloudflare-key.pem
+        run: |
+          echo "${{ secrets.CLOUDFLARE_KEY }}" > ~/ssl-certs/cloudflare-key.pem
+          chmod 600 ~/ssl-certs/cloudflare-cert.pem ~/ssl-certs/cloudflare-key.pem
 
       - name: Delete old running container
         run: docker rm -f eventclient-app-container || true
-
-      - name: Ensure old container is removed
-        run: |
-          docker ps -aq -f name=eventclient-app-container | xargs -r docker rm -f
 
       - name: Run Docker Container
         run: |
