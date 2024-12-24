@@ -16,7 +16,7 @@ function Protect(props) {
     } else {
       localStorage.removeItem("managerToken");
       dispatch(logoutManager());
-      return <Navigate to="/" />;
+      return <Navigate to="/signin" />;
     }
   } else {
     return <Navigate to="/signin" />;

@@ -45,7 +45,7 @@ function Booking() {
         return;
       }
       if (paymentType === "PayNow") {
-        console.log("haaai");
+       
         const stripe = await loadStripe(STRIPE_KEY);
         const res = await stripePaymentApi(
           formValues,

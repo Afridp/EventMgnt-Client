@@ -159,3 +159,13 @@ export const stripePaymentApiForSub = async (values, scheme, amount) => {
     const data = await managerAxiosInstance.post('/createTanent', { values, scheme, amount })
     return data
 }
+
+export const updateProfile = async (values) => {
+    const data = await managerAxiosInstance.post('/updateProfile', values)
+    return data
+}
+
+export const getProfileDetails = async (managerId) => {
+    const data = await managerAxiosInstance.get(`/getProfile?managerId=${managerId}`)
+    return data
+}   

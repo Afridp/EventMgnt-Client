@@ -44,85 +44,82 @@ function Enquiries() {
   }, []);
   return (
     <>
-      <LoaderManager loading={loading} />
-      <div className="border-black p- mt-10 mx-">
-        <SelectCaptian
-          open={open}
-          setOpen={setOpen}
-          eventId={submissionId}
-          handleApproval={handleApproval}
-        />
-        {/* <h2 className="m-8 text-2xl font-semibold">New Bookings</h2> */}
-        <div className="container p-2 mx-auto sm:p-0 text-black ">
+      <div className="container mx-auto px-4 py-8">
+        <LoaderManager loading={loading} />
+        <div className="bg-white rounded-lg shadow-lg p-6 mt-1">
+          <SelectCaptian
+            open={open}
+            setOpen={setOpen}
+            eventId={submissionId}
+            handleApproval={handleApproval}
+          />
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-cente">
+            New Bookings
+          </h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full ">
-              <colgroup>
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <col className="w-24" />
-              </colgroup>
-              <thead className="dark:bg-gray-700 bg-blue-gray-100 ">
-                <tr className="text-left ">
-                  <th className="p-3">Event Type</th>
-                  <th className="p-3">Client Name</th>
-                  <th className="p-3">Booked Date</th>
-                  {/* <th className="p-3">Due Date</th> */}
-                  <th className="p-3 ">Amount Paid</th>
-                  <th className="p-3"></th>
-                  <th className="p-3">Action</th>
+            <table className="w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  {[
+                    "Event Type",
+                    "Client Name",
+                    "Booked Date",
+                    "Amount Paid",
+                    "Action",
+                  ].map((header) => (
+                    <th
+                      key={header}
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                    >
+                      {header}
+                    </th>
+                  ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="bg-white divide-y divide-gray-200">
                 {newSubmissions?.length > 0 ? (
                   newSubmissions.map(
                     ({ eventId, personalData, createdAt, amountPaid, _id }) => (
                       <tr
                         key={_id}
-                        className="border-b text-xs border-opacity-20 dark:border-gray-700 dark:bg-gray-900 font-semibold"
+                        className="hover:bg-gray-50 transition-colors duration-200"
                       >
-                        <td className="p-5">
-                          <p>{eventId.eventName}</p>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-gray-900">
+                            {eventId.eventName}
+                          </div>
                         </td>
-                        <td className="p-3">
-                          <p>{personalData?.name ?? "null"}</p>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-gray-700">
+                            {personalData?.name ?? "N/A"}
+                          </div>
                         </td>
-                        <td className="p-3">
-                          <p>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-gray-700">
                             {new Date(createdAt).toLocaleDateString("en-GB")}
-                          </p>
-                          {/* <p className="dark:text-gray-400">adsfkj</p> */}
+                          </div>
                         </td>
-                        {/* <td className="p-3">
-                        <p>01 Feb 2022</p>
-                        <p className="dark:text-gray-400">Tuesday</p>
-                      </td> */}
-                        <td className="p-3 ">
-                          <p>{amountPaid??"null"}</p>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                          {amountPaid ?? "N/A"}
                         </td>
-                        <td className="p-3 ">
-                          <p className="text-blue-700">
-                            <Link to={`/manager/newEventViewMore/${_id}`}>
-                              View
-                            </Link>
-                          </p>
-                        </td>
-                        <td className="p-3 ">
-                          <span className="font-semibold round bg-red-800 dark:bg-violet-400 text-white p-2 dark:text-gray-900 cursor-pointer hover:border ">
-                            <a onClick={() => toggleModal(_id)}>
-                              {/* {isAccepted ? "approved" : "approve"} */}{" "}
-                              Approve
-                            </a>
-                          </span>
+                        <td className="px-6 py-4 whitespace-nowrap text-righ text-sm font-medium">
+                          <button
+                            onClick={() => toggleModal(_id)}
+                            className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+                          >
+                            Approve
+                          </button>
                         </td>
                       </tr>
                     )
                   )
                 ) : (
                   <tr>
-                    <td colSpan="6" className="text-center">
+                    <td
+                      colSpan="5"
+                      className="px-6 py-4 whitespace-nowrap text-center"
+                    >
                       <div className="my-8">
                         <DataNotFoundManager />
                       </div>
@@ -133,7 +130,6 @@ function Enquiries() {
             </table>
           </div>
         </div>
-        ;
       </div>
     </>
   );
