@@ -53,7 +53,7 @@ jobs:
 
       - name: Run Docker Container
         run: |
-          docker run -d \
+          sudo docker run -d \
             -p 80:80 \
             -p 443:443 \
             --name eventclient-app-container \
