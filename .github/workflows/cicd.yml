@@ -27,7 +27,7 @@ jobs:
 
       - name: Publish Image to Docker Hub
         run: docker push afridp/eventbrigadge-client:latest
-
+  
   deploy:
     needs: build
     runs-on: self-hosted
