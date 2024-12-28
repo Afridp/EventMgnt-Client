@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { completeSubscription } from "../../Api/manager";
 
 const Dashboard = () => {
+  console.log('All env variables:', import.meta.env);
   const ENV = import.meta.env.VITE_APP_NODE_ENV;
   console.log(ENV, "this is my env");
   const [open, setOpen] = useState(false);
