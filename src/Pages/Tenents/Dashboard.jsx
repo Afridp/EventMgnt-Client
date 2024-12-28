@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { completeSubscription } from "../../Api/manager";
 
-function Dashboard() {
+const Dashboard = () => {
   const ENV = import.meta.env.VITE_APP_NODE_ENV;
   console.log(ENV, "this is my env");
   const [open, setOpen] = useState(false);
