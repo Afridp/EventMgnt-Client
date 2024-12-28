@@ -55,10 +55,12 @@ ARG VITE_APP_GOOGLE_MAP_API
 # Set environment variable to prevent npm from asking for permission
 # ENV CI=true
 
-# Pass the environment variables to the build stage
-ENV VITE_APP_SERVER_BASE_URL=$VITE_APP_SERVER_BASE_URL
-ENV VITE_APP_STRIPE_KEY=$VITE_APP_STRIPE_KEY
-ENV VITE_APP_GOOGLE_MAP_API=$VITE_APP_GOOGLE_MAP_API
+
+# Pass the environment variables to the build stage \
+# Create ENV for Vite during the build process
+ENV VITE_APP_SERVER_BASE_URL=${VITE_APP_SERVER_BASE_URL}
+ENV VITE_APP_STRIPE_KEY=${VITE_APP_STRIPE_KEY}
+ENV VITE_APP_GOOGLE_MAP_API=${VITE_APP_GOOGLE_MAP_API}
 
 # Install dependencies and build the app
 WORKDIR /app
@@ -76,16 +78,16 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Copy nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Set environment variables for the application (repeat ARG and ENV for final stage)
-ARG VITE_APP_SERVER_BASE_URL
-ARG VITE_APP_STRIPE_KEY
-ARG VITE_APP_GOOGLE_MAP_API
+# # Set environment variables for the application (repeat ARG and ENV for final stage) 
+# ARG VITE_APP_SERVER_BASE_URL
+# ARG VITE_APP_STRIPE_KEY
+# ARG VITE_APP_GOOGLE_MAP_API
 
-# Set environment variables in the final image
-ENV VITE_APP_NODE_ENV=production
-ENV VITE_APP_SERVER_BASE_URL=$VITE_APP_SERVER_BASE_URL
-ENV VITE_APP_STRIPE_KEY=$VITE_APP_STRIPE_KEY
-ENV VITE_APP_GOOGLE_MAP_API=$VITE_APP_GOOGLE_MAP_API
+# # Set environment variables in the final image
+# ENV VITE_APP_NODE_ENV=production
+# ENV VITE_APP_SERVER_BASE_URL=$VITE_APP_SERVER_BASE_URL
+# ENV VITE_APP_STRIPE_KEY=$VITE_APP_STRIPE_KEY
+# ENV VITE_APP_GOOGLE_MAP_API=$VITE_APP_GOOGLE_MAP_API
 
 # Expose port 80
 EXPOSE 3000
